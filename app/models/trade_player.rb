@@ -10,4 +10,9 @@
 #
 
 class TradePlayer < ActiveRecord::Base
+  validates :trade_id, :player_id, presence: true
+  validates :trade_id, uniqueness: { scope: :player_id }
+
+  belongs_to :trade
+  belongs_to :player
 end

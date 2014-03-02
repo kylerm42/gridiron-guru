@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
+  attr_reader :password
+
   has_many :teams, dependent: :destroy
   has_many :managed_leagues,
            foreign_key: :manager_id,

@@ -11,7 +11,9 @@
 #
 
 class Team < ActiveRecord::Base
-  validates :name, :user_id, :league_id, presence: true
+  validates :league_id, presence: true
+  validates :name, :user_id, presence: true, uniqueness: { scope: :league_id }
+
 
   belongs_to :user
   belongs_to :league
