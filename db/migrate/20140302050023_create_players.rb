@@ -4,7 +4,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :position, null: false
-      t.integer :nfl_team_id
+      t.integer :nfl_team_id, null: false, default: 0
 
       t.timestamps
     end

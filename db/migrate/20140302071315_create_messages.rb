@@ -8,6 +8,6 @@ class CreateMessages < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :messages, :messageable
+    add_index :messages, [:messageable_id, :messageable_type]
   end
 end

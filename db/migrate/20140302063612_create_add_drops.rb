@@ -2,7 +2,7 @@ class CreateAddDrops < ActiveRecord::Migration
   def change
     create_table :add_drops do |t|
       t.integer :team_id, null: false
-      t.integer :status, null: false
+      t.integer :status, null: false, default: 1
 
       t.timestamps
     end
