@@ -3,6 +3,8 @@ class CreateLeagues < ActiveRecord::Migration
     create_table :leagues do |t|
       t.string :name, null: false
       t.integer :manager_id, null: false
+      t.string :password_digest
+      t.boolean :private, default: false
 
       t.timestamps
     end

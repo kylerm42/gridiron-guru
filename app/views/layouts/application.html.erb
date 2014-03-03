@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FantasyFootball</title>
+  <title>Fantasy Football</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<% if logged_in? %>
+  Welcome, <%= current_user.first_name %>
+  <%= button_to "Sign Out", session_url, method: :delete %>
+<% else %>
+  <%= link_to "Sign up", new_user_url %> or <%= link_to "Sign in", new_session_url %>
+<% end %>
+
+<%= render 'layouts/notices' %>
 
 <%= yield %>
 

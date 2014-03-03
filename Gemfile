@@ -9,12 +9,16 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt'
-gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
+gem 'compass-rails'
+gem 'groundworkcss'
+gem 'therubyracer', :platforms => :ruby
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'debugger'
+  gem 'pry-rails'
 end
 
 group :development do

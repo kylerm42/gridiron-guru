@@ -24,4 +24,17 @@ class League < ActiveRecord::Base
   has_many :messages,
            as: :messageable,
            dependent: :destroy
+
+  def password=(secret)
+   @password = secret
+   self.password_digest = BCrypt::Password.create(secret)
+  end
+
+  def is_password?(secret)
+   BCrypt::Password.new(self.password_digest).is_password?(secret)
+  end
+
+  def private?
+    self.private
+  end
 end
