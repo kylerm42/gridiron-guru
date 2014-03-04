@@ -2,11 +2,13 @@
 #
 # Table name: leagues
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)      not null
-#  manager_id :integer          not null
-#  created_at :datetime
-#  updated_at :datetime
+#  id              :integer          not null, primary key
+#  name            :string(255)      not null
+#  manager_id      :integer          not null
+#  password_digest :string(255)
+#  private         :boolean          default(FALSE)
+#  created_at      :datetime
+#  updated_at      :datetime
 #
 
 class League < ActiveRecord::Base

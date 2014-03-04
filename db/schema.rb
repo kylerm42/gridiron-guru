@@ -44,8 +44,10 @@ ActiveRecord::Schema.define(version: 20140302073308) do
   add_index "dropped_players", ["add_drop_id", "player_id"], name: "index_dropped_players_on_add_drop_id_and_player_id", unique: true, using: :btree
 
   create_table "leagues", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "manager_id", null: false
+    t.string   "name",                            null: false
+    t.integer  "manager_id",                      null: false
+    t.string   "password_digest"
+    t.boolean  "private",         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

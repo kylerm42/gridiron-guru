@@ -19,4 +19,9 @@ class ApplicationController < ActionController::Base
     session[:token] = token
     Session.create!(token: token, user_id: user.id)
   end
+
+  def set_flash(type, message)
+    flash[type.to_sym] ||= []
+    message.is_a?(String) ? flash[type.to_sym] << message : flash[type.to_sym] += message
+  end
 end

@@ -1,7 +1,8 @@
-<h1>Sign Up</h1>
+<h1>Edit your profile</h1>
 
-<form action="<%= users_url %>" method="POST" accept-charset="utf-8">
+<form action="<%= user_url(@user.username) %>" method="POST" accept-charset="utf-8">
   <%= render 'layouts/authenticity_token' %>
+  <input type="hidden" name="_method" value="PATCH">
 
   <label>
     Username

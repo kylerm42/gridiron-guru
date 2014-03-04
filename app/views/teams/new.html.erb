@@ -1,0 +1,12 @@
+<h1>Create a Team</h1>
+
+<form action="<%= league_teams_url(params[:league_id]) %>" method="POST" accept-charset="utf-8">
+  <%= render 'layouts/authenticity_token' %>
+
+  <label>
+    Team Name:
+    <input type="text" name="team[name]" value="<%= @team.name %>">
+  </label>
+
+  <p><input type="submit" value="Continue &rarr;"></p>
+</form>

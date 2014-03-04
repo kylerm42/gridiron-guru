@@ -1,4 +1,7 @@
 <h1><%= @user.username %></h1>
+<% if @user == current_user %>
+  <small><%= link_to "Edit your profile", edit_user_url(@user.username) %></small>
+<% end %>
 
 <h3>All Your Teams</h3>
 <% @user.teams.each do |team| %>
@@ -11,4 +14,5 @@
   </p>
 <% end %>
 
-<%= link_to "Join a league", leagues_url %>
+<%= link_to "Join a league", leagues_url %><br>
+<%= link_to "Create a league", new_league_url %>

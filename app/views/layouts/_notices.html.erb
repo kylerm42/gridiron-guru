@@ -8,6 +8,11 @@
     <div class="success box"><%= success %></div>
   <% end %>
 <% end %>
+<% if flash[:warning] %>
+  <% flash[:warning].each do |warning| %>
+    <div class="warning box"><%= warning %></div>
+  <% end %>
+<% end %>
 <% if flash[:error] %>
   <% flash[:error].each do |error| %>
     <div class="error box"><%= error %></div>

@@ -1,0 +1,20 @@
+<h1>Create a League</h1>
+
+<form action="<%= leagues_url %>" method="POST" accept-charset="utf-8">
+  <%= render 'layouts/authenticity_token' %>
+
+  <label>
+    League name:
+    <input type="text" name="league[name]" value="<%= @league.name %>">
+  </label>
+  <label>
+    League password:
+    <input type="password" name="league[password]">
+  </label>
+  <label>
+    <input type="checkbox" name="league[private]" value="true">
+    Private?
+  </label>
+
+  <p><input type="submit" value="Continue &rarr;"></p>
+</form>

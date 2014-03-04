@@ -14,6 +14,9 @@
 
 class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
+  validates :username, format: { with: /\A[a-z]+[0-9]*[a-z]*\z/i,
+                                 message: "must start with a letter" }
+  validates :email, format: { with: /\A.+@.+\..+\z/ }
   validates :password, length: { minimum: 6, allow_nil: true }
 
   attr_reader :password
