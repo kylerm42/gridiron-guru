@@ -15,7 +15,9 @@ class Team < ActiveRecord::Base
   validates :name, :user_id, presence: true, uniqueness: { scope: :league_id }
 
 
-  belongs_to :user
+  belongs_to :owner,
+             foreign_key: :user_id,
+             class_name: "User"
   belongs_to :league
   has_many :team_players
   has_many :players,

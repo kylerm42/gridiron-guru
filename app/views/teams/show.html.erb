@@ -1,0 +1,22 @@
+<h1><%= @team.name %></h1>
+<% if current_user == @team.owner %>
+  <small><%= link_to "Edit this team", edit_team_url(@team) %></small>
+<% end %>
+
+<p>
+  <%= link_to "Add Players", league_players_url(@team.league) %>
+</p>
+
+<table class="info responsiveTable" style="width: 100%; font-size: 15px;">
+  <thead>
+    <tr>
+      <th style="width: 100%">Your Roster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @team.players.each do |player| %>
+      <tr>
+        <td><%= link_to player.name, player_url(player) %></td>
+      </tr>
+    <% end %>
+</table>

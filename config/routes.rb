@@ -6,7 +6,7 @@ FantasyFootball::Application.routes.draw do
   end
 
   resources :leagues do
-    resources :teams, except: :index
+    resources :teams, only: [:new, :create, :show]
     resources :messages, except: [:index, :show]
     resources :players, only: [:index, :show]
   end

@@ -1,32 +1,3 @@
 <h1>Sign Up</h1>
 
-<form action="<%= users_url %>" method="POST" accept-charset="utf-8">
-  <%= render 'layouts/authenticity_token' %>
-
-  <label>
-    Username
-    <input type="text" name="user[username]" value="<%= @user.username %>">
-  </label>
-  <label>
-    Email
-    <input type="email" name="user[email]" value="<%= @user.email %>">
-  </label>
-  <label>
-    First Name
-    <input type="text" name="user[first_name]" value="<%= @user.first_name %>">
-  </label>
-  <label>
-    Last Name
-    <input type="text" name="user[last_name]" value="<%= @user.last_name %>">
-  </label>
-  <label>
-    Password
-    <input type="password" name="user[password]">
-  </label>
-  <label>
-    Confirm Password
-    <input type="password" name="user[password_confirm]">
-  </label>
-
-  <p><input type="submit" value="Continue &rarr;"></p>
-</form>
+<%= render 'form', url: users_url %>

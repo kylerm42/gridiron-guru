@@ -1,0 +1,6 @@
+<h1>Edit League Settings</h1>
+
+ <%= render 'form',
+            url: league_url(@league),
+            request: :patch,
+            cancel_url: league_url(@league) %>

@@ -24,4 +24,13 @@ class ApplicationController < ActionController::Base
     flash[type.to_sym] ||= []
     message.is_a?(String) ? flash[type.to_sym] << message : flash[type.to_sym] += message
   end
+
+  def set_flash_now(type, message)
+    flash.now[type.to_sym] ||= []
+    if message.is_a?(String)
+      flash.now[type.to_sym] << message
+    else
+      flash.now[type.to_sym] += message
+    end
+  end
 end

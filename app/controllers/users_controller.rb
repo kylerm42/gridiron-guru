@@ -25,19 +25,16 @@ class UsersController < ApplicationController
     if params[:user][:password] == params[:user][:password_confirm]
       if @user.save
         sign_in(@user)
-        flash[:success] ||= []
-        flash[:success] << "You have successfully created an account!"
+        set_flash(:success, "You have successfully created an account!")
 
         redirect_to user_url(@user)
       else
-        flash.now[:error] ||= []
-        flash.now[:error] += @user.errors.full_messages
+        set_flash_now(:error, @user.errors.full_messages)
 
         render :new
       end
     else
-      flash.now[:error] ||= []
-      flash.now[:error] << "Password fields must match"
+      set_flash_now(:error, "Password fields must match")
 
       render :new
     end
@@ -53,19 +50,16 @@ class UsersController < ApplicationController
     if params[:user][:password] == params[:user][:password_confirm]
       if @user.update_attributes(user_params)
         sign_in(@user)
-        flash[:success] ||= []
-        flash[:success] << "Account successfully updated"
+        set_flash(:success, "Account successfully updated")
 
         redirect_to user_url(@user)
       else
-        flash.now[:error] ||= []
-        flash.now[:error] += @user.errors.full_messages
+        set_flash_now(:error, @user.errors.full_messages)
 
         render :edit
       end
     else
-      flash.now[:error] ||= []
-      flash.now[:error] << "Password fields must match"
+      set_flash_now(:error, "Password fields must match")
 
       render :edit
     end

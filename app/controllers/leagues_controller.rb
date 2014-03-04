@@ -21,7 +21,7 @@ class LeaguesController < ApplicationController
 
       redirect_to new_league_team_url(@league)
     else
-      set_flash(:error, @league.errors.full_messages)
+      set_flash_now(:error, @league.errors.full_messages)
 
       render :new
     end
@@ -41,7 +41,7 @@ class LeaguesController < ApplicationController
 
       redirect_to league_url(@league)
     else
-      set_flash(:error, @league.errors.full_messages)
+      set_flash_now(:error, @league.errors.full_messages)
 
       render :edit
     end
@@ -58,8 +58,10 @@ class LeaguesController < ApplicationController
     end
 
     def unauthorized_redirect
-      set_flash(:warning, "You are not authroized to do that")
-      redirect_to league_url(@league) unless @league.manager_id == current_user.id
+      unless @league.manager_id == current_user.id
+        set_flash(:warning, "You are not authroized to do that")
+        redirect_to league_url(@league)
+      end
     end
 
     def private_league_redirect

@@ -1,20 +1,20 @@
 <% if flash[:info] %>
   <% flash[:info].each do |info| %>
-    <div class="info box"><%= info %></div>
+    <p class="info dismissible message"><%= info %></p>
   <% end %>
 <% end %>
 <% if flash[:success] %>
   <% flash[:success].each do |success| %>
-    <div class="success box"><%= success %></div>
+    <p class="success dismissible message"><%= success %></p>
   <% end %>
 <% end %>
 <% if flash[:warning] %>
   <% flash[:warning].each do |warning| %>
-    <div class="warning box"><%= warning %></div>
+    <p class="warning dismissible message"><%= warning %></p>
   <% end %>
 <% end %>
 <% if flash[:error] %>
   <% flash[:error].each do |error| %>
-    <div class="error box"><%= error %></div>
+    <p class="error dismissible message"><%= error %></p>
   <% end %>
 <% end %>

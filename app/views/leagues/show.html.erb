@@ -12,7 +12,7 @@
   <tbody>
     <% @league.teams.each do |team| %>
       <tr>
-        <td><%= team.name %></td>
+        <td><%= link_to team.name, league_team_url(@league, team) %></td>
       </tr>
     <% end %>
 </table>

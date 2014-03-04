@@ -13,6 +13,9 @@ gem 'autoprefixer-rails'
 gem 'compass-rails'
 gem 'groundworkcss'
 gem 'therubyracer', :platforms => :ruby
+gem 'addressable'
+gem 'rest-client'
+gem 'json'
 
 group :development, :test do
   gem 'rspec-rails'

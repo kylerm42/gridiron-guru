@@ -1,0 +1,11 @@
+<form action="<%= url %>" method="POST" accept-charset="utf-8">
+  <%= render 'layouts/authenticity_token' %>
+  <%= render 'layouts/patch_request' if request == :patch %>
+
+  <label>
+    Team Name:
+    <input type="text" name="team[name]" value="<%= @team.name %>">
+  </label>
+
+  <p><input type="submit" value="Continue &rarr;"></p>
+</form>
