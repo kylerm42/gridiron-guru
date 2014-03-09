@@ -27,7 +27,8 @@ class Team < ActiveRecord::Base
   has_many :trades
   has_many :watched_player_joins,
            foreign_key: :team_id,
-           class_name: "WatchedPlayer"
+           class_name: "WatchedPlayer",
+           inverse_of: :team
   has_many :watched_players,
            through: :watched_player_joins,
            source: :player

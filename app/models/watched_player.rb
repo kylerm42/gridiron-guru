@@ -10,8 +10,8 @@
 #
 
 class WatchedPlayer < ActiveRecord::Base
-  validates :team_id, :player_id, presence: true
+  validates :team, :player_id, presence: true
 
-  belongs_to :team
+  belongs_to :team, inverse_of: :watched_player_joins
   belongs_to :player
 end

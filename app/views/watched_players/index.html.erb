@@ -1,11 +1,4 @@
-<h1><%= @team.name %></h1>
-<% if current_user == @team.owner %>
-  <small><%= link_to "Edit this team", edit_team_url(@team) %></small>
-<% end %>
-
-<p>
-  <%= link_to "Add Players", league_players_url(@team.league) %>
-</p>
+<h1>Watch List</h1>
 
 <table class="info responsiveTable" style="width: 100%; font-size: 15px;">
   <thead>
@@ -24,18 +17,19 @@
     </tr>
   </thead>
   <tbody>
-    <% @team.players.each do |player| %>
+    <% @watched_players.each do |player| %>
       <tr>
         <td>
           <a href='<%= team_add_drops_url(@team) %>'
              class='add-player'
              data-id='<%= player.id %>'>
-             <i class='icon-collapse-alt' style="font-size: 18px;"></i>
+             <i class='icon-expand-alt' style="font-size: 18px;"></i>
           </a>
-          <a href='<%= team_watched_players_url(@team) %>'
-             class='watch-player'
-             data-id='<%= player.id %>'>
-             <i class='icon-eye-open' style="font-size: 15px;"></i>
+          <% watched_player_join = @watched_player_joins.find_by_player_id(player.id) %>
+          <a href='<%= team_watched_player_url(@team, watched_player_join.id) %>'
+             class='watch-player remove'
+             data-id='<%= watched_player_join.id %>'>
+             <i class='icon-eye-close' style="font-size: 15px;"></i>
           </a>
         </td>
         <td>
@@ -74,25 +68,20 @@
       </tr>
     <% end %>
 </table>
+<%= link_to "Back to your team", league_team_url(@team.league, @team) %>
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
-    $('.drop-player').on('click', function(e) {
+    $('.watch-player.remove').on('click', function(e) {
       e.preventDefault();
-      var $dropLink = $(e.currentTarget);
-      var url = $dropLink.attr('href');
-      var droppedPlayer = {
-        player_id: $dropLink.attr("data-id"),
-        type: "drop"
-      }
+      var $watchLink = $(e.currentTarget);
+      var url = $watchLink.attr('href');
 
       $.ajax({
         url: url,
-        type: 'POST',
-        data: droppedPlayer,
+        type: 'DELETE',
         success: function() {
-          console.log("Successfully dropped player!")
-          document.location = '<%= league_team_url(@team.league, @team) %>'
+          document.location = '<%= team_watched_players_url(@team) %>'
         }
       })
     })

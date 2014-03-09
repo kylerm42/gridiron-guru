@@ -3,7 +3,7 @@
 <table class="info responsiveTable" style="width: 100%; font-size: 15px;">
   <thead>
     <tr>
-      <th>Add?</th>
+      <th></th>
       <th>Name</th>
       <th>Passing Yards</th>
       <th>Passing TDs</th>
@@ -20,14 +20,22 @@
     <% @players[0..50].each do |player| %>
       <tr>
         <td>
-          <%= link_to "+",
-                      team_add_drops_url(@team),
-                      :class => 'add-player',
-                      "data-id" => player.id %>
+          <a href='<%= team_add_drops_url(@team) %>'
+             class='add-player'
+             data-id='<%= player.id %>'>
+             <i class='icon-expand-alt' style="font-size: 18px;"></i>
+          </a>
+          <a href='<%= team_watched_players_url(@team) %>'
+             class='watch-player'
+             data-id='<%= player.id %>'>
+             <i class='icon-eye-open' style="font-size: 15px;"></i>
+          </a>
         </td>
         <td>
           <%= player.name %><br>
-          <small><%= player.position %> - <%= Player::TEAMS[player.nfl_team_id].join(" ") %></small>
+          <small>
+            <%= player.position %> - <%= Player::TEAMS[player.nfl_team_id].join(" ") %>
+          </small>
         </td>
         <td>
           <%= player.pass_yards %>
@@ -64,7 +72,7 @@
   $(function() {
     $('.add-player').on('click', function(e) {
       e.preventDefault();
-      var $addLink = $(e.target);
+      var $addLink = $(e.currentTarget);
       var url = $addLink.attr('href');
       var addedPlayer = {
         player_id: $addLink.attr("data-id"),
@@ -78,6 +86,29 @@
         success: function() {
           console.log("Successfully added player!")
           document.location = '<%= league_team_url(@team.league, @team) %>'
+        }
+      })
+    })
+  })
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('.watch-player').on('click', function(e) {
+      e.preventDefault();
+      var $watchLink = $(e.currentTarget);
+      var url = $watchLink.attr('href');
+      var watchedPlayer = {
+        player_id: $watchLink.attr("data-id"),
+      }
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: watchedPlayer,
+        success: function() {
+          console.log("Successfully watched player!")
+          document.location = '<%= team_watched_players_url(@team) %>'
         }
       })
     })

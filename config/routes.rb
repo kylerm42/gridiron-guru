@@ -15,7 +15,7 @@ FantasyFootball::Application.routes.draw do
     resources :team_players, only: [:new, :create, :destroy]
     resources :trades, only: [:index, :new, :create]
     resources :add_drops, only: [:index, :new, :create]
-    resources :watched_players, except: [:index, :edit, :update]
+    resources :watched_players, except: [:show, :edit, :update]
   end
 
   resources :trades, only: [:show, :destroy] do

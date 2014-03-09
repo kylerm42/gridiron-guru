@@ -3,7 +3,7 @@ class AddDropsController < ApplicationController
     @team = Team.find(params[:team_id])
     @add_drop = AddDrop.new(team_id: @team.id)
     if params[:type] == "add"
-      added_player = @add_drop.added_players.new(player_id: params[:player_id])
+      @add_drop.added_players.new(player_id: params[:player_id])
       @team.team_players.new(player_id: params[:player_id])
     elsif params[:type] == "drop"
       dropped_player = @add_drop.dropped_players.new(player_id: params[:player_id])
