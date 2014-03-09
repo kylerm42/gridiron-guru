@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(version: 20140302073308) do
     t.integer  "def_tds",       default: 0
     t.integer  "ret_tds",       default: 0
     t.integer  "pts_allowed",   default: 0
-    t.integer  "espn_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
