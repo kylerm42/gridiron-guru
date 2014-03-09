@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:show, :edit, :update]
+  before_action :find_user, only: [:edit, :update]
 
   def show
-    if logged_in? && @user
+    if logged_in?
+      find_user
       render :show
     else
       redirect_to new_session_url
@@ -45,8 +46,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by_username(params[:username]) || User.find(params[:username])
-
     if params[:user][:password] == params[:user][:password_confirm]
       if @user.update_attributes(user_params)
         sign_in(@user)

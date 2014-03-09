@@ -1,16 +1,9 @@
-<h1><%= @team.name %></h1>
-<% if current_user == @team.owner %>
-  <small><%= link_to "Edit this team", edit_team_url(@team) %></small>
-<% end %>
-
-<p>
-  <%= link_to "Add Players", league_players_url(@team.league) %>
-</p>
+<h1>Add Player</h1>
 
 <table class="info responsiveTable" style="width: 100%; font-size: 15px;">
   <thead>
     <tr>
-      <th>Drop?</th>
+      <th>Add?</th>
       <th>Name</th>
       <th>Passing Yards</th>
       <th>Passing TDs</th>
@@ -24,12 +17,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @team.players.each do |player| %>
+    <% @players[0..50].each do |player| %>
       <tr>
         <td>
-          <%= link_to "-",
+          <%= link_to "+",
                       team_add_drops_url(@team),
-                      :class => 'drop-player',
+                      :class => 'add-player',
                       "data-id" => player.id %>
         </td>
         <td>
@@ -69,21 +62,21 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
-    $('.drop-player').on('click', function(e) {
+    $('.add-player').on('click', function(e) {
       e.preventDefault();
-      var $dropLink = $(e.target);
-      var url = $dropLink.attr('href');
-      var droppedPlayer = {
-        player_id: $dropLink.attr("data-id"),
-        type: "drop"
+      var $addLink = $(e.target);
+      var url = $addLink.attr('href');
+      var addedPlayer = {
+        player_id: $addLink.attr("data-id"),
+        type: "add"
       }
 
       $.ajax({
         url: url,
         type: 'POST',
-        data: droppedPlayer,
+        data: addedPlayer,
         success: function() {
-          console.log("Successfully dropped player!")
+          console.log("Successfully added player!")
           document.location = '<%= league_team_url(@team.league, @team) %>'
         }
       })

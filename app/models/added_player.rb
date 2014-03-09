@@ -10,10 +10,11 @@
 #
 
 class AddedPlayer < ActiveRecord::Base
-  validates :add_drop_id, :player_id, presence: true
+  validates :add_drop, :player_id, presence: true
   validates :player_id, uniqueness: { scope: :add_drop_id }
 
-  belongs_to :add_drop
+  belongs_to :add_drop,
+             inverse_of: :added_players
   belongs_to :player
   has_one :team,
           through: :add_drop,

@@ -1,5 +1,5 @@
 FantasyFootball::Application.routes.draw do
-  root to: 'users#show'
+  root to: 'sessions#new'
 
   resources :users, except: [:index, :destroy], param: :username do
     resource :session, only: :index

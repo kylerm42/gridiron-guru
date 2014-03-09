@@ -15,7 +15,9 @@ class AddDrop < ActiveRecord::Base
 
   belongs_to :team
   has_many :added_players,
-           dependent: :destroy
+           dependent: :destroy,
+           inverse_of: :add_drop
   has_many :dropped_players,
-           dependent: :destroy
+           dependent: :destroy,
+           inverse_of: :add_drop
 end
