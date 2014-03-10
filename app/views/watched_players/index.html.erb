@@ -81,7 +81,7 @@
         url: url,
         type: 'DELETE',
         success: function() {
-          document.location = '<%= team_watched_players_url(@team) %>'
+          $watchLink.parent().parent().remove();
         }
       })
     })
