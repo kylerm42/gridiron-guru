@@ -67,10 +67,10 @@ ActiveRecord::Schema.define(version: 20140302073308) do
   add_index "messages", ["messageable_id", "messageable_type"], name: "index_messages_on_messageable_id_and_messageable_type", using: :btree
 
   create_table "players", force: true do |t|
-    t.string   "first_name",                null: false
-    t.string   "last_name",                 null: false
-    t.string   "position",                  null: false
-    t.integer  "nfl_team_id",   default: 0, null: false
+    t.string   "first_name",                   null: false
+    t.string   "last_name",                    null: false
+    t.string   "position",                     null: false
+    t.string   "nfl_team",      default: "FA", null: false
     t.integer  "pass_yards",    default: 0
     t.integer  "pass_tds",      default: 0
     t.integer  "pass_ints",     default: 0
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20140302073308) do
   end
 
   add_index "players", ["last_name", "first_name"], name: "index_players_on_last_name_and_first_name", using: :btree
-  add_index "players", ["nfl_team_id"], name: "index_players_on_nfl_team_id", using: :btree
+  add_index "players", ["nfl_team"], name: "index_players_on_nfl_team", using: :btree
   add_index "players", ["position"], name: "index_players_on_position", using: :btree
 
   create_table "sessions", force: true do |t|

@@ -1,4 +1,4 @@
-Name,Team,G,QBRat ,Comp ,Att ,Pct ,Yds ,Y/G ,Y/A ,TD ,Int ,Rush ,Yds ,Y/G ,Avg ,TD ,Sack ,YdsL ,Fum ,FumL 
+Name,Team,G,QBRat,Comp,Att,Pct,PYds,Y/G,Y/A,PTD,Int,Rush,RuYds,Y/G,Avg,RuTD,Sack,YdsL,Fum,FumL
 Tarvaris Jackson,SEA,3,140.2,10,13,76.9,151,50.3,11.6,1,0,4,1,0.3,0.3,1,0,0,0,0
 Nick Foles,PHI,13,119.2,203,317,64,2891,222.4,9.1,27,2,57,221,17,3.9,3,28,173,4,2
 Colt McCoy,SFO,4,118.8,1,1,100,13,3.3,13,0,0,6,-6,-1.5,-1,0,0,0,0,0

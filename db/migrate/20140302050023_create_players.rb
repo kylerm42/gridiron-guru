@@ -4,7 +4,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :position, null: false
-      t.integer :nfl_team_id, null: false, default: 0
+      t.string :nfl_team, null: false, default: 'FA'
 
       t.integer :pass_yards, default: 0
       t.integer :pass_tds, default: 0
@@ -44,6 +44,6 @@ class CreatePlayers < ActiveRecord::Migration
 
     add_index :players, :position
     add_index :players, [:last_name, :first_name]
-    add_index :players, :nfl_team_id
+    add_index :players, :nfl_team
   end
 end

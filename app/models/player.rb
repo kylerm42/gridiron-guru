@@ -2,60 +2,89 @@
 #
 # Table name: players
 #
-#  id          :integer          not null, primary key
-#  first_name  :string(255)      not null
-#  last_name   :string(255)      not null
-#  position    :string(255)      not null
-#  nfl_team_id :integer          default(0), not null
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id            :integer          not null, primary key
+#  first_name    :string(255)      not null
+#  last_name     :string(255)      not null
+#  position      :string(255)      not null
+#  nfl_team      :string(255)      default("FA"), not null
+#  pass_yards    :integer          default(0)
+#  pass_tds      :integer          default(0)
+#  pass_ints     :integer          default(0)
+#  rush_yards    :integer          default(0)
+#  rush_tds      :integer          default(0)
+#  receptions    :integer          default(0)
+#  rec_yards     :integer          default(0)
+#  rec_tds       :integer          default(0)
+#  fumbles       :integer          default(0)
+#  two_pt_conv   :integer          default(0)
+#  made_pat      :integer          default(0)
+#  miss_pat      :integer          default(0)
+#  made_20       :integer          default(0)
+#  miss_20       :integer          default(0)
+#  made_30       :integer          default(0)
+#  miss_30       :integer          default(0)
+#  made_40       :integer          default(0)
+#  miss_40       :integer          default(0)
+#  made_50       :integer          default(0)
+#  miss_50       :integer          default(0)
+#  made_50_plus  :integer          default(0)
+#  miss_50_plus  :integer          default(0)
+#  sacks         :integer          default(0)
+#  interceptions :integer          default(0)
+#  fum_rec       :integer          default(0)
+#  safeties      :integer          default(0)
+#  def_tds       :integer          default(0)
+#  ret_tds       :integer          default(0)
+#  pts_allowed   :integer          default(0)
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 class Player < ActiveRecord::Base
   require 'addressable/uri'
-  extend PlayersHelper
+  extend   PlayersHelper
 
   POSITIONS = ["QB", "RB", "WR", "TE", "K", "DEF"]
 
   TEAMS = {
-    0 =>  ["Free", "Agent"],
-    1 =>  ["Dallas", "Cowboys"],
-    2 => ["Philadelphia", "Eagles"],
-    3 => ["New York", "Giants"],
-    4 => ["Washington", "Redskins"],
-    5 => ["Tampa Bay", "Buccaneers"],
-    6 => ["Atlanta", "Falcons"],
-    7 => ["Carolina", "Panthers"],
-    8 => ["New Orleans", "Saints"],
-    9 => ["Chicago", "Bears"],
-    10 => ["Detroit", "Lions"],
-    11 => ["Green Bay", "Packers"],
-    12 => ["Minnesota", "Vikings"],
-    13 => ["San Francisco", "49ers"],
-    14 => ["Arizona", "Cardinals"],
-    15 => ["St. Louis", "Rams"],
-    16 => ["Seattle", "Seahawks"],
-    17 => ["Buffalo", "Bills"],
-    18 => ["Miami", "Dolphins"],
-    19 => ["New York", "Jets"],
-    20 => ["New England", "Patriots"],
-    21 => ["Indianapolis", "Colts"],
-    22 => ["Jacksonville", "Jaguars"],
-    23 => ["Houston", "Texans"],
-    24 => ["Tennessee", "Titans"],
-    25 => ["Cincinnati", "Bengals"],
-    26 => ["Cleveland", "Browns"],
-    27 => ["Baltimore", "Ravens"],
-    28 => ["Pittsburgh", "Steelers"],
-    29 => ["Denver", "Broncos"],
-    30 => ["San Diego", "Chargers"],
-    31 => ["Kansas City", "Chiefs"],
-    32 => ["Oakland", "Raiders"]
+    "FA" =>  ["Free", "Agent"],
+    "DAL" =>  ["Dallas", "Cowboys"],
+    "PHI" => ["Philadelphia", "Eagles"],
+    "NYG" => ["New York", "Giants"],
+    "WAS" => ["Washington", "Redskins"],
+    "TB" => ["Tampa Bay", "Buccaneers"],
+    "ATL" => ["Atlanta", "Falcons"],
+    "CAR" => ["Carolina", "Panthers"],
+    "NO" => ["New Orleans", "Saints"],
+    "CHI" => ["Chicago", "Bears"],
+    "DET" => ["Detroit", "Lions"],
+    "GB" => ["Green Bay", "Packers"],
+    "MIN" => ["Minnesota", "Vikings"],
+    "SF" => ["San Francisco", "49ers"],
+    "ARI" => ["Arizona", "Cardinals"],
+    "STL" => ["St. Louis", "Rams"],
+    "SEA" => ["Seattle", "Seahawks"],
+    "BUF" => ["Buffalo", "Bills"],
+    "MIA" => ["Miami", "Dolphins"],
+    "NYJ" => ["New York", "Jets"],
+    "NE" => ["New England", "Patriots"],
+    "IND" => ["Indianapolis", "Colts"],
+    "JAX" => ["Jacksonville", "Jaguars"],
+    "HOU" => ["Houston", "Texans"],
+    "TEN" => ["Tennessee", "Titans"],
+    "CIN" => ["Cincinnati", "Bengals"],
+    "CLE" => ["Cleveland", "Browns"],
+    "BAL" => ["Baltimore", "Ravens"],
+    "PIT" => ["Pittsburgh", "Steelers"],
+    "DEN" => ["Denver", "Broncos"],
+    "SD" => ["San Diego", "Chargers"],
+    "KC" => ["Kansas City", "Chiefs"],
+    "OAK" => ["Oakland", "Raiders"]
   }
 
   validates :first_name, :last_name, presence: true
   validates :position, presence: true, inclusion: { in: POSITIONS }
-  validates :nfl_team_id, inclusion: { in: 0..32 }
+  validates :nfl_team, inclusion: { in: TEAMS.keys }
 
   has_many :team_players,
            dependent: :destroy
