@@ -17,19 +17,10 @@
     </tr>
   </thead>
   <tbody>
-    <% @players[0..50].each do |player| %>
+    <% @players.each do |player| %>
       <tr>
         <td>
-          <a href='<%= team_add_drops_url(@team) %>'
-             class='add-player'
-             data-id='<%= player.id %>'>
-             <i class='icon-expand-alt' style="font-size: 18px;"></i>
-          </a>
-          <a href='<%= team_watched_players_url(@team) %>'
-             class='watch-player'
-             data-id='<%= player.id %>'>
-             <i class='icon-eye-open' style="font-size: 15px;"></i>
-          </a>
+          <%= render 'layouts/player_actions', player: player %>
         </td>
         <td>
           <%= player.name %><br>
@@ -67,50 +58,3 @@
       </tr>
     <% end %>
 </table>
-
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-    $('.add-player').on('click', function(e) {
-      e.preventDefault();
-      var $addLink = $(e.currentTarget);
-      var url = $addLink.attr('href');
-      var addedPlayer = {
-        player_id: $addLink.attr("data-id"),
-        type: "add"
-      }
-
-      $.ajax({
-        url: url,
-        type: 'POST',
-        data: addedPlayer,
-        success: function() {
-          console.log("Successfully added player!")
-          document.location = '<%= league_team_url(@team.league, @team) %>'
-        }
-      })
-    })
-  })
-</script>
-
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-    $('.watch-player').on('click', function(e) {
-      e.preventDefault();
-      var $watchLink = $(e.currentTarget);
-      var url = $watchLink.attr('href');
-      var watchedPlayer = {
-        player_id: $watchLink.attr("data-id"),
-      }
-
-      $.ajax({
-        url: url,
-        type: 'POST',
-        data: watchedPlayer,
-        success: function() {
-          console.log("Successfully watched player!")
-          document.location = '<%= team_watched_players_url(@team) %>'
-        }
-      })
-    })
-  })
-</script>

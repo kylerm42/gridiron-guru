@@ -1,0 +1,32 @@
+<% if @team.players.include?(player) %>
+  <a href='<%= team_add_drops_url(@team) %>'
+     class='drop-player'
+     data-id='<%= player.id %>'
+     data-url='<%= league_team_url(@team.league, @team) %>'>
+     <i class='icon-collapse-alt' style="font-size: 18px;"></i>
+  </a>
+<% else %>
+  <a href='<%= team_add_drops_url(@team) %>'
+     class='add-player'
+     data-id='<%= player.id %>'
+     data-url='<%= league_team_url(@team.league, @team) %>'>
+     <i class='icon-expand-alt' style="font-size: 18px;"></i>
+  </a>
+<% end %>
+
+
+<% if @team.watched_players.include?(player) %>
+  <% watched_player_join = @watched_player_joins.find_by_player_id(player.id) %>
+
+  <a href='<%= team_watched_player_url(@team, watched_player_join.id) %>'
+     class='watch-player remove'
+     data-id='<%= watched_player_join.id %>'>
+     <i class='icon-eye-close' style="font-size: 15px;"></i>
+  </a>
+<% else %>
+  <a href='<%= team_watched_players_url(@team) %>'
+     class='watch-player add'
+     data-id='<%= player.id %>'>
+     <i class='icon-eye-open' style="font-size: 15px;"></i>
+  </a>
+<% end %>

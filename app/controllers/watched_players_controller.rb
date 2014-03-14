@@ -15,6 +15,7 @@ class WatchedPlayersController < ApplicationController
     @team = Team.find(params[:team_id])
     @watched_players = @team.watched_players
     @watched_player_joins = @team.watched_player_joins
+
     render :index
   end
 

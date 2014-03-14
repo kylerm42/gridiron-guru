@@ -4,7 +4,8 @@
 <% end %>
 
 <p>
-  <%= link_to "Add Players", league_players_url(@team.league) %>
+  <%= link_to "Add Players", league_players_url(@team.league) %><br>
+  <%= link_to "Watch List", team_watched_players_url(@team) %>
 </p>
 
 <table class="info responsiveTable" style="width: 100%; font-size: 15px;">
@@ -28,12 +29,12 @@
       <tr>
         <td>
           <a href='<%= team_add_drops_url(@team) %>'
-             class='add-player'
+             class='drop-player'
              data-id='<%= player.id %>'>
              <i class='icon-collapse-alt' style="font-size: 18px;"></i>
           </a>
           <a href='<%= team_watched_players_url(@team) %>'
-             class='watch-player'
+             class='watch-player add'
              data-id='<%= player.id %>'>
              <i class='icon-eye-open' style="font-size: 15px;"></i>
           </a>
@@ -74,27 +75,3 @@
       </tr>
     <% end %>
 </table>
-
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-    $('.drop-player').on('click', function(e) {
-      e.preventDefault();
-      var $dropLink = $(e.currentTarget);
-      var url = $dropLink.attr('href');
-      var droppedPlayer = {
-        player_id: $dropLink.attr("data-id"),
-        type: "drop"
-      }
-
-      $.ajax({
-        url: url,
-        type: 'POST',
-        data: droppedPlayer,
-        success: function() {
-          console.log("Successfully dropped player!")
-          document.location = '<%= league_team_url(@team.league, @team) %>'
-        }
-      })
-    })
-  })
-</script>

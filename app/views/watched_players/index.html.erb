@@ -69,21 +69,3 @@
     <% end %>
 </table>
 <%= link_to "Back to your team", league_team_url(@team.league, @team) %>
-
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-    $('.watch-player.remove').on('click', function(e) {
-      e.preventDefault();
-      var $watchLink = $(e.currentTarget);
-      var url = $watchLink.attr('href');
-
-      $.ajax({
-        url: url,
-        type: 'DELETE',
-        success: function() {
-          $watchLink.parent().parent().remove();
-        }
-      })
-    })
-  })
-</script>
