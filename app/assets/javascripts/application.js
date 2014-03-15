@@ -12,7 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require groundworkcss/libs/modernizr-2.6.2.min
-//= require groundworkcss/all
+//= require bootstrap
 //= require turbolinks
+//= require underscore
+//= require backbone
+//= require fantasy_football
+//= require_tree ../templates
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
 //= require_tree .
