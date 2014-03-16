@@ -16,14 +16,14 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
 
   addPlayer: function (player) {
     var playerRowView = new FantasyFootball.Views.PlayerRow({ model: player });
-    this.addSubview('tbody', playerRowView)
+    this.addSubview('tbody', playerRowView);
     playerRowView.render();
   }
 });
 
 FantasyFootball.Views.PlayerRow = Backbone.View.extend({
   tagName: 'tr',
-  template: JST['players/team_row'],
+  template: JST['players/row'],
 
   render: function () {
     var renderedContent = this.template({ player: this.model });

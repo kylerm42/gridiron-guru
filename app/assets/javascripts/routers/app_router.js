@@ -6,6 +6,7 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     '': 'homeShow',
     'leagues/:leagueId/teams/:teamId': 'teamShow',
+    'leagues/:id/players': 'playersIndex',
     'leagues/:id': 'leagueShow'
   },
 
@@ -37,12 +38,25 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
     this._swapView(teamShowView);
   },
 
+  playersIndex: function (id) {
+    var players = new FantasyFootball.Collections.Players();
+    var leagues = new FantasyFootball.Collections.Leagues();
+    var league = leagues.getOrFetch(id);
+
+    var playersIndexView = new FantasyFootball.Views.PlayersIndex({
+      collection: players,
+      league: league
+    });
+
+    players.fetch();
+    this._swapView(playersIndexView);
+  },
+
   _swapView: function (view) {
     if (this.currentView) {
       this.currentView.remove();
     };
     this.currentView = view;
-
     this.$rootEl.html(view.render().$el);
   }
 });

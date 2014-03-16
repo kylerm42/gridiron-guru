@@ -1,4 +1,37 @@
-<h1><%= team.escape('name') %></h1>
+<div class='row'>
+  <div class='col-sm-12'>
+    <h1 class='pull-left'>
+      <%= team.escape('name') %>
+      <a href="#/leagues/<%= team.league() ? team.league().id : 0 %>">
+        <small><%= team.league() ? team.league().get('name') : null %></small>
+      </a>
+    </h1>
+    <% if (team.league()) { %>
+      <ul class='pull-right list-inline'>
+        <li>
+          <a href='#/leagues/<%= team.league().id %>/players'>
+            Add Players
+          </a>
+        </li> /
+        <li>
+          <a href="#/leagues/<%= team.league().id %>/teams/<%= team.id %>/watched">
+            Watch List
+          </a>
+        </li> /
+        <li class="dropdown" id="accountmenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Teams<b class="caret"></b></a>
+
+            <ul class="dropdown-menu">
+              <% team.league().teams().forEach(function(otherTeam) { %>
+                <li>
+                  <a href="#"><%= otherTeam.get('name') %></a>
+                </li>
+              <% }); %>
+            </ul>
+        </li>
+      </ul>
+    <% }; %>
+  </div>
+</div>
 
 <table class='table table-hover table-striped'>
   <thead>

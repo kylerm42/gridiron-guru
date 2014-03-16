@@ -36,5 +36,5 @@
   <%= player.get('fumbles') %>
 </td>
 <td>
-  <%= player.points() %>
+  <%= parseFloat(Math.round(player.points() * 100) / 100).toFixed(2) %>
 </td>

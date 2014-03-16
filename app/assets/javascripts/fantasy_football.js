@@ -79,7 +79,7 @@ Backbone.TableView = Backbone.CompositeView.extend({
 
     this.listenTo(this.collection, "add", this.addRowSubview);
 
-    _.each(this.model.teams(), this.addRowSubview.bind(this));
+    this.collection.each(this.addRowSubview.bind(this));
   },
 
   addRowSubview: function (model) {
@@ -112,11 +112,11 @@ Backbone.TableView = Backbone.CompositeView.extend({
       var val2 = tableView.sortFn(rowView2.model);
 
       if (val1 < val2) {
-        return -1;
+        return 1;
       } else if (val1 == val2) {
         return 0;
       } else {
-        return 1;
+        return -1;
       }
     });
   },

@@ -16,6 +16,7 @@ FantasyFootball.Models.Player = Backbone.Model.extend({
     var twoPtConv = this.get('two_pt_conv') * 2;
     var fumbles = this.get('fumbles') * -2;
 
-    return passYards + passTDs + passInts + rushYards + rushTDs + recYards + recTDs + twoPtConv + fumbles;
+    this.set('points', passYards + passTDs + passInts + rushYards + rushTDs + recYards + recTDs + twoPtConv + fumbles);
+    return this.get('points');
   }
 })

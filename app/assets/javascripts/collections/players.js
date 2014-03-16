@@ -12,7 +12,7 @@ FantasyFootball.Collections.Players = Backbone.Collection.extend({
     } else {
       model = new FantasyFootball.Models.Player({ id: id });
       model.fetch({
-        success: function () { palyers.add(model) }
+        success: function () { players.add(model) }
       });
 
       return model;
