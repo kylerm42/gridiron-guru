@@ -1,7 +1,18 @@
-class LeaguesController < ApplicationController
+class Api::LeaguesController < ApplicationController
   before_action :find_league, only: [:show, :edit, :update]
   before_action :unauthorized_redirect, only: [:edit, :update, :destroy]
   before_action :private_league_redirect, only: :show
+  before_action :require_sign_in
+
+  def index
+    @leagues = League.where(private: false)
+    render json: @leagues
+  end
+
+  def for_user
+    @leagues = current_user.leagues
+    render json: @leagues
+  end
 
   def new
     if logged_in?
@@ -28,7 +39,8 @@ class LeaguesController < ApplicationController
   end
 
   def show
-    render :show
+    @league = League.find(params[:id])
+    render json: @league
   end
 
   def edit

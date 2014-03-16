@@ -1,31 +1,45 @@
-<form action="<%= url %>" method="POST" accept-charset="utf-8">
-  <%= render 'layouts/authenticity_token' %>
-  <%= render 'layouts/patch_request' if request == :patch %>
+<div class='col-sm-10'>
+  <form action="<%= url %>" method="POST" accept-charset="utf-8" role='form' class='form-horizontal'>
+    <%= render 'layouts/authenticity_token' %>
+    <%= render 'layouts/patch_request' if request == :patch %>
 
-  <label>
-    Username
-    <input type="text" name="user[username]" value="<%= @user.username %>">
-  </label>
-  <label>
-    Email
-    <input type="email" name="user[email]" value="<%= @user.email %>">
-  </label>
-  <label>
-    First Name
-    <input type="text" name="user[first_name]" value="<%= @user.first_name %>">
-  </label>
-  <label>
-    Last Name
-    <input type="text" name="user[last_name]" value="<%= @user.last_name %>">
-  </label>
-  <label>
-    Password
-    <input type="password" name="user[password]">
-  </label>
-  <label>
-    Confirm Password
-    <input type="password" name="user[password_confirm]">
-  </label>
+    <div class='form-group'>
+      <label for="username" class="col-sm-3 control-label">Username</label>
+      <div class='col-sm-8'>
+        <input type="text" name="user[username]" value="<%= @user.username %>" class='form-control'>
+      </div>
+    </div>
+    <div class='form-group'>
+      <label class="col-sm-3 control-label">Email</label>
+      <div class='col-sm-8'>
+        <input type="email" name="user[email]" value="<%= @user.email %>" class='form-control'>
+      </div>
+    </div>
+    <div class='form-group'>
+      <label class="col-sm-3 control-label">First Name</label>
+      <div class='col-sm-8'>
+        <input type="text" name="user[first_name]" value="<%= @user.first_name %>" class='form-control'>
+      </div>
+    </div>
+    <div class='form-group'>
+      <label class="col-sm-3 control-label">Last Name</label>
+      <div class='col-sm-8'>
+        <input type="text" name="user[last_name]" value="<%= @user.last_name %>" class='form-control'>
+      </div>
+    </div>
+    <div class='form-group'>
+      <label class="col-sm-3 control-label">Password</label>
+      <div class='col-sm-8'>
+        <input type="password" name="user[password]" class='form-control'>
+      </div>
+    </div>
+    <div class='form-group'>
+      <label class="col-sm-3 control-label">Confirm Password</label>
+      <div class='col-sm-8'>
+        <input type="password" name="user[password_confirm]" class='form-control'>
+      </div>
+    </div>
 
-  <p><input type="submit" value="Continue &rarr;"></p>
-</form>
+    <button class='btn btn-primary col-sm-offset-3'>Submit &rarr;</button>
+  </form>
+</div>

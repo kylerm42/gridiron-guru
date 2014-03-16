@@ -7,17 +7,50 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Fantasy Football</a>
+      </div>
 
-<% if logged_in? %>
-  Welcome, <%= current_user.first_name %>
-  <%= render 'layouts/sign_out' %>
-<% else %>
-  <%= link_to "Sign up", new_user_url %> or <%= render 'layouts/sign_in' %>
-<% end %>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <% if logged_in? %>
+          <%= render 'layouts/sign_out' %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a>Welcome, <%= current_user.first_name %></a></li>
+          </ul>
+        <% else %>
+          <%= render 'layouts/sign_in' %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Sign up", new_user_url %></li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </nav>
 
-<%= render 'layouts/notices' %>
+  <div class='row'>
+    <div class='col-xs-10 col-xs-offset-1'>
+      <%= render 'layouts/notices' %>
 
-<%= yield %>
+      <%= yield %>
+    </div>
+  </div>
 
+  <script type="application/json" charset="utf-8" id='current-user'>
+    { "user": <% if logged_in? %>
+     <%= current_user.to_json(only: [:id, :username, :email, :first_name, :last_name]).html_safe %>
+   <% else %>
+      { "id": null }
+    <% end %> }
+  </script>
 </body>
 </html>
+

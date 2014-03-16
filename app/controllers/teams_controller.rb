@@ -10,6 +10,7 @@ class TeamsController < ApplicationController
   def create
     @team = current_user.teams.new(team_params)
     @team.league_id = params[:league_id]
+    @team.waiver = @team.league.length
 
     if @team.save
       set_flash(:success, "Created your team successfully!")

@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     if @user && @user.is_password?(params[:user][:password])
       sign_in(@user)
       set_flash(:success, "Welcome back, #{@user.first_name}")
-      redirect_to user_url(@user)
+      redirect_to root_url
     else
       @user = User.new(username: params[:user][:username])
       set_flash_now(:error, "Invalid username/password combination")
@@ -31,11 +31,11 @@ class SessionsController < ApplicationController
 
       set_flash(:notice, "You have been successfully signed out")
 
-      redirect_to new_session_url
+      redirect_to root_url
     else
       set_flash(:error, "There was an error processing your request")
 
-      redirect_to new_session_url
+      redirect_to root_url
     end
   end
 end

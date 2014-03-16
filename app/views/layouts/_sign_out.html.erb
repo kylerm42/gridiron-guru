@@ -1,6 +1,6 @@
-<form action="<%= session_url %>" class="form-inline inline" method="post">
+<form action="<%= session_url %>" class='navbar-form navbar-right' method="post">
     <%= render 'layouts/authenticity_token' %>
     <input name="_method" type="hidden" value="delete">
 
-    <input class="btn btn-default btn-xs" type="submit" value="Sign Out">
+    <input class="btn btn-default btn-sm" type="submit" value="Sign Out">
 </form>

@@ -4,6 +4,10 @@ class CreateTeams < ActiveRecord::Migration
       t.string :name, null: false
       t.integer :user_id, null: false
       t.integer :league_id, null: false
+      t.integer :wins, null: false, default: 0
+      t.integer :losses, null: false, default: 0
+      t.integer :ties, null: false, default: 0
+      t.integer :waiver, null: false, default: 1
 
       t.timestamps
     end

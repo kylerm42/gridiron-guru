@@ -128,9 +128,13 @@ ActiveRecord::Schema.define(version: 20140302073308) do
   add_index "team_players", ["team_id", "player_id"], name: "index_team_players_on_team_id_and_player_id", unique: true, using: :btree
 
   create_table "teams", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "user_id",    null: false
-    t.integer  "league_id",  null: false
+    t.string   "name",                   null: false
+    t.integer  "user_id",                null: false
+    t.integer  "league_id",              null: false
+    t.integer  "wins",       default: 0, null: false
+    t.integer  "losses",     default: 0, null: false
+    t.integer  "ties",       default: 0, null: false
+    t.integer  "waiver",     default: 1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

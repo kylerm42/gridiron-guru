@@ -33,4 +33,11 @@ class ApplicationController < ActionController::Base
       flash.now[type.to_sym] += message
     end
   end
+
+  def require_sign_in
+    unless logged_in?
+      set_flash(:warning, "You must be signed in to do that")
+      redirect_to root_url
+    end
+  end
 end
