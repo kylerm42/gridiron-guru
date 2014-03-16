@@ -1,5 +1,6 @@
 FantasyFootball.Collections.Teams = Backbone.Collection.extend({
   url: 'api/teams',
+  model: FantasyFootball.Models.Team,
 
   getOrFetch: function (id) {
     var model;

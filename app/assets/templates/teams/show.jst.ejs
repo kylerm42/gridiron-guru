@@ -1,2 +1,34 @@
-<h1><%= team.escape('title') %></h1>
+<h1><%= team.escape('name') %></h1>
 
+<table class='table table-hover table-striped'>
+  <thead>
+    <tr class='info'>
+      <th rowspan='2' class='no-border-top'>POS</th>
+      <th rowspan='2' class='no-border-top'>Action</th>
+      <th rowspan='2' class='no-border-top'>Player</th>
+      <th colspan='3' data-sort-col="passYds" class='centered helper'>
+        <small>Passing</small>
+      </th>
+      <th colspan='2' data-sort-col="rushYds" class='centered helper'>
+        <small>Rushing</small>
+      </th>
+      <th colspan='2' data-sort-col="recYds" class='centered helper'>
+        <small>Receiving</small>
+      </th>
+      <th rowspan='2' class='no-border-top' data-sort-col="twoPtConv">2 Pt</th>
+      <th rowspan='2' class='no-border-top' data-sort-col="fum">Fum<br>Lost</th>
+      <th rowspan='2' class='no-border-top' data-sort-col="points">Points</th>
+    </tr>
+    <tr class='info'>
+      <th data-sort-col="passYds">Yds</th>
+      <th data-sort-col="passTD">TD</th>
+      <th data-sort-col="passInt">Int</th>
+      <th data-sort-col="rushYds">Yds</th>
+      <th data-sort-col="rushTD">TD</th>
+      <th data-sort-col="recYds">Yds</th>
+      <th data-sort-col="recTD">TD</th>
+    </tr>
+  </thead>
+
+  <tbody></tbody>
+</table>

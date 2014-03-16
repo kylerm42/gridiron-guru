@@ -9,5 +9,12 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
     }
 
     return this._players;
+  },
+
+  parse: function (json) {
+    this.players().set(json.players);
+    delete json.players;
+
+    return json;
   }
 })

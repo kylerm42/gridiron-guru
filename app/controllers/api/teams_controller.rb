@@ -24,7 +24,7 @@ class Api::TeamsController < ApplicationController
   end
 
   def show
-    render json: @team
+    render :show
   end
 
   def edit

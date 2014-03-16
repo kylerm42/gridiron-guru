@@ -1,10 +1,9 @@
 FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.model.teams(), 'add', this.addTeams)
+    this.listenTo(this.collection, 'add', this.addTeams)
   },
 
-  rowSubviewClass: FantasyFootball.Views.TeamsTableRow,
   template: JST['leagues/show'],
 
   render: function () {
@@ -13,12 +12,6 @@ FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
     this.$el.html(renderedContent);
     this.renderSubviews();
     return this
-  },
-
-  events: _.extend({}, Backbone.TableView.prototype.events),
-
-  _lowerTitle: function (model) {
-    return model.get("title").toLowerCase();
   },
 
   addTeams: function (team) {

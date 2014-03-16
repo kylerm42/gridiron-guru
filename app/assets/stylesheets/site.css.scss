@@ -22,3 +22,28 @@
   background-color: #002061;
   border-color: #0052fb;
 }
+
+.danger {
+  color: #ff0000;
+}
+
+.table > thead > tr.info > th {
+  background-color: #E5EEFF;
+}
+
+.table > thead > tr.info > td {
+  background-color: #E5EEFF;
+}
+
+.table > thead > tr > .helper {
+  padding: 0px;
+  border-bottom: 0px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.table > thead > tr > .no-border-top {
+  border-top: 0px;
+}
