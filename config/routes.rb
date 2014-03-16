@@ -8,6 +8,7 @@ FantasyFootball::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :leagues, only: [:index, :show, :create, :update, :destroy]
     get 'leagues/user', to: 'leagues#for_user'
+    resources :teams, only: [:index, :show, :create, :update, :destroy]
   end
 
   resource :session, only: [:new, :create, :destroy]

@@ -1,4 +1,4 @@
-class TeamsController < ApplicationController
+class Api::TeamsController < ApplicationController
   before_action :find_team, only: [:show, :edit, :update]
 
   def new
@@ -24,7 +24,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    render :show
+    render json: @team
   end
 
   def edit

@@ -79,7 +79,7 @@ Backbone.TableView = Backbone.CompositeView.extend({
 
     this.listenTo(this.collection, "add", this.addRowSubview);
 
-    this.collection.each(this.addRowSubview.bind(this));
+    _.each(this.model.teams(), this.addRowSubview.bind(this));
   },
 
   addRowSubview: function (model) {

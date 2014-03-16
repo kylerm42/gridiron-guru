@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def new
     if logged_in?
-      redirect_to user_url(current_user.username)
+      redirect_to root_url
     else
       @user = User.new
 
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         sign_in(@user)
         set_flash(:success, "You have successfully created an account!")
 
-        redirect_to user_url(@user)
+        redirect_to root_url
       else
         set_flash_now(:error, @user.errors.full_messages)
 

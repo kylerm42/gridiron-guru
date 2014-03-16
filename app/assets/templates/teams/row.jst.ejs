@@ -1,0 +1,19 @@
+<td>
+  <a href="#/leagues/<%= team.get('league').id %>/teams/<%= team.id %>"><%= team.escape('name') %></a>
+</td>
+<td>
+  <%= team.escape('wins') %>
+</td>
+<td>
+  <%= team.escape('losses') %>
+</td>
+<td>
+  <%= team.escape('ties') %>
+</td>
+<td>
+  <% winPct =  parseInt(team.escape('wins')) / (parseInt(team.escape('wins')) + parseInt(team.escape('losses')) + parseInt(team.escape('ties'))) %>
+  <%= winPct ? parseFloat(Math.round(winPct * 100) / 100).toFixed(3) : '.000' %>
+</td>
+<td>
+  <%= team.escape('waiver') %>
+</td>

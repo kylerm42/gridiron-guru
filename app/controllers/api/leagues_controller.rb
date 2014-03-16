@@ -40,7 +40,6 @@ class Api::LeaguesController < ApplicationController
 
   def show
     @league = League.find(params[:id])
-    render json: @league
   end
 
   def edit
@@ -77,7 +76,7 @@ class Api::LeaguesController < ApplicationController
     end
 
     def private_league_redirect
-      unless current_user && current_user.leagues.include?(@league)
+      unless (current_user && current_user.leagues.include?(@league)) || !@league.private
         set_flash(:warning, "You must be a member to view this private league")
         redirect_to new_session_url
       end

@@ -13,7 +13,7 @@ FantasyFootball.Collections.Leagues = Backbone.Collection.extend({
       model = new FantasyFootball.Models.League({ id: id });
       model.fetch({
         success: function () { leagues.add(model) }
-      })
+      });
 
       return model;
     }
