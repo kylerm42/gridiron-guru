@@ -1,5 +1,11 @@
 FantasyFootball.Collections.Teams = Backbone.Collection.extend({
-  url: 'api/teams',
+  initialize: function (models, options) {
+    this.leagueId = options.leagueId;
+  },
+
+  url: function () {
+    return 'api/leagues/' + this.leagueId + '/teams';
+  },
   model: FantasyFootball.Models.Team,
 
   getOrFetch: function (id) {
@@ -10,7 +16,7 @@ FantasyFootball.Collections.Teams = Backbone.Collection.extend({
       model.fetch();
       return model;
     } else {
-      model = new FantasyFootball.Models.Team({ id: id });
+      model = new FantasyFootball.Models.Team({ id: id, leagueId: this.leagueId });
       model.fetch({
         success: function () { teams.add(model) }
       });

@@ -2,11 +2,16 @@
   <%= player.get('position') %>
 </td>
 <td>
-  <span class='glyphicon glyphicon-minus-sign danger'></span>
-  <span class='glyphicon glyphicon-eye-open'></span>
+<button class="add-player btn btn-default btn-xs" data-id='<%= player.id %>' data-toggle="modal" data-target="#addDropModal">
+  <span class='glyphicon glyphicon-plus-sign text-success'></span>
+</button>
+  <button class='watch-player btn btn-default btn-xs' data-id='<%= player.id %>'>
+    <span class='glyphicon glyphicon-eye-open'></span>
+  </button>
 </td>
 <td>
-  <%= player.get_name() %>
+  <%= player.get_name() %><br>
+  <small class='smaller'><%= player.get('position') %> / <%= player.get('nfl_team') %></small>
 </td>
 <td>
   <%= player.get('pass_yards') %>

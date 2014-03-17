@@ -1,6 +1,6 @@
 class Api::PlayersController < ApplicationController
   def index
-    @players = Player.all
+    @players = Player.all.sample(50)
     render json: @players
   end
 

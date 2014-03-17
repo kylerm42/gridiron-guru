@@ -1,5 +1,12 @@
 FantasyFootball.Models.Team = Backbone.Model.extend({
-  urlRoot: 'api/teams',
+  initialize: function (options) {
+    this.set('leagueId', options.leagueId);
+    this.set('id', options.id);
+  },
+
+  urlRoot: function () {
+    return 'api/leagues/' + this.get('leagueId') + '/teams';
+  },
 
   players: function () {
     if (!this._players) {

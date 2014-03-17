@@ -1,5 +1,11 @@
 FantasyFootball.Collections.Players = Backbone.Collection.extend({
-  url: 'api/players',
+  initialize: function (options) {
+    this.set('leagueId', options.leagueId);
+  },
+
+  url: function () {
+    return 'api/players'
+  },
   model: FantasyFootball.Models.Player,
 
   getOrFetch: function (id) {

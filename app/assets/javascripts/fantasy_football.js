@@ -5,7 +5,7 @@ window.FantasyFootball = {
   Routers: {},
   initialize: function() {
     FantasyFootball.currentUser = JSON.parse($('#current-user').html()).user;
-    var router = new FantasyFootball.Routers.AppRouter({
+    this.router = new FantasyFootball.Routers.AppRouter({
       $rootEl: $('div#content')
     });
 
@@ -74,7 +74,12 @@ Backbone.TableView = Backbone.CompositeView.extend({
     "click th": "resort"
   },
 
-  initialize: function () {
+  initialize: function (options) {
+    if (options) {
+      this.league = options.league
+      this.listenTo(this.league, 'sync', this.render)
+    }
+
     this.sortFn = null;
 
     this.listenTo(this.collection, "add", this.addRowSubview);
@@ -95,8 +100,10 @@ Backbone.TableView = Backbone.CompositeView.extend({
     var $currentTarget = $(event.currentTarget);
     if ($currentTarget.data("sort-col")) {
       this.sortFn = this._sortColFn($currentTarget.data("sort-col"));
-    } else {
+    } else if ($currentTarget.data("sort-fn")) {
       this.sortFn = this[$currentTarget.data("sort-fn")];
+    } else {
+      return
     }
 
     this._sortRowSubviews();

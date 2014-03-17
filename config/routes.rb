@@ -6,9 +6,11 @@ FantasyFootball::Application.routes.draw do
   end
 
   namespace :api, defaults: { format: :json } do
-    resources :leagues, only: [:index, :show, :create, :update, :destroy]
     get 'leagues/user', to: 'leagues#for_user'
-    resources :teams, only: [:index, :show, :create, :update, :destroy]
+    resources :leagues, only: [:index, :show, :create, :update, :destroy] do
+      resources :teams, only: [:index, :show, :create, :update, :destroy]
+      resources :add_drops, only: [:create]
+    end
     resources :players, only: [:index, :show]
   end
 
