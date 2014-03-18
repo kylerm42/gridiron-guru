@@ -5,6 +5,7 @@ window.FantasyFootball = {
   Routers: {},
   initialize: function() {
     FantasyFootball.currentUser = JSON.parse($('#current-user').html()).user;
+    FantasyFootball.leagues = new FantasyFootball.Collections.Leagues();
     this.router = new FantasyFootball.Routers.AppRouter({
       $rootEl: $('div#content')
     });

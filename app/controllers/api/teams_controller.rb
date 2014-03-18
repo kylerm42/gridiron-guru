@@ -10,16 +10,17 @@ class Api::TeamsController < ApplicationController
   def create
     @team = current_user.teams.new(team_params)
     @team.league_id = params[:league_id]
-    @team.waiver = @team.league.length
+
+    @team.waiver = @team.league.teams.length
 
     if @team.save
       set_flash(:success, "Created your team successfully!")
 
-      redirect_to league_url(@team.league_id)
+      render json: @team
     else
       set_flash_now(:error, @team.errors.full_messages)
 
-      render :new
+      render json: @team.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -44,7 +45,7 @@ class Api::TeamsController < ApplicationController
   private
 
     def team_params
-      params.require(:team).permit(:name)
+      params.require(:team).permit(:name, :league_id)
     end
 
     def find_team

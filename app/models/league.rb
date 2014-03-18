@@ -16,7 +16,8 @@ class League < ActiveRecord::Base
   validates :manager_id, presence: true
 
   has_many :teams,
-           dependent: :destroy
+           dependent: :destroy,
+           inverse_of: :league
   has_many :users,
            through: :teams,
            source: :users

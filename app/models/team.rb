@@ -11,14 +11,15 @@
 #
 
 class Team < ActiveRecord::Base
-  validates :league_id, presence: true
+  validates :league, presence: true
   validates :name, :user_id, presence: true, uniqueness: { scope: :league_id }
 
 
   belongs_to :owner,
              foreign_key: :user_id,
              class_name: "User"
-  belongs_to :league
+  belongs_to :league,
+             inverse_of: :teams
   has_many :team_players
   has_many :players,
            through: :team_players,

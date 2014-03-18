@@ -26,20 +26,23 @@ class Api::LeaguesController < ApplicationController
 
   def create
     @league = current_user.managed_leagues.new(league_params)
+    @team = @league.teams.new(team_params)
+    @team.user_id = current_user.id
+    p @team
 
-    if @league.save
+    if @league.save && @team.save
       set_flash(:success, "League successfully created!")
 
-      redirect_to new_league_team_url(@league)
+      render json: @league
     else
       set_flash_now(:error, @league.errors.full_messages)
 
-      render :new
+      render json: @team.errors.full_messages, status: :unprocessable_entity
     end
   end
 
   def show
-    @league = League.find(params[:id])
+    @league = League.includes(teams: :owner).find(params[:id])
   end
 
   def edit
@@ -62,6 +65,10 @@ class Api::LeaguesController < ApplicationController
 
     def league_params
       params.require(:league).permit(:name, :private, :password)
+    end
+
+    def team_params
+      params.require(:team).permit(:name)
     end
 
     def find_league

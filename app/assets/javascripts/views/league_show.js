@@ -10,6 +10,14 @@ FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
     console.log('rendering league show')
     var renderedContent = this.template({ league: this.model });
     this.$el.html(renderedContent);
+
+    if (!this.collection.findWhere({ user_id: FantasyFootball.currentUser.id })) {
+      var joinLeagueLink = $('<a>').attr('href', '#/leagues/' + this.model.id + '/teams/new');
+      joinLeagueLink.html('Join this league');
+
+      this.$el.append(joinLeagueLink);
+    }
+
     this.renderSubviews();
     return this
   },

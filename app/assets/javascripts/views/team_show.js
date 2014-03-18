@@ -11,6 +11,10 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     var renderedContent = this.template({ team: this.model });
     this.$el.html(renderedContent);
     this.renderSubviews();
+    $("tbody").sortable({
+      containment: 'parent',
+      distance: 10
+    });
     return this
   },
 
@@ -28,7 +32,7 @@ FantasyFootball.Views.PlayerRow = Backbone.View.extend({
   render: function () {
     var renderedContent = this.template({ player: this.model });
 
-    this.$el.html(renderedContent);
+    this.$el.addClass('full-width').html(renderedContent);
     return this;
   }
 })
