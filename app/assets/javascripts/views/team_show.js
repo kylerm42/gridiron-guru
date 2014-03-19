@@ -43,7 +43,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   },
 
   setPlaceholder: function (event, ui) {
-    $('.ui-sortable-placeholder').height($($('tr')[4]).outerHeight())
+    $('.ui-sortable-placeholder').height('55px')
   }
 });
 

@@ -28,11 +28,11 @@
 }
 
 .table > thead > tr.info > th {
-  background-color: #E5EEFF;
+  background-color: #36435C;
 }
 
 .table > thead > tr.info > td {
-  background-color: #E5EEFF;
+  background-color: #36435C;
 }
 
 .table > thead > tr > .helper {
@@ -59,4 +59,21 @@
 
 .full-width {
   width: 100%;
+}
+
+body {
+  color: white;
+  background-color: #1C1C1C;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td {
+  background-color: #262626;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #303030;
+}
+
+a {
+  color: #79B7ED;
 }

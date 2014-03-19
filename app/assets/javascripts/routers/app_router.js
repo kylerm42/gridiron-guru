@@ -18,12 +18,14 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
 
   leagueShow: function (id) {
     var league = FantasyFootball.leagues.getOrFetch(id);
+    var teams = league.teams();
 
     var leagueShowView = new FantasyFootball.Views.LeagueShow({
       model: league,
-      collection: league.teams()
+      collection: teams
     });
 
+    teams.fetch();
     this._swapView(leagueShowView);
   },
 
@@ -39,7 +41,7 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
 
   teamShow: function (leagueId, teamId) {
     var teams = new FantasyFootball.Collections.Teams([], {
-      league_id: +leagueId
+      leagueId: +leagueId
     });
 
     var team = teams.getOrFetch(teamId);

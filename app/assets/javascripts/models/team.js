@@ -1,6 +1,6 @@
 FantasyFootball.Models.Team = Backbone.Model.extend({
   initialize: function (options) {
-    this.set('league_id', options.league_id);
+    this.set('league_id', options.leagueId);
     this.set('id', options.id);
   },
 

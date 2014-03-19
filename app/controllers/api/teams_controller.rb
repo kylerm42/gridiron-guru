@@ -32,6 +32,11 @@ class Api::TeamsController < ApplicationController
     render :edit
   end
 
+  def index
+    @league = League.find(params[:league_id])
+    render json: @league.teams
+  end
+
   def update
     if @team.update_attributes(team_params)
       set_flash(:success, "Team updated successfully")
