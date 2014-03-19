@@ -63,7 +63,7 @@
 
 body {
   color: white;
-  background-color: #1C1C1C;
+  background-color: #E8E8E8;
 }
 
 .table-striped > tbody > tr:nth-child(odd) > td {
@@ -76,4 +76,9 @@ body {
 
 a {
   color: #79B7ED;
+}
+
+.container {
+  background-color: #1C1C1C;
+  border-radius: 3px;
 }

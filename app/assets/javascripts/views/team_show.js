@@ -1,7 +1,8 @@
 FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.collection, 'add', this.addPlayer)
+    this.listenTo(this.collection, 'add', this.addPlayer);
+    this.listenTo(this.collection, 'sync', this.addPlayers);
   },
 
   template: JST['teams/show'],
@@ -33,6 +34,8 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
       forcePlaceholderSize: true,
       tolerance: 'pointer'
     });
+    console.log(this.model.league())
+    debugger
     return this
   },
 
@@ -40,6 +43,13 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     var playerRowView = new FantasyFootball.Views.PlayerRow({ model: player });
     this.addSubview('tbody', playerRowView);
     playerRowView.render();
+  },
+
+  addPlayers: function (players) {
+    var view = this;
+    players.forEach(function (player) {
+      view.addPlayer(player);
+    })
   },
 
   setPlaceholder: function (event, ui) {

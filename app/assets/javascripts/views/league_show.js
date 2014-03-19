@@ -1,8 +1,8 @@
 FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
-    // this.listenTo(this.collection, 'add', this.addTeam)
-    this.listenTo(this.collection, 'sync', this.addTeams)
+    // this.listenTo(this.collection, 'add', this.addTeam);
+    this.listenTo(this.collection, 'sync', this.addTeams);
   },
 
   template: JST['leagues/show'],
@@ -33,7 +33,7 @@ FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
   addTeams: function (teams) {
     var view = this
     teams.forEach(function (team) {
-      view.addTeam(team)
+      view.addTeam(team);
     })
   }
 });

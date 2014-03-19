@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery.ui.sortable
 //= require bootstrap
-//= require turbolinks
 //= require underscore
 //= require backbone
 //= require fantasy_football
