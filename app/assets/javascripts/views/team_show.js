@@ -6,14 +6,32 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
 
   template: JST['teams/show'],
 
+  events: {
+    "sort": "setPlaceholder"
+  },
+
   render: function () {
     console.log('rendering team show')
     var renderedContent = this.template({ team: this.model });
     this.$el.html(renderedContent);
     this.renderSubviews();
+
+    var fixHelper = function(e, ui) {
+    	ui.children().each(function() {
+    		$(this).width($(this).width());
+    		$(this).height($(this).height());
+    	});
+    	return ui;
+    };
+
     $("tbody").sortable({
       containment: 'parent',
-      distance: 10
+      distance: 10,
+      revert: 250,
+      opacity: 0.7,
+      helper: fixHelper,
+      forcePlaceholderSize: true,
+      tolerance: 'pointer'
     });
     return this
   },
@@ -22,6 +40,10 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     var playerRowView = new FantasyFootball.Views.PlayerRow({ model: player });
     this.addSubview('tbody', playerRowView);
     playerRowView.render();
+  },
+
+  setPlaceholder: function (event, ui) {
+    $('.ui-sortable-placeholder').height($($('tr')[4]).outerHeight())
   }
 });
 
