@@ -34,13 +34,14 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
       forcePlaceholderSize: true,
       tolerance: 'pointer'
     });
-    console.log(this.model.league())
-    debugger
     return this
   },
 
   addPlayer: function (player) {
-    var playerRowView = new FantasyFootball.Views.PlayerRow({ model: player });
+    var playerRowView = new FantasyFootball.Views.PlayerRow({
+      model: player,
+      team: this.model
+    });
     this.addSubview('tbody', playerRowView);
     playerRowView.render();
   },
@@ -58,11 +59,21 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
 });
 
 FantasyFootball.Views.PlayerRow = Backbone.View.extend({
+  initialize: function (options) {
+    this.model = options.model;
+    this.team = options.team;
+  },
+
   tagName: 'tr',
   template: JST['players/row'],
 
   render: function () {
-    var renderedContent = this.template({ player: this.model });
+    var renderedContent = this.template({
+      player: this.model,
+      team: this.team
+    });
+    console.log(this.team)
+    console.log(this.model)
 
     this.$el.addClass('full-width').html(renderedContent);
     return this;

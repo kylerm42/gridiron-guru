@@ -1,6 +1,22 @@
 class Api::PlayersController < ApplicationController
   def index
-    @players = Player.includes(team: :id).all.sample(50)
+    query = <<-SQL
+    SELECT
+      p.*, j.team_id, j.team_name
+    FROM
+      players p LEFT OUTER JOIN
+      (SELECT
+        t.id team_id, t.name team_name, tp.player_id player_id
+      FROM
+        teams t JOIN team_players tp
+          ON t.id = tp.team_id
+        WHERE
+          t.league_id = ?) j
+      ON p.id = j.player_id
+    WHERE p.position IN (?)
+    SQL
+
+    @players = Player.find_by_sql([query, params[:league_id], ['QB']])
     render :index
   end
 
@@ -11,15 +27,3 @@ class Api::PlayersController < ApplicationController
 end
 
 
-# SELECT
-#   p.first_name, p.last_name, j.tid, j.tname
-# FROM
-#   players p LEFT OUTER JOIN
-#   (SELECT
-#     t.id tid, t.name tname, tp.player_id player_id
-#   FROM
-#     teams t JOIN team_players tp
-#       ON t.id = tp.team_id
-#     WHERE
-#       t.league_id = 1) j
-#   ON p.id = j.player_id;

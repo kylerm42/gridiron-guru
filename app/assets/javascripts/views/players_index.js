@@ -15,10 +15,12 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
   template: JST['players/index'],
 
   events: _.extend({
-    "click .add-player": 'addPlayer'
+    "click .add-player": 'addPlayer',
+    "click .drop-player": 'dropPlayer'
   }, Backbone.TableView.prototype.events),
 
   render: function () {
+    console.log("rendering players index")
     var renderedContent = this.template({
       players: this.collection,
       league: this.league
@@ -48,5 +50,22 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
     //     window.location('/#/leagues/' + that.league.id + '/teams/' + resp.team_id);
     //   }
     // });
+  },
+
+  dropPlayer: function (event) {
+    console.log('dropping player')
+
+    this.droppedPlayerId = $(event.currentTarget).data('id');
+
+    var $confirm = $('<button>').addClass('btn btn-danger pull-right')
+                                .attr('id', 'drop-' + this.droppedPlayerId)
+                                .text('Confirm');
+    var $cancel = $('<button>').addClass('btn btn-default').text('Cancel');
+    var $buttons = $('<div>').append($cancel).append($confirm);
+    $(event.currentTarget).popover({
+      html: true,
+      title: "Are you sure you want to drop this player?",
+      content: $buttons
+    });
   }
 });

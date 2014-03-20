@@ -2,9 +2,17 @@
   <%= player.get('position') %>
 </td>
 <td>
-<button class="add-player btn btn-default btn-xs" data-id='<%= player.id %>' data-toggle="modal" data-target="#addDropModal">
-  <span class='glyphicon glyphicon-plus-sign text-success'></span>
-</button>
+  <% if (player.get('team').id) { %>
+    <button class="drop-player btn btn-default btn-xs" data-id='<%= player.id %>'
+            data-container="body" data-placement="top">
+      <span class='glyphicon glyphicon-minus-sign text-danger'></span>
+    </button>
+  <% } else { %>
+    <button class="add-player btn btn-default btn-xs" data-id='<%= player.id %>'
+            data-toggle="modal" data-target="#addDropModal">
+      <span class='glyphicon glyphicon-plus-sign text-success'></span>
+    </button>
+  <% } %>
   <button class='watch-player btn btn-default btn-xs' data-id='<%= player.id %>'>
     <span class='glyphicon glyphicon-eye-open'></span>
   </button>

@@ -1,10 +1,10 @@
 FantasyFootball.Collections.Players = Backbone.Collection.extend({
-  initialize: function (options) {
-    this.set('leagueId', options.leagueId);
+  initialize: function (models, options) {
+    this.leagueId = options.leagueId;
   },
 
   url: function () {
-    return 'api/players'
+    return 'api/leagues/' + this.leagueId + '/players'
   },
   model: FantasyFootball.Models.Player,
 

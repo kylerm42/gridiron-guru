@@ -10,8 +10,8 @@ FantasyFootball::Application.routes.draw do
     resources :leagues, only: [:index, :show, :create, :update, :destroy] do
       resources :teams, only: [:index, :show, :create, :update, :destroy]
       resources :add_drops, only: [:create]
+      resources :players, only: [:index, :show]
     end
-    resources :players, only: [:index, :show]
   end
 
   resource :session, only: [:new, :create, :destroy]
