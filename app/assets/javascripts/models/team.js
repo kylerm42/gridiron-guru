@@ -1,7 +1,14 @@
 FantasyFootball.Models.Team = Backbone.Model.extend({
   initialize: function (options) {
-    this.set('league_id', options.leagueId);
+    this.set('league_id', options.league_id);
     this.set('id', options.id);
+    if (options.players) {
+      var teamPlayers = new FantasyFootball.Collections.Players(options.players, {
+        team: this,
+        leagueId: options.league_id
+      });
+      this.set('players', teamPlayers);
+    }
   },
 
   urlRoot: function () {
@@ -27,7 +34,8 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
   },
 
   parse: function (json) {
-    this.players().set(json.players);
+    var teamPlayers = FantasyFootball.Collections.Players(json.players, { team: this });
+    this.set('players', teamPlayers);
     delete json.players;
 
     this.league().set(json.league);

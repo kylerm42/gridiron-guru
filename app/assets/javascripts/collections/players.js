@@ -23,5 +23,17 @@ FantasyFootball.Collections.Players = Backbone.Collection.extend({
 
       return model;
     }
+  },
+
+  parse: function (json) {
+    var playersCollection = this;
+
+    json.players.forEach(function (player) {
+      playersCollection.add(new FantasyFootball.Models.Player(player));
+    });
+    delete json.players;
+
+    this.currentTeam = new FantasyFootball.Models.Team(json.current_team);
+    delete json.current_team;
   }
 })

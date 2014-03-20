@@ -40,11 +40,14 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
     var addDrop = new FantasyFootball.Models.AddDrop({
       added_player_id: playerId,
       league_id: this.league.id
-    })
+    });
 
+    var modalView = new FantasyFootball.Views.TeamAddDropModal({
+      addedPlayerRow: $('<tr>').html($currentTarget.closest('tr').html()),
+      collection: this.collection.currentTeam.get('players')
+    });
 
-
-    $('#addDropModal .modal-body').html("<h3>Testing some things</h3><br>All of your players go here")
+    $('#addDropModal .modal-body').html(modalView.render().$el);
 
     // addDrop.save({
     //   success: function (resp) {
@@ -55,25 +58,30 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
   },
 
   dropPlayer: function (event) {
-    var $currentTarget = $(event.currentTarget)
-    this.droppedPlayerId = $currentTarget.data('id');
+    var $currentTarget = $(event.currentTarget);
+    var droppedPlayerId = $currentTarget.data('id');
+    var droppedPlayerName = $currentTarget.data('name');
 
     var $confirm = $('<button>').addClass('btn btn-danger pull-right drop-confirm')
-                                .attr('id', 'drop-' + this.droppedPlayerId)
-                                .attr('data-id', this.droppedPlayerId)
+                                .attr('id', 'drop-' + droppedPlayerId)
+                                .attr('data-id', droppedPlayerId)
                                 .text('Confirm');
-    var $cancel = $('<button>').addClass('btn btn-default').text('Cancel');
+    var $cancel = $('<button>').addClass('btn btn-default drop-cancel')
+                               .attr('data-id', droppedPlayerId)
+                               .text('Cancel');
     var $buttons = $('<div>').append($cancel).append($confirm);
     $currentTarget.popover({
       html: true,
-      title: "Are you sure you want to drop this player?",
+      title: "Are you sure you want to drop " + droppedPlayerName + "?",
       content: $buttons,
       trigger: 'manual'
     });
 
     $currentTarget.popover('toggle');
 
+    $('.drop-confirm').off();
     $('.drop-confirm').on('click', this.dropConfirm.bind(this));
+    $('.drop-cancel').on('click', this.dropCancel.bind(this));
   },
 
   dropConfirm: function (event) {
@@ -87,6 +95,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
       league_id: this.league.id
     })
 
+    debugger
     addDrop.save({}, {
       success: function (resp) {
         $('.drop-player').popover('hide')
@@ -98,12 +107,15 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
         $plusIcon = $('<span>').addClass('glyphicon glyphicon-plus-sign text-success');
         $addButton.html($plusIcon);
 
-        console.log($addButton)
-        console.log($dropButton)
         $addButton.insertBefore($dropButton)
         $dropButton.remove();
       }
     });
+  },
+
+  dropCancel: function (event) {
+    var popoverId = $(event.currentTarget).data('id')
+    $('#drop-' + popoverId).popover('hide')
   }
 });
 

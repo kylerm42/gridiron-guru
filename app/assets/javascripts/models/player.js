@@ -1,7 +1,7 @@
 FantasyFootball.Models.Player = Backbone.Model.extend({
   urlRoot: '/api/players',
 
-  get_name: function () {
+  fullName: function () {
     return this.get('first_name') + ' ' + this.get('last_name');
   },
 

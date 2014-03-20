@@ -1,10 +1,11 @@
 <td>
   <%= player.get('position') %>
 </td>
-<td>
+<td class='actions'>
   <% if (player.get('team').current_team) { %>
     <button class="drop-player btn btn-default btn-xs" id='drop-<%= player.id %>'
-            data-id='<%= player.id %>' data-container="body" data-placement="top">
+            data-id='<%= player.id %>' data-name='<%= player.fullName() %>'
+            data-container="body" data-placement="top">
       <span class='glyphicon glyphicon-minus-sign text-danger'></span>
     </button>
   <% } else if (player.get('team').id) { %>
@@ -23,7 +24,7 @@
   </button>
 </td>
 <td>
-  <%= player.get_name() %><br>
+  <%= player.fullName() %><br>
   <small class='smaller'><%= player.get('position') %> / <%= player.get('nfl_team') %></small>
 </td>
 <td>
