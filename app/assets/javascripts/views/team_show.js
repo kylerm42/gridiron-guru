@@ -1,14 +1,15 @@
 FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.collection, 'add', this.addPlayer);
-    this.listenTo(this.collection, 'sync', this.addPlayers);
+    this.listenTo(this.collection, 'add', this.addPlayerRow);
+    this.listenTo(this.collection, 'sync', this.addPlayerRows);
   },
 
   template: JST['teams/show'],
 
   events: {
-    "sort": "setPlaceholder"
+    "sort": "setPlaceholder",
+    "click .drop-player": "dropPlayer"
   },
 
   render: function () {
@@ -37,7 +38,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     return this
   },
 
-  addPlayer: function (player) {
+  addPlayerRow: function (player) {
     var playerRowView = new FantasyFootball.Views.PlayerRow({
       model: player,
       team: this.model
@@ -46,11 +47,48 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     playerRowView.render();
   },
 
-  addPlayers: function (players) {
+  addPlayerRows: function (players) {
     var view = this;
     players.forEach(function (player) {
       view.addPlayer(player);
     })
+  },
+
+  dropPlayer: function (event) {
+    this.droppedPlayerId = $(event.currentTarget).data('id');
+
+    var $confirm = $('<button>').addClass('btn btn-danger pull-right drop-confirm')
+                                .attr('id', 'drop-' + this.droppedPlayerId)
+                                .attr('data-id', this.droppedPlayerId)
+                                .text('Confirm');
+    var $cancel = $('<button>').addClass('btn btn-default').text('Cancel');
+    var $buttons = $('<div>').append($cancel).append($confirm);
+    $(event.currentTarget).popover({
+      html: true,
+      title: "Are you sure you want to drop this player?",
+      content: $buttons
+    });
+
+    $('.drop-confirm').on('click', this.dropConfirm.bind(this))
+  },
+
+  dropConfirm: function (event) {
+    console.log('confirming drop')
+    var $currentTarget = $(event.currentTarget);
+    $currentTarget.attr('disabled', 'disabled').text('Dropping...');
+    var playerId = $currentTarget.data('id');
+
+    var addDrop = new FantasyFootball.Models.AddDrop({
+      dropped_player_id: playerId,
+      team_id: this.model.id
+    })
+
+    addDrop.save({}, {
+      success: function (resp) {
+        $('.drop-player').popover('hide')
+        $('#player-' + playerId).remove();
+      }
+    });
   },
 
   setPlaceholder: function (event, ui) {
@@ -72,10 +110,8 @@ FantasyFootball.Views.PlayerRow = Backbone.View.extend({
       player: this.model,
       team: this.team
     });
-    console.log(this.team)
-    console.log(this.model)
 
-    this.$el.addClass('full-width').html(renderedContent);
+    this.$el.addClass('full-width').attr('id', 'player-' + this.model.id).html(renderedContent);
     return this;
   }
 })

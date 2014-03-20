@@ -25,6 +25,7 @@ class Api::TeamsController < ApplicationController
   end
 
   def show
+    @user = current_user
     render :show
   end
 
@@ -54,6 +55,6 @@ class Api::TeamsController < ApplicationController
     end
 
     def find_team
-      @team = Team.find(params[:id])
+      @team = Team.includes(:players, :owner).find(params[:id])
     end
 end

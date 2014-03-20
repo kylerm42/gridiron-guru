@@ -1,7 +1,7 @@
 class Api::AddDropsController < ApplicationController
   def create
-    @team = current_user.teams.find_by_league_id(params[:league_id])
-    @add_drop = AddDrop.new(team_id: @team.id)
+    @team = Team.find(params[:team_id])
+    @add_drop = AddDrop.new(team_id: params[:team_id])
 
     if params[:added_player_id]
       @add_drop.added_players.new(player_id: params[:added_player_id])
@@ -17,7 +17,7 @@ class Api::AddDropsController < ApplicationController
     else
       set_flash(:error, @add_drop.errors.full_messages)
       set_flash(:error, @team.errors.full_messages)
-      render json: @add_drop.errors.full_messages
+      render json: flash[:error]
     end
   end
 

@@ -1,5 +1,9 @@
 h1, h2, h3, h4, h5, h6, p, div {
-    font-family: 'Open Sans';
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.navbar-brand {
+  font-family: 'Orbitron', Helvetica, sans-serif;
 }
 
 @font-face {
@@ -8,3 +12,11 @@ h1, h2, h3, h4, h5, h6, p, div {
   font-weight: 400;
   src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
 }
+
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Orbitron-Light'), local('Orbitron-Regular'), url(http://themes.googleusercontent.com/static/fonts/orbitron/v4/94ug0rEgQO_WuI_xKJMFc3YhjbSpvc47ee6xR_80Hnw.woff) format('woff');
+}
+
