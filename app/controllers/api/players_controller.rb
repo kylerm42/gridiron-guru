@@ -15,7 +15,7 @@ class Api::PlayersController < ApplicationController
       ON p.id = j.player_id
     WHERE p.position IN (?)
     SQL
-
+    @current_team = current_user.teams.where(league_id: params[:league_id]).first
     @players = Player.find_by_sql([query, params[:league_id], ['QB']])
     render :index
   end

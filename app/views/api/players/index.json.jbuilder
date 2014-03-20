@@ -4,5 +4,6 @@ json.array!(@players) do |player|
     json.attrs player.attributes
     json.id player.attributes['team_id']
     json.name player.attributes['team_name']
+    json.current_team @current_team.id == player.attributes['team_id']
   end
 end
