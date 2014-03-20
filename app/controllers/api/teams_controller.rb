@@ -26,6 +26,7 @@ class Api::TeamsController < ApplicationController
 
   def show
     @user = current_user
+    @current_user_team = current_user.teams.where(league_id: params[:league_id])
     render :show
   end
 
@@ -55,6 +56,6 @@ class Api::TeamsController < ApplicationController
     end
 
     def find_team
-      @team = Team.includes(:players, :owner).find(params[:id])
+      @team = Team.includes(:players, :owner, league: :teams).find(params[:id])
     end
 end

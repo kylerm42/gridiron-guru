@@ -16,6 +16,6 @@ json.players @team.players do |player|
     json.attrs player.attributes
     json.id @team.id
     json.name @team.name
-    json.current_team true
+    json.current_team @team.owner.id == @user.id
   end
 end

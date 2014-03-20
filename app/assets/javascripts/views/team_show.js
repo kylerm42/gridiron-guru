@@ -66,8 +66,11 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     $(event.currentTarget).popover({
       html: true,
       title: "Are you sure you want to drop this player?",
-      content: $buttons
+      content: $buttons,
+      trigger: 'manual'
     });
+
+    $currentTarget.popover('toggle');
 
     $('.drop-confirm').on('click', this.dropConfirm.bind(this))
   },

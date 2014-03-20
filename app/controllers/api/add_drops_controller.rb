@@ -1,7 +1,12 @@
 class Api::AddDropsController < ApplicationController
   def create
-    @team = Team.find(params[:team_id])
-    @add_drop = AddDrop.new(team_id: params[:team_id])
+    if params[:team_id]
+      @team = Team.find(params[:team_id])
+    elsif params[:league_id]
+      @team = current_user.teams.find_by_league_id(params[:league_id])
+    end
+
+    @add_drop = AddDrop.new(team_id: @team.id)
 
     if params[:added_player_id]
       @add_drop.added_players.new(player_id: params[:added_player_id])
