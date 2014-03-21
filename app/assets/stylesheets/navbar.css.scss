@@ -1,10 +1,13 @@
-$bgDefault      : #12264D;
-$bgHighlight    : #D11D1D;
+$bgDefault      : #0F4461;
+$bgHighlight    : #D90E00;
 $colDefault     : #FFFFFF;
 $colHighlight   : #CED2DE;
 .navbar-default {
 	background-color: $bgDefault;
 	border-color: $bgHighlight;
+  -moz-box-shadow:    0px 0px 15px 0px #000000;
+  -webkit-box-shadow: 0px 0px 15px 0px #000000;
+  box-shadow:         0px 0px 15px 0px #000000;
 	.navbar-brand {
 		color: $colDefault;
 		&:hover, &:focus {

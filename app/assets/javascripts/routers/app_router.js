@@ -13,7 +13,10 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
   },
 
   homeShow: function () {
+    console.log('here')
+    var homeShowView = new FantasyFootball.Views.Home();
 
+    this._swapView(homeShowView)
   },
 
   leagueShow: function (id) {

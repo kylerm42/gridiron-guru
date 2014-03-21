@@ -62,7 +62,9 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
                                 .attr('id', 'drop-' + this.droppedPlayerId)
                                 .attr('data-id', this.droppedPlayerId)
                                 .text('Confirm');
-    var $cancel = $('<button>').addClass('btn btn-default').text('Cancel');
+    var $cancel = $('<button>').addClass('btn btn-default drop-cancel')
+                               .attr('data-id', this.droppedPlayerId)
+                               .text('Cancel');
     var $buttons = $('<div>').append($cancel).append($confirm);
     $(event.currentTarget).popover({
       html: true,
@@ -73,6 +75,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
 
     $currentTarget.popover('toggle');
 
+    $('.drop-cancel').on('click', this.dropCancel.bind(this));
     $('.drop-confirm').on('click', this.dropConfirm.bind(this))
   },
 
@@ -93,6 +96,11 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
         $('#player-' + playerId).remove();
       }
     });
+  },
+
+  dropCancel: function (event) {
+    var popoverId = $(event.currentTarget).data('id')
+    $('#drop-' + popoverId).popover('hide')
   },
 
   setPlaceholder: function (event, ui) {

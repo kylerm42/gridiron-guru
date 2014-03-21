@@ -3,20 +3,20 @@
 </td>
 <td class='actions'>
   <% if (player.get('team').current_team) { %>
-    <button class="drop-player btn btn-default btn-xs" id='drop-<%= player.id %>'
+    <button class="drop-player btn btn-danger btn-xs" id='drop-<%= player.id %>'
             data-id='<%= player.id %>' data-name='<%= player.fullName() %>'
             data-container="body" data-placement="top">
-      <span class='glyphicon glyphicon-minus-sign text-danger'></span>
+      <span class='glyphicon glyphicon-minus-sign'></span>
     </button>
   <% } else if (player.get('team').id) { %>
-    <button class="trade-player btn btn-default btn-xs" data-id='<%= player.id %>'
+    <button class="trade-player btn btn-primary btn-xs" data-id='<%= player.id %>'
             data-toggle="modal" data-target="#tradeModal">
-      <span class='glyphicon glyphicon-transfer text-info'></span>
+      <span class='glyphicon glyphicon-transfer'></span>
     </button>
   <% } else { %>
-    <button class="add-player btn btn-default btn-xs" data-id='<%= player.id %>'
+    <button class="add-player btn btn-success btn-xs" data-id='<%= player.id %>'
             data-toggle="modal" data-target="#addDropModal">
-      <span class='glyphicon glyphicon-plus-sign text-success'></span>
+      <span class='glyphicon glyphicon-plus-sign'></span>
     </button>
   <% } %>
   <button class='watch-player btn btn-default btn-xs' data-id='<%= player.id %>'>
@@ -25,7 +25,12 @@
 </td>
 <td>
   <%= player.fullName() %><br>
-  <small class='smaller'><%= player.get('position') %> / <%= player.get('nfl_team') %></small>
+  <small class='smaller'>
+    <%= player.get('position') %> / <%= player.get('nfl_team') %>
+    <% if (player.get('team').name) { %>
+      / <%= player.get('team').name %>
+    <% } %>
+  </small>
 </td>
 <td>
   <%= player.get('pass_yards') %>

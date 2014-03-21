@@ -17,7 +17,8 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
   events: _.extend({
     "click .add-player": 'addPlayer',
     "click #add-confirm": 'addConfirm',
-    "click .drop-player": 'dropPlayer'
+    "click .drop-player": 'dropPlayer',
+    "click .trade-player": 'tradePlayer'
   }, Backbone.TableView.prototype.events),
 
   render: function () {
@@ -141,8 +142,9 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
   dropCancel: function (event) {
     var popoverId = $(event.currentTarget).data('id')
     $('#drop-' + popoverId).popover('hide')
+  },
+
+  tradePlayer: function (event) {
+
   }
 });
-
-
-

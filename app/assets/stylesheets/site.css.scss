@@ -19,45 +19,85 @@
   padding: 0px;
 }
 
+.shadow {
+  -moz-box-shadow:    0px 0px 15px 0px #000000;
+  -webkit-box-shadow: 0px 0px 15px 0px #000000;
+  box-shadow:         0px 0px 15px 0px #000000;
+}
+
 // general styles
 body {
   color: white;
-  background-color: #E8E8E8;
+  background-color: #C8CBCF;
 }
 
-a {
-  color: #79B7ED;
+a, a:focus {
+  color: #51C9FF;
+}
+
+a:hover {
+  color: #43AEDE;
 }
 
 .container {
-  background-color: #1C1C1C;
-  border-radius: 3px;
+  background-color: #145D85;
+  border-radius: 0px;
   padding-left: 30px;
   padding-right: 30px;
+  padding-bottom: 30px;
+}
+
+.dropdown-menu, .popover {
+  border-radius: 0px;
 }
 
 // form styles
 .form-control {
-  border-radius: 2px;
+  border-radius: 0px;
 }
 
 .btn {
-  border-radius: 2px;
+  border-radius: 0px;
+  border-width: 2px;
 }
 
 .btn-primary {
-  background-color: #002061;
-  border-color: #0052fb;
+  background-color: #0B344A;
+  border-color: #0D3F59;
 }
 
 .btn-primary:hover {
-  background-color: #002A7E;
-  border-color: #002061;
+  background-color: #0B344A;
+  border-color: #145D85;
+}
+
+.btn-success {
+  background-color: #1BA81B;
+  border-color: #1FC21F;
+}
+
+.btn-success:hover {
+  background-color: #1BA81B;
+  border-color: #179117;
+}
+
+.btn-danger {
+  background-color: #D90E00;
+  border-color: #FF1000;
+}
+
+.btn-danger:hover {
+  background-color: #D90E00;
+  border-color: #BD0C00;
 }
 
 // table styles
+.table {
+  margin-bottom: 0px;
+}
+
 .table-striped > tbody > tr:nth-child(odd) > td {
-  background-color: #262626;
+  background-color: #124D6E;
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
@@ -65,7 +105,7 @@ a {
 }
 
 .table > thead > tr.info > th {
-  background-color: #36435C;
+  background-color: #0B344A;
 }
 
 .table > thead > tr.info > td {
@@ -81,29 +121,34 @@ a {
   border-top: 0px;
 }
 
-// modal styles
-.modal-dialog, .popover {
-  color: #1C1C1C;
+// modal/popover styles
+.modal-content, .popover, .popover-title {
+  color: #FFFFFF;
+  background-color: #505759;
+}
+
+.popover {
+  max-width: 400px;
+}
+
+.popover-title {
+  border-bottom-color: #5C6466;
+}
+
+.popover.top > .arrow:after {
+  border-top-color: #505759;
 }
 
 .modal-content {
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .modal .table-striped > tbody > tr:nth-child(odd) > td {
-  background-color: #FAFAFA;
-}
-
-.modal .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: #F2F2F2;
-}
-
-.modal .table > thead > tr.info > th {
-  background-color: #d9edf7;
+  background-color: #43484A;
 }
 
 .modal .table > tbody > tr.success > td {
-  background-color: #dff0d8;
+  background-color: #4cae4c;
 }
 
 .table > tbody > tr.danger > td {
@@ -115,7 +160,7 @@ a {
 }
 
 .modal .table-striped > tbody > tr:nth-child(odd).danger > td {
-  background-color: #f2dede;
+  background-color: #D90E00;
 }
 
 .modal .table {
