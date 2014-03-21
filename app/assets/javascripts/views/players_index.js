@@ -16,6 +16,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
 
   events: _.extend({
     "click .add-player": 'addPlayer',
+    "click #add-confirm": 'addConfirm',
     "click .drop-player": 'dropPlayer'
   }, Backbone.TableView.prototype.events),
 
@@ -34,12 +35,12 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
 
   addPlayer: function (event) {
     var $currentTarget = $(event.currentTarget);
-    var playerId = $currentTarget.data('id');
+    var addedPlayerId = $currentTarget.data('id');
     var that = this;
 
-    var addDrop = new FantasyFootball.Models.AddDrop({
-      added_player_id: playerId,
-      league_id: this.league.id
+    this.addDrop = new FantasyFootball.Models.AddDrop({
+      added_player_id: addedPlayerId,
+      team_id: this.collection.currentTeam.id
     });
 
     var modalView = new FantasyFootball.Views.TeamAddDropModal({
@@ -55,6 +56,25 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
     //     window.location('/#/leagues/' + that.league.id + '/teams/' + resp.team_id);
     //   }
     // });
+  },
+
+  addConfirm: function (event) {
+    var view = this;
+    var droppedPlayerId = $('input:checked').val();
+
+    if (droppedPlayerId) {
+      $('#add-confirm').attr('disabled', 'disabled').text('Adding player...');
+      this.addDrop.set('dropped_player_id', droppedPlayerId);
+      this.addDrop.save({}, {
+        success: function () {
+          $('#addDropModal').modal('hide');
+          $('.modal-backdrop').remove();
+          Backbone.history.navigate('#/leagues/' + view.league.id + '/teams/' + view.collection.currentTeam.id)
+        }
+      });
+    } else {
+      // show some error
+    }
   },
 
   dropPlayer: function (event) {
@@ -86,18 +106,23 @@ FantasyFootball.Views.PlayersIndex = Backbone.TableView.extend({
 
   dropConfirm: function (event) {
     console.log('confirming drop')
+    var view = this;
+    var currentTeam = this.collection.currentTeam;
     var $currentTarget = $(event.currentTarget);
+
     $currentTarget.attr('disabled', 'disabled').text('Dropping...');
     var playerId = $currentTarget.data('id');
-
     var addDrop = new FantasyFootball.Models.AddDrop({
       dropped_player_id: playerId,
-      league_id: this.league.id
+      team_id: currentTeam.id
     })
 
     debugger
     addDrop.save({}, {
       success: function (resp) {
+        var droppedPlayer = currentTeam.get('players').get(playerId);
+        view.collection.remove(droppedPlayer);
+
         $('.drop-player').popover('hide')
         $dropButton = $('#drop-' + playerId);
         $addButton = $('<button>').addClass('add-player btn btn-default btn-xs')

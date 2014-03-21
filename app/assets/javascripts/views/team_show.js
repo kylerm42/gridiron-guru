@@ -55,6 +55,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   },
 
   dropPlayer: function (event) {
+    var $currentTarget = $(event.currentTarget);
     this.droppedPlayerId = $(event.currentTarget).data('id');
 
     var $confirm = $('<button>').addClass('btn btn-danger pull-right drop-confirm')

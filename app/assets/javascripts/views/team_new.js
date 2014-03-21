@@ -23,11 +23,11 @@ FantasyFootball.Views.TeamNew = Backbone.View.extend({
     event.preventDefault();
     this.model.set('name', $('form#new-team input#team-name').val());
     this.model.set('league_id', this.league.id);
-    var that = this;
+    var view = this;
 
     this.model.save({}, {
       success: function () {
-        Backbone.history.navigate('#/leagues/' + that.league.id + '/teams/' + that.model.id)
+        Backbone.history.navigate('#/leagues/' + view.league.id + '/teams/' + that.model.id)
       }
     });
   }
