@@ -2,11 +2,12 @@
 #
 # Table name: trade_players
 #
-#  id         :integer          not null, primary key
-#  trade_id   :integer          not null
-#  player_id  :integer          not null
-#  created_at :datetime
-#  updated_at :datetime
+#  id            :integer          not null, primary key
+#  trade_id      :integer          not null
+#  player_id     :integer          not null
+#  trade_team_id :integer          not null
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

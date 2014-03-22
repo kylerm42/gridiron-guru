@@ -16,12 +16,13 @@ class Trade < ActiveRecord::Base
 
   belongs_to :sender,
              foreign_key: :sender_id,
-             class_name: "User"
+             class_name: "Team"
   belongs_to :receiver,
             foreign_key: :receiver_id,
-            class_name: "User"
+            class_name: "Team"
   has_many :trade_players,
-           dependent: :destroy
+           dependent: :destroy,
+           inverse_of: :trade
   has_many :players,
            through: :trade_players,
            source: :player

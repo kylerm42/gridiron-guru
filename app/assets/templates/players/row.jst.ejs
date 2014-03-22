@@ -10,12 +10,12 @@
     </button>
   <% } else if (player.get('team').id) { %>
     <button class="trade-player btn btn-primary btn-xs" data-id='<%= player.id %>'
-            data-toggle="modal" data-target="#tradeModal">
+            data-toggle="modal" data-target="#player-action-modal">
       <span class='glyphicon glyphicon-transfer'></span>
     </button>
   <% } else { %>
     <button class="add-player btn btn-success btn-xs" data-id='<%= player.id %>'
-            data-toggle="modal" data-target="#addDropModal">
+            data-toggle="modal" data-target="#player-action-modal">
       <span class='glyphicon glyphicon-plus-sign'></span>
     </button>
   <% } %>

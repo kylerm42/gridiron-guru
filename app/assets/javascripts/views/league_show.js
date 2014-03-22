@@ -1,7 +1,6 @@
 FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
-    // this.listenTo(this.collection, 'add', this.addTeam);
     this.listenTo(this.collection, 'sync', this.addTeams);
   },
 
@@ -10,7 +9,6 @@ FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
   render: function () {
     console.log('rendering league show')
     var renderedContent = this.template({ league: this.model });
-    console.log(renderedContent)
     this.$el.html(renderedContent);
 
     if (!this.collection.findWhere({ user_id: FantasyFootball.currentUser.id })) {

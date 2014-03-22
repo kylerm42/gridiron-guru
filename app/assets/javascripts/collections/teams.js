@@ -1,5 +1,5 @@
 FantasyFootball.Collections.Teams = Backbone.Collection.extend({
-  initialize: function (models, options) {
+  initialize: function (options) {
     this.leagueId = options.leagueId;
   },
 

@@ -26,7 +26,7 @@ class Api::TeamsController < ApplicationController
 
   def show
     @user = current_user
-    @current_user_team = current_user.teams.where(league_id: params[:league_id])
+    @current_user_team = current_user.teams.where(league_id: params[:league_id]).first
     render :show
   end
 

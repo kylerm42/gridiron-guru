@@ -144,13 +144,15 @@ ActiveRecord::Schema.define(version: 20140302073308) do
   add_index "teams", ["user_id", "league_id"], name: "index_teams_on_user_id_and_league_id", unique: true, using: :btree
 
   create_table "trade_players", force: true do |t|
-    t.integer  "trade_id",   null: false
-    t.integer  "player_id",  null: false
+    t.integer  "trade_id",      null: false
+    t.integer  "player_id",     null: false
+    t.integer  "trade_team_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "trade_players", ["trade_id", "player_id"], name: "index_trade_players_on_trade_id_and_player_id", unique: true, using: :btree
+  add_index "trade_players", ["trade_team_id"], name: "index_trade_players_on_trade_team_id", using: :btree
 
   create_table "trades", force: true do |t|
     t.integer  "sender_id",               null: false

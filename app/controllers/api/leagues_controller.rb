@@ -42,6 +42,7 @@ class Api::LeaguesController < ApplicationController
   end
 
   def show
+    @current_user = current_user
     @league = League.includes(teams: :owner).find(params[:id])
   end
 

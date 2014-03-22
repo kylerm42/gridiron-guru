@@ -3,7 +3,7 @@ FantasyFootball.Models.League = Backbone.Model.extend({
 
   teams: function () {
     if (!this._teams) {
-      this._teams = new FantasyFootball.Collections.Teams([], {
+      this._teams = new FantasyFootball.Collections.Teams({
         leagueId: this.id
       });
     }

@@ -1,4 +1,4 @@
-json.(@team, :id, :name, :wins, :losses, :ties, :waiver)
+json.(@team, :id, :name, :wins, :losses, :ties, :waiver, :league_id)
 
 json.owner do
   json.(@team.owner, :id, :username, :first_name, :last_name)

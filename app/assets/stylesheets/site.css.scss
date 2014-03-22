@@ -25,6 +25,10 @@
   box-shadow:         0px 0px 15px 0px #000000;
 }
 
+.no-margin-top {
+  margin-top: 0px;
+}
+
 // general styles
 body {
   color: white;
@@ -152,7 +156,11 @@ a:hover {
 }
 
 .table > tbody > tr.danger > td {
-  background-color: #f2dede;
+  background-color: #D90E00;
+}
+
+.modal .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #303030;
 }
 
 .table > tbody > tr > td.no-padding {
