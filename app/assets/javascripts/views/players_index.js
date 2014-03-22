@@ -27,7 +27,6 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
   events: {
     "click .add-player": 'addPlayer',
-    "click #add-confirm": 'addConfirm',
     "click .drop-player": 'dropPlayer',
     "click .trade-player": 'tradePlayer'
   },
@@ -65,6 +64,9 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     var $currentTarget = $(event.currentTarget);
     var addedPlayerId = $currentTarget.data('id');
     $('#player-action-modal #modal-title').text("Choose player to drop:")
+    $('.confirm-btn').off();
+    $('.confirm-btn').attr('id', 'add-confirm').text("Add Player")
+
 
     this.addDrop = new FantasyFootball.Models.AddDrop({
       added_player_id: addedPlayerId,
@@ -76,6 +78,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       collection: this.currentTeam.get('players')
     });
 
+    $('#add-confirm').on('click', this.addConfirm.bind(this));
     $('#player-action-modal .modal-body').html(modalView.render().$el);
   },
 
@@ -173,7 +176,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     })
 
     $('#player-action-modal #modal-title').text("Choose players to trade for:")
-    $('#add-confirm').attr('id', 'trade-continue').text("Continue")
+    $('.confirm-btn').attr('id', 'trade-continue').text("Continue")
 
     var tradeGetModalView = new FantasyFootball.Views.TeamTradeGetModal({
       model: this.tradeTeam,
@@ -204,8 +207,8 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       this.trade.set('trade_get_player_ids', tradeForIds);
 
       $('#player-action-modal #modal-title').text("Choose players to trade away:");
-      $('#trade-continue').off();
-      $('#trade-continue').attr('id', 'trade-complete');
+      $('.confirm-btn').off();
+      $('.confirm-btn').attr('id', 'trade-complete');
 
       var tradeSendModalView = new FantasyFootball.Views.TeamTradeSendModal({
         model: this.currentTeam,
@@ -238,8 +241,8 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       this.trade.set('trade_send_player_ids', tradeAwayIds);
 
       $('#player-action-modal #modal-title').text("Review your trade:");
-      $('#trade-complete').off();
-      $('#trade-complete').attr('id', 'trade-confirm').text("Submit trade");
+      $('.confirm-btn').off();
+      $('.confirm-btn').attr('id', 'trade-confirm').text("Submit trade");
 
       var tradeConfirmModalView = new FantasyFootball.Views.TeamTradeConfirmModal({
         tradeForRows: this.tradeForRows,
@@ -261,6 +264,8 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     this.trade.save({}, {
       success: function () {
         console.log('trade sent!');
+        $('#player-action-modal').modal('hide');
+        $('.confirm-btn').removeAttr('disabled');
       }
     });
   }
