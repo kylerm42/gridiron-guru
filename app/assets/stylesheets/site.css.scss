@@ -20,9 +20,9 @@
 }
 
 .shadow {
-  -moz-box-shadow:    0px 0px 15px 0px #000000;
-  -webkit-box-shadow: 0px 0px 15px 0px #000000;
-  box-shadow:         0px 0px 15px 0px #000000;
+  -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
 }
 
 .no-margin-top {
@@ -43,12 +43,10 @@ a:hover {
   color: #43AEDE;
 }
 
-.container {
+.content {
   background-color: #145D85;
   border-radius: 0px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 30px;
+  padding: 10px 30px 30px 30px;
 }
 
 .dropdown-menu, .popover {
@@ -68,31 +66,28 @@ a:hover {
 .btn-primary {
   background-color: #0B344A;
   border-color: #0D3F59;
-}
-
-.btn-primary:hover {
-  background-color: #0B344A;
-  border-color: #145D85;
+  &:hover {
+    background-color: #0B344A;
+    border-color: #145D85;
+  }
 }
 
 .btn-success {
   background-color: #1BA81B;
   border-color: #1FC21F;
-}
-
-.btn-success:hover {
-  background-color: #1BA81B;
-  border-color: #179117;
+  &:hover {
+    background-color: #1BA81B;
+    border-color: #179117;
+  }
 }
 
 .btn-danger {
   background-color: #D90E00;
   border-color: #FF1000;
-}
-
-.btn-danger:hover {
-  background-color: #D90E00;
-  border-color: #BD0C00;
+  &:hover {
+    background-color: #D90E00;
+    border-color: #BD0C00;
+  }
 }
 
 // table styles
@@ -132,7 +127,7 @@ a:hover {
 }
 
 .popover {
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .popover-title {
@@ -159,7 +154,7 @@ a:hover {
   background-color: #D90E00;
 }
 
-.modal .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+.modal .table-hover tbody tr:not(.success, .danger):hover td {
   background-color: #303030;
 }
 

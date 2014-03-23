@@ -1,6 +1,15 @@
 <form action="<%= session_url %>" method="POST" accept-charset="utf-8" class='navbar-form navbar-right' role='form'>
   <%= render 'layouts/authenticity_token' %>
 
+  <input type="hidden" name="user[username]" value="test">
+  <input type="hidden" name="user[password]" value="123456">
+
+  <button class='btn btn-success btn-sm'>Demo User</button>
+</form>
+
+<form action="<%= session_url %>" method="POST" accept-charset="utf-8" class='navbar-form navbar-right' role='form'>
+  <%= render 'layouts/authenticity_token' %>
+
   <div class='form-group'>
     <label class='sr-only' for='username'>Username</label>
       <input type="text" name="user[username]" id='username' placeholder="Enter username" class='form-control input-sm'>
