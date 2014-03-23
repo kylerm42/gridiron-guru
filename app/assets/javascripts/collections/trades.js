@@ -6,7 +6,7 @@ FantasyFootball.Collections.Trades = Backbone.Collection.extend({
   url: function () {
     return 'api/leagues/' + this.leagueId + '/teams';
   },
-  model: FantasyFootball.Models.Team,
+  model: FantasyFootball.Models.Trade,
 
   getOrFetch: function (id, leagueId) {
     var model;

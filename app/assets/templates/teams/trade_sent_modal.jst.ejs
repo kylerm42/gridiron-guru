@@ -1,0 +1,130 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" id="modal-title">
+    <%= trade.get('sender').name %>
+    <small><span class='glyphicon glyphicon-chevron-right'></span></small>
+    <%= trade.get('receiver').name %>
+  </h4>
+</div>
+<div class="modal-body">
+  <table class='table table-hover table-striped'>
+    <thead>
+      <tr class='info'>
+        <th rowspan='2' class='no-border-top'></th>
+        <th rowspan='2' class='no-border-top'>Player</th>
+        <th colspan='3' class='centered helper'>
+          <small>Passing</small>
+        </th>
+        <th colspan='2' class='centered helper'>
+          <small>Rushing</small>
+        </th>
+        <th colspan='2' class='centered helper'>
+          <small>Receiving</small>
+        </th>
+        <th rowspan='2' class='no-border-top'>2 Pt</th>
+        <th rowspan='2' class='no-border-top'>Fum<br>Lost</th>
+        <th rowspan='2' class='no-border-top'>Points</th>
+      </tr>
+      <tr class='info'>
+        <th>Yds</th>
+        <th>TD</th>
+        <th>Int</th>
+        <th>Yds</th>
+        <th>TD</th>
+        <th>Yds</th>
+        <th>TD</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr class='success centered'><td colspan='12' class='no-padding'>
+        <small>Receiving players</small>
+      </td></tr>
+      <% trade.receivePlayers().forEach(function(player) { %>
+        <tr>
+          <td></td>
+          <td>
+            <%= player.fullName() %><br>
+            <small class='smaller'><%= player.get('position') %> / <%= player.get('nfl_team') %></small>
+          </td>
+          <td>
+            <%= player.get('pass_yards') %>
+          </td>
+          <td>
+            <%= player.get('pass_tds') %>
+          </td>
+          <td>
+            <%= player.get('pass_ints') %>
+          </td>
+          <td>
+            <%= player.get('rush_yards') %>
+          </td>
+          <td>
+            <%= player.get('rush_tds') %>
+          </td>
+          <td>
+            <%= player.get('rec_yards') %>
+          </td>
+          <td>
+            <%= player.get('rec_tds') %>
+          </td>
+          <td>
+            <%= player.get('two_pt_conv') %>
+          </td>
+          <td>
+            <%= player.get('fumbles') %>
+          </td>
+          <td>
+            <%= parseFloat(Math.round(player.points() * 100) / 100).toFixed(2) %>
+          </td>
+        </tr>
+      <% }) %>
+      <tr class='danger centered'><td colspan='12' class='no-padding'>
+        <small>Sending players</small>
+      </td></tr>
+      <% trade.sendPlayers().forEach(function(player) { %>
+        <tr>
+          <td></td>
+          <td>
+            <%= player.fullName() %><br>
+            <small class='smaller'><%= player.get('position') %> / <%= player.get('nfl_team') %></small>
+          </td>
+          <td>
+            <%= player.get('pass_yards') %>
+          </td>
+          <td>
+            <%= player.get('pass_tds') %>
+          </td>
+          <td>
+            <%= player.get('pass_ints') %>
+          </td>
+          <td>
+            <%= player.get('rush_yards') %>
+          </td>
+          <td>
+            <%= player.get('rush_tds') %>
+          </td>
+          <td>
+            <%= player.get('rec_yards') %>
+          </td>
+          <td>
+            <%= player.get('rec_tds') %>
+          </td>
+          <td>
+            <%= player.get('two_pt_conv') %>
+          </td>
+          <td>
+            <%= player.get('fumbles') %>
+          </td>
+          <td>
+            <%= parseFloat(Math.round(player.points() * 100) / 100).toFixed(2) %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <button type="button" class="btn btn-danger confirm-btn">Cancel trade</button>
+</div>

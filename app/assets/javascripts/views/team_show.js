@@ -11,7 +11,8 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
 
   events: {
     "sort": "setPlaceholder",
-    "click .drop-player": "dropPlayer"
+    "click .drop-player": "dropPlayer",
+    'click .trade-sent-btn': 'sentTradeOpen'
   },
 
   render: function () {
@@ -20,6 +21,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     this.$el.html(renderedContent);
     this.renderSubviews();
 
+    // for keeping row width when dragging
     var fixHelper = function(e, ui) {
     	ui.children().each(function() {
     		$(this).width($(this).width());
@@ -38,7 +40,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
       tolerance: 'pointer'
     });
 
-    return this
+    return this;
   },
 
   addPlayerRow: function (player) {
@@ -112,6 +114,33 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   dropCancel: function (event) {
     var popoverId = $(event.currentTarget).data('id')
     $('#drop-' + popoverId).popover('hide')
+  },
+
+  sentTradeOpen: function (event) {
+    var $currentTarget = $(event.currentTarget);
+    this.openTrade = this.model.sentTrades().get($currentTarget.data('id'));
+
+    var tradeSentModalView = new FantasyFootball.Views.TeamTradeSentModal({
+      model: this.openTrade
+    });
+
+    $('#trade-modal .modal-content').html(tradeSentModalView.render().$el);
+
+    $('.confirm-btn').off();
+    $('.confirm-btn').on('click', this.sentTradeCancel.bind(this));
+  },
+
+  sentTradeCancel: function (event) {
+    var view = this;
+    $('.confirm-btn').attr('disabled', 'disabled').text("Cancelling...");
+
+    this.openTrade.destroy({
+      success: function () {
+        $('#trade-modal').modal('hide');
+        view.model.sentTrades().remove(view.openTrade);
+        $('.trade-sent-btn[data-id="' + view.openTrade.id + '"').parent().remove()
+      }
+    });
   },
 
   setPlaceholder: function (event, ui) {

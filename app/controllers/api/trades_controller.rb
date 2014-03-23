@@ -15,6 +15,12 @@ class Api::TradesController < ApplicationController
     end
   end
 
+  def destroy
+    @trade = Trade.find(params[:id])
+    @trade.destroy
+    render json: @trade
+  end
+
   private
 
     def trade_params

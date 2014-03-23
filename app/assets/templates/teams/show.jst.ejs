@@ -1,14 +1,35 @@
-<div class='dark inset-shadow clearfix padded margin-md'>
-  <h1 class='pull-left no-margin'>
-    <%= team.escape('name') %>
-    <a href="#/leagues/<%= team.league() ? team.league().id : 0 %>">
-      <small><%= team.league() ? team.league().get('name') : null %></small>
-    </a>
-  </h1>
-  <h4 class='pull-right no-margin'>
-    <%= team.get('wins') %>-<%= team.get('losses') %>-<%= team.get('ties') %> /
-    1st place
-  </h4>
+<div class='dark shadow-sm clearfix padded margin-md relative'>
+  <div class='relative clearfix'>
+    <h1 class='pull-left no-margin'>
+      <%= team.escape('name') %>
+      <a href="#/leagues/<%= team.league() ? team.league().id : 0 %>">
+        <small><%= team.league() ? team.league().get('name') : null %></small>
+      </a>
+    </h1>
+    <h4 class='no-margin absolute-bottom-right'>
+      <%= team.get('wins') %>-<%= team.get('losses') %>-<%= team.get('ties') %> /
+      1st place
+    </h4>
+  </div>
+  <% if (team.sentTrades().length > 0) { %>
+    <% team.sentTrades().forEach(function(trade) { %>
+      <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix'>
+        <div class='margin-top-xs pull-left'>
+          <small><span class='glyphicon glyphicon-transfer'></span></small>
+            <%= trade.get('sender').name %>
+          </span>
+          <small><span class='glyphicon glyphicon-chevron-right'></span></small>
+          <%= trade.get('receiver').name %>
+        </div>
+        <button class='btn btn-xs btn-primary pull-right trade-sent-btn'
+                data-id='<%= trade.id %>'
+                data-toggle="modal"
+                data-target="#trade-modal">
+          View trade
+        </button>
+      </div>
+    <% }) %>
+  <% } %>
 </div>
 
 <div class='col-sm-12'>
@@ -25,7 +46,8 @@
         </a>
       </li>
       <% if (team.league().get('teams')) { %>/
-      <li class="dropdown" id="accountmenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Teams<b class="caret"></b></a>
+      <li class="dropdown" id="accountmenu">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Teams<b class="caret"></b></a>
 
           <ul class="dropdown-menu">
             <% team.league().get('teams').forEach(function(otherTeam) { %>
@@ -72,3 +94,11 @@
 
   <tbody></tbody>
 </table>
+
+<div class="modal fade" id="trade-modal" tabindex="-1" role="dialog" aria-labelledby="addDropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>

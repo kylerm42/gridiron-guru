@@ -48,7 +48,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
   addPlayerRow: function (player) {
     var playerRowView = new FantasyFootball.Views.PlayerRow({
       model: player,
-      team: this.model
+      team: this.modaldel
     });
     this.addSubview('tbody', playerRowView);
     playerRowView.render();
@@ -215,7 +215,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
         $($(row).children('td')[0]).empty();
       });
 
-      this.trade.set('trade_get_player_ids', tradeForIds);
+      this.trade.set('trade_receive_player_ids', tradeForIds);
 
       $('#player-action-modal #modal-title').text("Choose players to trade away:");
       $('.confirm-btn').off();

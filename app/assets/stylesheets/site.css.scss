@@ -1,3 +1,12 @@
+// color definitions
+$darkBlue: #145D85;
+$lightBlue: #00A6F2;
+$darkGrey: #505759;
+$lightGrey: #C8CBCF;
+$bigRed: #D90E00;
+$brightGreen: #1BA81B;
+$darkerBlue: #0B344A;
+
 // helper styles
 .inline {
   display: inline;
@@ -21,6 +30,12 @@
   box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
 }
 
+.shadow-sm {
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.60);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.60);
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.60);
+}
+
 .inset-shadow {
   -webkit-box-shadow: inset 0px 0px 15px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: inset 0px 0px 15px 0px rgba(0,0,0,0.75);
@@ -28,25 +43,57 @@
 }
 
 .dark {
-  background-color: #505759;
+  background-color: $darkGrey;
+  border: 1px solid $lightBlue;
 }
 
 .padded {
   padding: 15px;
 }
 
+.padded-sm {
+  padding: 7px;
+}
+
 .margin-md {
   margin: 30px;
+}
+.margin-top-sm {
+  margin-top: 7px;
+}
+
+.margin-top-xs {
+  margin-top: 2px;
 }
 
 .no-margin {
   margin: 0px;
 }
 
+.no-margin-bottom {
+  margin-bottom: 0px;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute-bottom-right {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.alert-info {
+  background-color: $lightBlue;
+  border-color: $darkBlue;
+  color: white;
+}
+
 // general styles
 body {
   color: white;
-  background-color: #C8CBCF;
+  background-color: $lightGrey;
 }
 
 a, a:focus {
@@ -58,12 +105,12 @@ a:hover {
 }
 
 .content {
-  background-color: #145D85;
+  background-color: $darkBlue;
   border-radius: 0px;
   padding: 10px 30px 30px 30px;
 }
 
-.dropdown-menu, .popover {
+.dropdown-menu, .popover, .alert {
   border-radius: 0px;
 }
 
@@ -82,24 +129,24 @@ a:hover {
   border-color: #0D3F59;
   &:hover {
     background-color: #0B344A;
-    border-color: #145D85;
+    border-color: $darkBlue;
   }
 }
 
 .btn-success {
-  background-color: #1BA81B;
+  background-color: $brightGreen;
   border-color: #1FC21F;
   &:hover {
-    background-color: #1BA81B;
+    background-color: $brightGreen;
     border-color: #179117;
   }
 }
 
 .btn-danger {
-  background-color: #D90E00;
+  background-color: $bigRed;
   border-color: #FF1000;
   &:hover {
-    background-color: #D90E00;
+    background-color: $bigRed;
     border-color: #BD0C00;
   }
 }
@@ -118,7 +165,7 @@ a:hover {
 }
 
 .table > thead > tr.info > th {
-  background-color: #0B344A;
+  background-color: $darkerBlue;
 }
 
 .table > thead > tr.info > td {
@@ -164,12 +211,16 @@ a:hover {
   background-color: #43484A;
 }
 
+.modal .table-hover tbody tr:hover td {
+  background-color: #303030;
+}
+
 .modal .table > tbody > tr.success > td {
-  background-color: #4cae4c;
+  background-color: $brightGreen;
 }
 
 .table > tbody > tr.danger > td {
-  background-color: #D90E00;
+  background-color: $bigRed;
 }
 
 .table > tbody > tr > td.no-padding {
@@ -177,7 +228,7 @@ a:hover {
 }
 
 .modal .table-striped > tbody > tr:nth-child(odd).danger > td {
-  background-color: #D90E00;
+  background-color: $bigRed;
 }
 
 .modal .table {
