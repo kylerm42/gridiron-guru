@@ -35,6 +35,16 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
     return this._sentTrades;
   },
 
+  receivedTrades: function () {
+    if (!this._receivedTrades) {
+      this._receivedTrades = new FantasyFootball.Collections.Trades([], {
+        team: this
+      });
+    }
+
+    return this._receivedTrades;
+  },
+
   league: function () {
     if (!this._league) {
       this._league = new FantasyFootball.Models.League();
@@ -49,6 +59,9 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
 
     this.sentTrades().set(json.sent_trades);
     delete json.sent_trades;
+
+    this.receivedTrades().set(json.received_trades);
+    delete json.received_trades;
 
     this.league().set(json.league);
     delete json.league;

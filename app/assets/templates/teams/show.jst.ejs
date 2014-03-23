@@ -11,25 +11,39 @@
       1st place
     </h4>
   </div>
-  <% if (team.sentTrades().length > 0) { %>
-    <% team.sentTrades().forEach(function(trade) { %>
-      <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix'>
-        <div class='margin-top-xs pull-left'>
-          <small><span class='glyphicon glyphicon-transfer'></span></small>
-            <%= trade.get('sender').name %>
-          </span>
-          <small><span class='glyphicon glyphicon-chevron-right'></span></small>
-          <%= trade.get('receiver').name %>
-        </div>
-        <button class='btn btn-xs btn-primary pull-right trade-sent-btn'
-                data-id='<%= trade.id %>'
-                data-toggle="modal"
-                data-target="#trade-modal">
-          View trade
-        </button>
+  <% team.sentTrades().forEach(function(trade) { %>
+    <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix fade in'>
+      <div class='margin-top-xs pull-left'>
+        <small><span class='glyphicon glyphicon-transfer'></span></small>
+        <%= trade.get('sender').name %>
+        <small><span class='glyphicon glyphicon-chevron-right'></span></small>
+        <%= trade.get('receiver').name %>
       </div>
-    <% }) %>
-  <% } %>
+      <button class='btn btn-xs btn-primary pull-right trade-sent-btn'
+              data-id='<%= trade.id %>'
+              data-toggle="modal"
+              data-target="#trade-modal">
+        View trade
+      </button>
+    </div>
+  <% }) %>
+  <% team.receivedTrades().forEach(function(trade) { %>
+    <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix'>
+      <div class='margin-top-xs pull-left'>
+        <small><span class='glyphicon glyphicon-transfer'></span></small>
+          <%= trade.get('sender').name %>
+        </span>
+        <small><span class='glyphicon glyphicon-chevron-right'></span></small>
+        <%= trade.get('receiver').name %>
+      </div>
+      <button class='btn btn-xs btn-primary pull-right trade-received-btn'
+              data-id='<%= trade.id %>'
+              data-toggle="modal"
+              data-target="#trade-modal">
+        View trade
+      </button>
+    </div>
+  <% }) %>
 </div>
 
 <div class='col-sm-12'>

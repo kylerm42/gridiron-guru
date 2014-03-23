@@ -138,7 +138,8 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
       success: function () {
         $('#trade-modal').modal('hide');
         view.model.sentTrades().remove(view.openTrade);
-        $('.trade-sent-btn[data-id="' + view.openTrade.id + '"').parent().remove()
+        $('.trade-sent-btn[data-id="' + view.openTrade.id + '"').parent()
+                                                                .alert('close')
       }
     });
   },
