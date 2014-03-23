@@ -37,6 +37,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
       forcePlaceholderSize: true,
       tolerance: 'pointer'
     });
+
     return this
   },
 

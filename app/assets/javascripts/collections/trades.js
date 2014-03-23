@@ -1,4 +1,7 @@
-FantasyFootball.Collections.Teams = Backbone.Collection.extend({
+FantasyFootball.Collections.Trades = Backbone.Collection.extend({
+  initialize: function (options) {
+    this.leagueId = options.leagueId;
+  },
 
   url: function () {
     return 'api/leagues/' + this.leagueId + '/teams';
@@ -13,7 +16,7 @@ FantasyFootball.Collections.Teams = Backbone.Collection.extend({
       model.fetch();
       return model;
     } else {
-      model = new FantasyFootball.Models.Team({ id: id, league_id: this.leagueId || leagueId });
+      model = new FantasyFootball.Models.Trade({ id: id });
       model.fetch({
         success: function () { teams.add(model) }
       });
@@ -21,4 +24,4 @@ FantasyFootball.Collections.Teams = Backbone.Collection.extend({
       return model;
     }
   }
-})
+});

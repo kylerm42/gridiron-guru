@@ -29,7 +29,12 @@ class Team < ActiveRecord::Base
            through: :team_players,
            source: :player
   has_many :add_drops
-  has_many :trades
+  has_many :sent_trades,
+           foreign_key: :sender_id,
+           class_name: "Trade"
+  has_many :received_trades,
+           foreign_key: :receiver_id,
+           class_name: "Trade"
   has_many :watched_player_joins,
            foreign_key: :team_id,
            class_name: "WatchedPlayer",

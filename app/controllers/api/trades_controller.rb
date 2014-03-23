@@ -8,8 +8,6 @@ class Api::TradesController < ApplicationController
       @trade.trade_send_players.new(player_id: id)
     end
 
-    p @trade.trade_sent_players
-
     if @trade.save
       render json: @trade
     else

@@ -7,7 +7,7 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
         team: this,
         leagueId: options.league_id
       });
-      this.set('players', teamPlayers);
+      this._players = teamPlayers;
     }
   },
 
@@ -25,6 +25,16 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
     return this._players;
   },
 
+  sentTrades: function () {
+    if (!this._sentTrades) {
+      this._sentTrades = new FantasyFootball.Collections.Trades([], {
+        team: this
+      });
+    }
+
+    return this._sentTrades;
+  },
+
   league: function () {
     if (!this._league) {
       this._league = new FantasyFootball.Models.League();
@@ -34,9 +44,11 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
   },
 
   parse: function (json) {
-    var teamPlayers = new FantasyFootball.Collections.Players(json.players, { team: this });
     this.players().set(json.players);
     delete json.players;
+
+    this.sentTrades().set(json.sent_trades);
+    delete json.sent_trades;
 
     this.league().set(json.league);
     delete json.league;

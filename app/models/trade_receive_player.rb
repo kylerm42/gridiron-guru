@@ -3,6 +3,6 @@ class TradeReceivePlayer < ActiveRecord::Base
   validates :trade_id, uniqueness: { scope: :player_id }
 
   belongs_to :trade,
-             inverse_of: :trade_received_players
+             inverse_of: :trade_receive_players
   belongs_to :player
 end

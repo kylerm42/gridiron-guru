@@ -11,7 +11,7 @@ FantasyFootball.Views.TeamTradeSendModal = Backbone.View.extend({
   render: function () {
     var renderedContent = this.template({
       getPlayerRows: this.getPlayerRows,
-      players: this.model.get('players'),
+      players: this.model.players(),
       team: this.model,
       otherTeam: this.otherTeam
     });

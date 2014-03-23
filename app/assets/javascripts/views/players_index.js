@@ -21,7 +21,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
     this.listenTo(this.league, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addPlayerRow);
-    this.listenTo(this.currentTeam.get('players'), 'add remove', this.render)
+    this.listenTo(this.currentTeam.players(), 'add remove', this.render)
   },
 
   template: JST['players/index'],
@@ -76,7 +76,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
     var modalView = new FantasyFootball.Views.TeamAddDropModal({
       addedPlayerRow: $('<tr>').html($currentTarget.closest('tr').html()),
-      collection: this.currentTeam.get('players')
+      collection: this.currentTeam.players()
     });
 
     $('#add-confirm').on('click', this.addConfirm.bind(this));
@@ -94,12 +94,12 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
         success: function () {
           $('#player-action-modal').modal('hide');
           $('.modal-backdrop').remove();
-          Backbone.history.navigate('#/leagues/' + view.league.id + '/teams/' + view.collection.currentTeam.id);
+          Backbone.history.navigate('#/leagues/' + view.league.id + '/teams/' + view.currentTeam.id);
 
-          var droppedPlayer = view.currentTeam.get('players').get(droppedPlayerId);
-          view.currentTeam.get('players').remove(droppedPlayer);
+          var droppedPlayer = view.currentTeam.players().get(droppedPlayerId);
+          view.currentTeam.players().remove(droppedPlayer);
           var addedPlayer = view.collection.get(view.addDrop.get('added_player_id'));
-          view.currentTeam.get('players').add(addedPlayer);
+          view.currentTeam.players().add(addedPlayer);
         }
       });
     } else {
@@ -148,9 +148,8 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
     addDrop.save({}, {
       success: function (resp) {
-        var droppedPlayer = view.currentTeam.get('players').get(playerId);
-        debugger
-        view.currentTeam.get('players').remove(droppedPlayer);
+        var droppedPlayer = view.currentTeam.players().get(playerId);
+        view.currentTeam.players().remove(droppedPlayer);
 
         $('.drop-player').popover('hide')
         $dropButton = $('#drop-' + playerId);
@@ -160,8 +159,8 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
                                   .attr('data-target', '#addDropModal');
         $plusIcon = $('<span>').addClass('glyphicon glyphicon-plus-sign');
         $addButton.html($plusIcon);
-        var droppedPlayer = view.currentTeam.get('players').get(droppedPlayerId);
-        view.currentTeam.get('players').remove(droppedPlayer);
+        var droppedPlayer = view.currentTeam.players().get(droppedPlayerId);
+        view.currentTeam.players().remove(droppedPlayer);
 
         $addButton.insertBefore($dropButton)
         $dropButton.remove();
