@@ -1,14 +1,14 @@
 class Api::TradesController < ApplicationController
   def create
     @trade = Trade.new(trade_params)
-    params[:trade_get_player_ids].each do |id|
-      @trade.trade_players.new(trade_team_id: @trade.receiver_id, player_id: id)
+    params[:trade_receive_player_ids].each do |id|
+      @trade.trade_receive_players.new(player_id: id)
     end
     params[:trade_send_player_ids].each do |id|
-      @trade.trade_players.new(trade_team_id: @trade.sender_id, player_id: id)
+      @trade.trade_send_players.new(player_id: id)
     end
 
-    p @trade.trade_players
+    p @trade.trade_sent_players
 
     if @trade.save
       render json: @trade

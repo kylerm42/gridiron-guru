@@ -21,6 +21,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
     this.listenTo(this.league, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addPlayerRow);
+    this.listenTo(this.currentTeam.get('players'), 'add remove', this.render)
   },
 
   template: JST['players/index'],
@@ -93,7 +94,12 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
         success: function () {
           $('#player-action-modal').modal('hide');
           $('.modal-backdrop').remove();
-          Backbone.history.navigate('#/leagues/' + view.league.id + '/teams/' + view.collection.currentTeam.id)
+          Backbone.history.navigate('#/leagues/' + view.league.id + '/teams/' + view.collection.currentTeam.id);
+
+          var droppedPlayer = view.currentTeam.get('players').get(droppedPlayerId);
+          view.currentTeam.get('players').remove(droppedPlayer);
+          var addedPlayer = view.collection.get(view.addDrop.get('added_player_id'));
+          view.currentTeam.get('players').add(addedPlayer);
         }
       });
     } else {
@@ -130,6 +136,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
   dropConfirm: function (event) {
     console.log('confirming drop');
+    var view = this;
     var $currentTarget = $(event.currentTarget);
 
     $currentTarget.attr('disabled', 'disabled').text('Dropping...');
@@ -141,16 +148,20 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
     addDrop.save({}, {
       success: function (resp) {
-        var droppedPlayer = this.currentTeam.get('players').get(playerId);
+        var droppedPlayer = view.currentTeam.get('players').get(playerId);
+        debugger
+        view.currentTeam.get('players').remove(droppedPlayer);
 
         $('.drop-player').popover('hide')
         $dropButton = $('#drop-' + playerId);
-        $addButton = $('<button>').addClass('add-player btn btn-default btn-xs')
+        $addButton = $('<button>').addClass('add-player btn btn-success btn-xs')
                                   .attr('data-id', playerId)
                                   .attr('data-toggle', 'modal')
                                   .attr('data-target', '#addDropModal');
-        $plusIcon = $('<span>').addClass('glyphicon glyphicon-plus-sign text-success');
+        $plusIcon = $('<span>').addClass('glyphicon glyphicon-plus-sign');
         $addButton.html($plusIcon);
+        var droppedPlayer = view.currentTeam.get('players').get(droppedPlayerId);
+        view.currentTeam.get('players').remove(droppedPlayer);
 
         $addButton.insertBefore($dropButton)
         $dropButton.remove();
@@ -176,6 +187,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     })
 
     $('#player-action-modal #modal-title').text("Choose players to trade for:")
+    $('.confirm-btn').off();
     $('.confirm-btn').attr('id', 'trade-continue').text("Continue")
 
     var tradeGetModalView = new FantasyFootball.Views.TeamTradeGetModal({

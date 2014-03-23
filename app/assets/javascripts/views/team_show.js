@@ -2,7 +2,9 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addPlayerRow);
+    this.listenTo(this.collection, 'remove', this.removePlayerRow);
     this.listenTo(this.collection, 'sync', this.addPlayerRows);
+    this.model.players().each(this.addPlayerRow.bind(this))
   },
 
   template: JST['teams/show'],
@@ -52,6 +54,14 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     players.forEach(function (player) {
       view.addPlayer(player);
     })
+  },
+
+  removePlayerRow: function (player) {
+    var playerRowView = _(this.subviews()["tbody"]).find(function (subview) {
+      return subview.model == player;
+    });
+
+    this.removeSubview("tbody", playerRowView);
   },
 
   dropPlayer: function (event) {

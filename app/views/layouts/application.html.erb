@@ -59,11 +59,11 @@
           "league_id": <%= team.league_id %>,
           "user_id": <%= team.user_id %>,
           "players": <%= team.players.to_json(except: [:created_at, :updated_at]).html_safe %>}
-        <% end %>]
+        <% end %>
       <% else %>
         []
       <% end %>
-    }
+    ]}
   </script>
 </body>
 </html>

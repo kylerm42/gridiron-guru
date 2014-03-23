@@ -20,6 +20,7 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
   },
 
   leagueShow: function (id) {
+    if (this.unauthorizedRedirect()) { return }
     var league = FantasyFootball.leagues.getOrFetch(id);
 
     var leagueShowView = new FantasyFootball.Views.LeagueShow({
@@ -42,7 +43,8 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
   },
 
   teamShow: function (leagueId, teamId) {
-    var team = FantasyFootball.teams.getOrFetch(teamId);
+    if (this.unauthorizedRedirect()) { return }
+    var team = FantasyFootball.teams.getOrFetch(teamId, leagueId);
 
     var teamShowView = new FantasyFootball.Views.TeamShow({
       model: team,
@@ -87,5 +89,14 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
     };
     this.currentView = view;
     this.$rootEl.html(view.render().$el);
+  },
+
+  unauthorizedRedirect: function () {
+    if (!FantasyFootball.currentUser.id) {
+      Backbone.history.navigate('')
+      this.homeShow();
+      // show some error
+      return true
+    }
   }
 });
