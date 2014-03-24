@@ -46,19 +46,11 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
   },
 
   addPlayerRow: function (player) {
-    var playerRowView = new FantasyFootball.Views.PlayerRow({
-      model: player,
-      team: this.modaldel
+    var playerRowView = new FantasyFootball.Views.PlayersIndexRow({
+      model: player
     });
     this.addSubview('tbody', playerRowView);
     playerRowView.render();
-  },
-
-  addPlayerRows: function (players) {
-    var view = this;
-    players.forEach(function (player) {
-      view.addPlayerRow(player);
-    })
   },
 
   addPlayer: function (event) {
@@ -68,7 +60,6 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     $('.confirm-btn').off();
     $('.confirm-btn').attr('id', 'add-confirm').text("Add Player")
 
-
     this.addDrop = new FantasyFootball.Models.AddDrop({
       added_player_id: addedPlayerId,
       team_id: this.currentTeam.id
@@ -76,7 +67,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
     var modalView = new FantasyFootball.Views.PlayersAddDropModal({
       addedPlayerRow: $('<tr>').html($currentTarget.closest('tr').html()),
-      collection: this.currentTeam.players()
+      collection: this.currentTeam.rosterSpots()
     });
 
     $('#add-confirm').on('click', this.addConfirm.bind(this));
@@ -94,6 +85,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
         success: function () {
           $('#player-action-modal').modal('hide');
           $('.modal-backdrop').remove();
+          $('body').removeClass('modal-open');
           Backbone.history.navigate('#/leagues/' + view.league.id + '/teams/' + view.currentTeam.id);
 
           var droppedPlayer = view.currentTeam.players().get(droppedPlayerId);
@@ -159,8 +151,8 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
                                   .attr('data-target', '#addDropModal');
         $plusIcon = $('<span>').addClass('glyphicon glyphicon-plus-sign');
         $addButton.html($plusIcon);
-        var droppedPlayer = view.currentTeam.players().get(droppedPlayerId);
-        view.currentTeam.players().remove(droppedPlayer);
+        var droppedPlayer = view.currentTeam.rosterSpots().get(resp);
+        view.currentTeam.rosterSpots().remove(droppedPlayer);
 
         $addButton.insertBefore($dropButton)
         $dropButton.remove();

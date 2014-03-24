@@ -10,7 +10,7 @@ FantasyFootball.Views.PlayersTradeReceiveModal = Backbone.View.extend({
 
   render: function () {
     var renderedContent = this.template({
-      players: this.model.players(),
+      rosterSpots: this.model.rosterSpots(),
       team: this.model,
       currentTeam: this.currentTeam
     });

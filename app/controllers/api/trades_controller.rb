@@ -26,8 +26,8 @@ class Api::TradesController < ApplicationController
       if @trade.update_attributes(trade_params)
         if @trade.status == 'accepted'
           @trade.trade_send_players.each do |player|
-            @trade.sender.team_players.find_by_player_id(player.player_id).destroy
-            @trade.receiver.team_players.create(player_id: player.player_id)
+            @trade.sender.roster_spots.find_by_player_id(player.player_id).destroy
+            @trade.receiver.roster_spots.create(player_id: player.player_id)
 
             @trade.receiver.received_trades.select do |trade|
               trade.trade_receive_players
@@ -51,8 +51,8 @@ class Api::TradesController < ApplicationController
             end.each { |trade| trade.destroy }
           end
           @trade.trade_receive_players.each do |player|
-            @trade.receiver.team_players.find_by_player_id(player.player_id).destroy
-            @trade.sender.team_players.create(player_id: player.player_id)
+            @trade.receiver.roster_spots.find_by_player_id(player.player_id).destroy
+            @trade.sender.roster_spots.create(player_id: player.player_id)
 
             @trade.receiver.received_trades.select do |trade|
               trade.trade_receive_players

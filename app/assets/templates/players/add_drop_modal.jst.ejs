@@ -35,44 +35,44 @@
     <tr class='danger centered'><td colspan='12' class='no-padding'>
       <small>Your players</small>
     </td></tr>
-    <% players.forEach(function(player) { %>
+    <% rosterSpots.forEach(function(rosterSpot) { %>
       <tr>
         <td>
-          <input type="radio" name="dropped-player" value="<%= player.id %>">
+          <input type="radio" name="dropped-player" value="<%= rosterSpot.player.id %>">
         </td>
         <td>
-          <%= player.fullName() %><br>
-          <small class='smaller'><%= player.get('position') %> / <%= player.get('nfl_team') %></small>
+          <%= rosterSpot.player.fullName() %><br>
+          <small class='smaller'><%= rosterSpot.player.get('position') %> / <%= rosterSpot.player.get('nfl_team') %></small>
         </td>
         <td>
-          <%= player.get('pass_yards') %>
+          <%= rosterSpot.player.get('pass_yards') %>
         </td>
         <td>
-          <%= player.get('pass_tds') %>
+          <%= rosterSpot.player.get('pass_tds') %>
         </td>
         <td>
-          <%= player.get('pass_ints') %>
+          <%= rosterSpot.player.get('pass_ints') %>
         </td>
         <td>
-          <%= player.get('rush_yards') %>
+          <%= rosterSpot.player.get('rush_yards') %>
         </td>
         <td>
-          <%= player.get('rush_tds') %>
+          <%= rosterSpot.player.get('rush_tds') %>
         </td>
         <td>
-          <%= player.get('rec_yards') %>
+          <%= rosterSpot.player.get('rec_yards') %>
         </td>
         <td>
-          <%= player.get('rec_tds') %>
+          <%= rosterSpot.player.get('rec_tds') %>
         </td>
         <td>
-          <%= player.get('two_pt_conv') %>
+          <%= rosterSpot.player.get('two_pt_conv') %>
         </td>
         <td>
-          <%= player.get('fumbles') %>
+          <%= rosterSpot.player.get('fumbles') %>
         </td>
         <td>
-          <%= parseFloat(Math.round(player.points() * 100) / 100).toFixed(2) %>
+          <%= parseFloat(Math.round(rosterSpot.player.points() * 100) / 100).toFixed(2) %>
         </td>
       </tr>
     <% }) %>

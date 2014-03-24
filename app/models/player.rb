@@ -86,10 +86,12 @@ class Player < ActiveRecord::Base
   validates :position, presence: true, inclusion: { in: POSITIONS }
   validates :nfl_team, inclusion: { in: TEAMS.keys }
 
-  has_many :team_players,
+  has_many :roster_spots,
+           foreign_key: :player_id,
+           class_name: "RosterSpot",
            dependent: :destroy
   has_many :teams,
-           through: :team_players,
+           through: :roster_spots,
            source: :team
   has_many :leagues,
            through: :teams,

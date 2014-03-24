@@ -1,10 +1,10 @@
 FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.collection, 'add', this.addPlayerRow);
-    this.listenTo(this.collection, 'remove', this.removePlayerRow);
-    this.listenTo(this.collection, 'sync', this.addPlayerRows);
-    this.model.players().each(this.addPlayerRow.bind(this))
+    this.listenTo(this.collection, 'add', this.addRosterRow);
+    this.listenTo(this.collection, 'remove', this.removeRosterRow);
+    this.listenTo(this.collection, 'sync', this.addRosterRows);
+    this.model.rosterSpots().each(this.addRosterRow.bind(this))
   },
 
   template: JST['teams/show'],
@@ -44,28 +44,28 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     return this;
   },
 
-  addPlayerRow: function (player) {
-    var playerRowView = new FantasyFootball.Views.PlayerRow({
-      model: player,
+  addRosterRow: function (rosterSpot) {
+    var rosterRowView = new FantasyFootball.Views.RosterRow({
+      model: rosterSpot,
       team: this.model
     });
-    this.addSubview('tbody', playerRowView);
-    playerRowView.render();
+    this.addSubview('tbody', rosterRowView);
+    rosterRowView.render();
   },
 
-  addPlayerRows: function (players) {
+  addRosterRows: function (rosterSpots) {
     var view = this;
-    players.forEach(function (player) {
-      view.addPlayer(player);
+    rosterSpots.forEach(function (rosterSpot) {
+      view.addRosterRow(rosterSpot);
     })
   },
 
-  removePlayerRow: function (player) {
-    var playerRowView = _(this.subviews()["tbody"]).find(function (subview) {
-      return subview.model == player;
+  removeRosterRow: function (rosterSpot) {
+    var rosterRowView = _(this.subviews()["tbody"]).find(function (subview) {
+      return subview.model == rosterSpot;
     });
 
-    this.removeSubview("tbody", playerRowView);
+    this.removeSubview("tbody", rosterRowView);
   },
 
   dropPlayer: function (event) {
@@ -192,22 +192,23 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   }
 });
 
-FantasyFootball.Views.PlayerRow = Backbone.View.extend({
+FantasyFootball.Views.RosterRow = Backbone.View.extend({
   initialize: function (options) {
     this.model = options.model;
     this.team = options.team;
   },
 
   tagName: 'tr',
-  template: JST['players/row'],
+  template: JST['teams/roster_row'],
 
   render: function () {
     var renderedContent = this.template({
-      player: this.model,
+      position: this.model.get('position'),
+      player: this.model.player,
       team: this.team
     });
 
-    this.$el.addClass('full-width').attr('id', 'player-' + this.model.id).html(renderedContent);
+    this.$el.addClass('full-width').attr('id', 'player-' + this.model.player.id).html(renderedContent);
     return this;
   }
 })

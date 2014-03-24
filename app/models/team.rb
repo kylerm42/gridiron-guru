@@ -24,9 +24,11 @@ class Team < ActiveRecord::Base
              class_name: "User"
   belongs_to :league,
              inverse_of: :teams
-  has_many :team_players
+  has_many :roster_spots,
+           foreign_key: :team_id,
+           class_name: "RosterSpot"
   has_many :players,
-           through: :team_players,
+           through: :roster_spots,
            source: :player
   has_many :add_drops
   has_many :sent_trades,

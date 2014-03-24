@@ -6,10 +6,10 @@ class Api::PlayersController < ApplicationController
     FROM
       players p LEFT OUTER JOIN
       (SELECT
-        t.id team_id, t.name team_name, tp.player_id player_id
+        t.id team_id, t.name team_name, rs.player_id player_id
       FROM
-        teams t JOIN team_players tp
-          ON t.id = tp.team_id
+        teams t JOIN roster_spots rs
+          ON t.id = rs.team_id
         WHERE
           t.league_id = ?) j
       ON p.id = j.player_id

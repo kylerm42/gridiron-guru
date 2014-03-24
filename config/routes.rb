@@ -13,6 +13,7 @@ FantasyFootball::Application.routes.draw do
       resources :players, only: [:index, :show]
       resources :trades, only: [:create, :update, :destroy]
     end
+    resources :roster_spots, only: [:create, :update, :destroy]
   end
 
   resource :session, only: [:new, :create, :destroy]

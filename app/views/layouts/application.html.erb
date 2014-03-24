@@ -21,10 +21,10 @@
       </div>
 
       <div class="collapse navbar-collapse">
-        <% if logged_in? %>
+        <% if @user = current_user %>
           <%= render 'layouts/sign_out' %>
           <ul class="nav navbar-nav navbar-right">
-            <li><a>Welcome, <%= current_user.first_name %></a></li>
+            <li><a>Welcome, <%= @user.first_name %></a></li>
           </ul>
         <% else %>
           <%= render 'layouts/sign_in' %>
@@ -38,12 +38,8 @@
 
   <div class='container no-padding'>
     <div class='center-block'>
-      <% if @user = current_user %>
-        <%= yield %>
-      <% else %>
+      <% unless @user %>
         <div class='content shadow'>
-          <h1>Awesome fantasy football stuff goes here.</h1>
-
           <form action="<%= session_url %>" method="POST" accept-charset="utf-8" role='form'>
             <%= render 'layouts/authenticity_token' %>
 
@@ -54,6 +50,8 @@
           </form>
         </div>
       <% end %>
+
+      <%= yield %>
     </div>
   </div>
 
@@ -73,10 +71,14 @@
           "name": "<%= team.name %>",
           "league_id": <%= team.league_id %>,
           "user_id": <%= team.user_id %>,
-          "players": <%= team.players.to_json(except: [:created_at, :updated_at]).html_safe %>}
+          "roster_spots": [
+            <% team.roster_spots.each do |roster_spot| %>
+              {"position": "<%= roster_spot.position %>",
+              "player": <%= roster_spot.player.to_json.html_safe %>}
+              <%= team.roster_spots.last != roster_spot ? "," : "" %>
+            <% end %>
+          ]}
         <% end %>
-      <% else %>
-        []
       <% end %>
     ]}
   </script>

@@ -8,7 +8,14 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
         leagueId: options.league_id
       });
       this._players = teamPlayers;
-    }
+    };
+    if (options.roster_spots) {
+      var rosterSpots = new FantasyFootball.Collections.RosterSpots(
+        options.roster_spots, {
+        team: this
+      });
+      this._rosterSpots = rosterSpots;
+    };
   },
 
   urlRoot: function () {
@@ -23,6 +30,16 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
     }
 
     return this._players;
+  },
+
+  rosterSpots: function () {
+    if (!this._rosterSpots) {
+      this._rosterSpots = new FantasyFootball.Collections.RosterSpots([], {
+        team: this
+      });
+    }
+
+    return this._rosterSpots;
   },
 
   sentTrades: function () {
@@ -56,6 +73,9 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
   parse: function (json) {
     this.players().set(json.players);
     delete json.players;
+
+    this.rosterSpots().set(json.roster_spots);
+    delete json.roster_spots;
 
     this.sentTrades().set(json.sent_trades);
     delete json.sent_trades;

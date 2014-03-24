@@ -108,6 +108,16 @@ ActiveRecord::Schema.define(version: 20140323002512) do
   add_index "players", ["nfl_team"], name: "index_players_on_nfl_team", using: :btree
   add_index "players", ["position"], name: "index_players_on_position", using: :btree
 
+  create_table "roster_spots", force: true do |t|
+    t.integer  "team_id",                   null: false
+    t.integer  "player_id"
+    t.string   "position",   default: "BN", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roster_spots", ["team_id", "player_id"], name: "index_roster_spots_on_team_id_and_player_id", unique: true, using: :btree
+
   create_table "sessions", force: true do |t|
     t.string   "token",      null: false
     t.integer  "user_id",    null: false
@@ -117,16 +127,6 @@ ActiveRecord::Schema.define(version: 20140323002512) do
   end
 
   add_index "sessions", ["token"], name: "index_sessions_on_token", unique: true, using: :btree
-
-  create_table "team_players", force: true do |t|
-    t.integer  "team_id",                        null: false
-    t.integer  "player_id"
-    t.string   "roster_position", default: "BN", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "team_players", ["team_id", "player_id"], name: "index_team_players_on_team_id_and_player_id", unique: true, using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name",                   null: false

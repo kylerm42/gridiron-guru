@@ -57,11 +57,11 @@ class Api::TeamsController < ApplicationController
     end
 
     def find_team
-      @team = Team.includes(:players,
-                            :owner,
+      @team = Team.includes(:owner,
                             league: :teams,
                             sent_trades: [:send_players, :receive_players],
-                            received_trades: [:send_players, :receive_players])
+                            received_trades: [:send_players, :receive_players],
+                            roster_spots: :player)
                             .find(params[:id])
     end
 end
