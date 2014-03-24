@@ -1,4 +1,7 @@
 FantasyFootball.Collections.Teams = Backbone.Collection.extend({
+  initialize: function (options) {
+    this.leagueId = options.leagueId
+  },
 
   url: function () {
     return 'api/leagues/' + this.leagueId + '/teams';

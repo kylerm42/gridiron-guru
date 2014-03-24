@@ -1,22 +1,22 @@
-FantasyFootball.Views.TeamTradeGetModal = Backbone.View.extend({
+FantasyFootball.Views.PlayersTradeSendModal = Backbone.View.extend({
   initialize: function(options) {
     this.model = options.model;
-    this.tradePlayer = options.tradePlayer;
-    this.currentTeam = options.currentTeam;
+    this.getPlayerRows = options.getPlayerRows;
+    this.otherTeam = options.otherTeam;
     this.listenTo(this.model, 'sync', this.render);
   },
 
-  template: JST['teams/trade_get_modal'],
+  template: JST['players/trade_send_modal'],
 
   render: function () {
     var renderedContent = this.template({
+      getPlayerRows: this.getPlayerRows,
       players: this.model.players(),
       team: this.model,
-      currentTeam: this.currentTeam
+      otherTeam: this.otherTeam
     });
 
     this.$el.html(renderedContent)
-            .find('[value="' + this.tradePlayer.id + '"]').attr('checked', 'checked');
     return this;
   }
 });

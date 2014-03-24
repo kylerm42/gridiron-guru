@@ -74,7 +74,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       team_id: this.currentTeam.id
     });
 
-    var modalView = new FantasyFootball.Views.TeamAddDropModal({
+    var modalView = new FantasyFootball.Views.PlayersAddDropModal({
       addedPlayerRow: $('<tr>').html($currentTarget.closest('tr').html()),
       collection: this.currentTeam.players()
     });
@@ -189,13 +189,13 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     $('.confirm-btn').off();
     $('.confirm-btn').attr('id', 'trade-continue').text("Continue")
 
-    var tradeGetModalView = new FantasyFootball.Views.TeamTradeGetModal({
+    var tradeReceiveModalView = new FantasyFootball.Views.PlayersTradeReceiveModal({
       model: this.tradeTeam,
       tradePlayer: tradePlayer,
       currentTeam: this.currentTeam
     });
 
-    $('#player-action-modal .modal-body').html(tradeGetModalView.render().$el);
+    $('#player-action-modal .modal-body').html(tradeReceiveModalView.render().$el);
     $('#trade-continue').on('click', this.tradeContinue.bind(this));
   },
 
@@ -221,7 +221,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       $('.confirm-btn').off();
       $('.confirm-btn').attr('id', 'trade-complete');
 
-      var tradeSendModalView = new FantasyFootball.Views.TeamTradeSendModal({
+      var tradeSendModalView = new FantasyFootball.Views.PlayersTradeSendModal({
         model: this.currentTeam,
         getPlayerRows: this.tradeForRows,
         otherTeam: this.tradeTeam
@@ -255,7 +255,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       $('.confirm-btn').off();
       $('.confirm-btn').attr('id', 'trade-confirm').text("Submit trade");
 
-      var tradeConfirmModalView = new FantasyFootball.Views.TeamTradeConfirmModal({
+      var tradeConfirmModalView = new FantasyFootball.Views.PlayersTradeConfirmModal({
         tradeForRows: this.tradeForRows,
         tradeAwayRows: tradeAwayRows,
         team: this.currentTeam,

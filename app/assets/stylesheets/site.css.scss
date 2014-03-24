@@ -25,15 +25,15 @@ $darkerBlue: #0B344A;
 }
 
 .shadow {
-  -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
 }
 
 .shadow-sm {
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.60);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.60);
-  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.60);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.60);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.60);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.60);
 }
 
 .inset-shadow {
@@ -213,6 +213,10 @@ a:hover {
 
 .modal .table-hover tbody tr:hover td {
   background-color: #303030;
+}
+
+.modal .table-hover tbody tr:hover.danger td {
+  background-color: $bigRed;
 }
 
 .modal .table > tbody > tr.success > td {

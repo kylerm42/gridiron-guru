@@ -3,7 +3,7 @@ class CreateTrades < ActiveRecord::Migration
     create_table :trades do |t|
       t.integer :sender_id, null: false
       t.integer :receiver_id, null: false
-      t.integer :status, null: false, default: 1
+      t.string :status, null: false, default: 'sent'
 
       t.timestamps
     end

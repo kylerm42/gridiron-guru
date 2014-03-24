@@ -39,7 +39,7 @@
       <tr class='success centered'><td colspan='12' class='no-padding'>
         <small>Receiving players</small>
       </td></tr>
-      <% trade.receivePlayers().forEach(function(player) { %>
+      <% trade.sendPlayers().forEach(function(player) { %>
         <tr>
           <td>
             <%= player.fullName() %><br>
@@ -80,7 +80,7 @@
       <tr class='danger centered'><td colspan='12' class='no-padding'>
         <small>Sending players</small>
       </td></tr>
-      <% trade.sendPlayers().forEach(function(player) { %>
+      <% trade.receivePlayers().forEach(function(player) { %>
         <tr>
           <td>
             <%= player.fullName() %><br>
@@ -122,6 +122,7 @@
   </table>
 </div>
 <div class="modal-footer">
+  <button type="button" class="btn btn-danger deny-btn pull-left">Deny trade</button>
   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-danger confirm-btn">Cancel trade</button>
+  <button type="button" class="btn btn-success accept-btn">Accept trade</button>
 </div>

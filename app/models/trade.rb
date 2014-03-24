@@ -5,14 +5,14 @@
 #  id          :integer          not null, primary key
 #  sender_id   :integer          not null
 #  receiver_id :integer          not null
-#  status      :integer          default(1), not null
+#  status      :string(255)      default("sent"), not null
 #  created_at  :datetime
 #  updated_at  :datetime
 #
 
 class Trade < ActiveRecord::Base
   validates :sender_id, :receiver_id, presence: true
-  validates :status, presence: true, inclusion: { in: 1..4 }
+  validates :status, presence: true, inclusion: { in: %w{sent accepted denied countered} }
 
   belongs_to :sender,
              foreign_key: :sender_id,

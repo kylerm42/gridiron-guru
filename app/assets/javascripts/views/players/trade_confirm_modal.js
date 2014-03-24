@@ -1,4 +1,4 @@
-FantasyFootball.Views.TeamTradeConfirmModal = Backbone.View.extend({
+FantasyFootball.Views.PlayersTradeConfirmModal = Backbone.View.extend({
   initialize: function (options) {
     this.tradeForRows = options.tradeForRows;
     this.tradeAwayRows = options.tradeAwayRows;
@@ -6,7 +6,7 @@ FantasyFootball.Views.TeamTradeConfirmModal = Backbone.View.extend({
     this.otherTeam = options.otherTeam;
   },
 
-  template: JST['teams/trade_confirm_modal'],
+  template: JST['players/trade_confirm_modal'],
 
   render: function () {
     var renderedContent = this.template({

@@ -5,7 +5,7 @@
 #  id          :integer          not null, primary key
 #  sender_id   :integer          not null
 #  receiver_id :integer          not null
-#  status      :integer          default(1), not null
+#  status      :string(255)      default("sent"), not null
 #  created_at  :datetime
 #  updated_at  :datetime
 #

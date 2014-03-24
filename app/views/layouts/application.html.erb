@@ -38,13 +38,28 @@
 
   <div class='container no-padding'>
     <div class='center-block'>
-      <%= yield %>
+      <% if @user = current_user %>
+        <%= yield %>
+      <% else %>
+        <div class='content shadow'>
+          <h1>Awesome fantasy football stuff goes here.</h1>
+
+          <form action="<%= session_url %>" method="POST" accept-charset="utf-8" role='form'>
+            <%= render 'layouts/authenticity_token' %>
+
+            <input type="hidden" name="user[username]" value="test">
+            <input type="hidden" name="user[password]" value="123456">
+
+            <button class='btn btn-lg btn-success btn-block'>Sign in as demo user</button>
+          </form>
+        </div>
+      <% end %>
     </div>
   </div>
 
 
   <script type="application/json" charset="utf-8" id='current-user'>
-    { "user": <% if @user = current_user %>
+    { "user": <% if @user %>
      <%= @user.to_json(only: [:id, :username, :email, :first_name, :last_name]).html_safe %>
    <% else %>
       { "id": null }

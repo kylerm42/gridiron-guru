@@ -119,8 +119,9 @@ ActiveRecord::Schema.define(version: 20140323002512) do
   add_index "sessions", ["token"], name: "index_sessions_on_token", unique: true, using: :btree
 
   create_table "team_players", force: true do |t|
-    t.integer  "team_id",    null: false
-    t.integer  "player_id",  null: false
+    t.integer  "team_id",                        null: false
+    t.integer  "player_id"
+    t.string   "roster_position", default: "BN", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -162,9 +163,9 @@ ActiveRecord::Schema.define(version: 20140323002512) do
   add_index "trade_send_players", ["trade_id", "player_id"], name: "index_trade_send_players_on_trade_id_and_player_id", unique: true, using: :btree
 
   create_table "trades", force: true do |t|
-    t.integer  "sender_id",               null: false
-    t.integer  "receiver_id",             null: false
-    t.integer  "status",      default: 1, null: false
+    t.integer  "sender_id",                    null: false
+    t.integer  "receiver_id",                  null: false
+    t.string   "status",      default: "sent", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

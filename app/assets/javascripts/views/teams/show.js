@@ -12,7 +12,8 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   events: {
     "sort": "setPlaceholder",
     "click .drop-player": "dropPlayer",
-    'click .trade-sent-btn': 'sentTradeOpen'
+    'click .trade-sent-btn': 'sentTradeOpen',
+    'click .trade-received-btn': 'receivedTradeOpen'
   },
 
   render: function () {
@@ -139,6 +140,48 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
         $('#trade-modal').modal('hide');
         view.model.sentTrades().remove(view.openTrade);
         $('.trade-sent-btn[data-id="' + view.openTrade.id + '"').parent()
+                                                                .alert('close')
+      }
+    });
+  },
+
+  receivedTradeOpen: function (event) {
+    var $currentTarget = $(event.currentTarget);
+    this.openTrade = this.model.receivedTrades().get($currentTarget.data('id'));
+
+    var tradeReceivedModalView = new FantasyFootball.Views.TeamTradeReceivedModal({
+      model: this.openTrade
+    });
+
+    $('#trade-modal .modal-content').html(tradeReceivedModalView.render().$el);
+
+    $('.accept-btn').off();
+    $('.accept-btn').on('click', this.receivedTradeAccept.bind(this));
+    $('.deny-btn').off();
+    $('.deny-btn').on('click', this.receivedTradeDeny.bind(this));
+  },
+
+  receivedTradeAccept: function (event) {
+    $('.deny-btn').attr('disabled', 'disabled');
+    $('.accept-btn').attr('disabled', 'disabled').text("Accepting...");
+    this.openTrade.set('status', 'accepted');
+    this.openTrade.save({}, {
+      success: function () {
+        console.log('success');
+        $('#trade-modal').modal('hide');
+      }
+    });
+  },
+
+  receivedTradeDeny: function (event) {
+    var view = this;
+    $('.deny-btn').attr('disabled', 'disabled').text("Cancelling...");
+
+    this.openTrade.destroy({
+      success: function () {
+        $('#trade-modal').modal('hide');
+        view.model.receivedTrades().remove(view.openTrade);
+        $('.trade-received-btn[data-id="' + view.openTrade.id + '"').parent()
                                                                 .alert('close')
       }
     });

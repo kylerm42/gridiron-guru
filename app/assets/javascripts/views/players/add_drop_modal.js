@@ -1,10 +1,10 @@
-FantasyFootball.Views.TeamAddDropModal = Backbone.View.extend({
+FantasyFootball.Views.PlayersAddDropModal = Backbone.View.extend({
   initialize: function (options) {
     this.$addedPlayerRow = options.addedPlayerRow;
     this.listenTo(this.collection, 'add remove', this.render);
   },
 
-  template: JST['teams/add_drop_modal'],
+  template: JST['players/add_drop_modal'],
 
   render: function () {
     this.$addedPlayerRow.children('.actions').remove();
