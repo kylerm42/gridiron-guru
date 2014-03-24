@@ -34,7 +34,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     $("tbody").sortable({
       containment: 'parent',
       distance: 10,
-      revert: 250,
+      revert: 150,
       opacity: 0.7,
       helper: fixHelper,
       forcePlaceholderSize: true,
@@ -71,6 +71,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
   dropPlayer: function (event) {
     var $currentTarget = $(event.currentTarget);
     this.droppedPlayerId = $(event.currentTarget).data('id');
+    var droppedPlayerName = $currentTarget.data('name');
 
     var $confirm = $('<button>').addClass('btn btn-danger pull-right drop-confirm')
                                 .attr('id', 'drop-' + this.droppedPlayerId)
@@ -82,7 +83,7 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
     var $buttons = $('<div>').append($cancel).append($confirm);
     $(event.currentTarget).popover({
       html: true,
-      title: "Are you sure you want to drop this player?",
+      title: "Are you sure you want to drop " + droppedPlayerName + "?",
       content: $buttons,
       trigger: 'manual'
     });

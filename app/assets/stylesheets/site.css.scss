@@ -188,7 +188,7 @@ a:hover {
 // modal/popover styles
 .modal-content, .popover, .popover-title {
   color: #FFFFFF;
-  background-color: #505759;
+  background-color: $darkGrey;
 }
 
 .popover {
@@ -200,7 +200,7 @@ a:hover {
 }
 
 .popover.top > .arrow:after {
-  border-top-color: #505759;
+  border-top-color: $darkGrey;
 }
 
 .modal-content {
