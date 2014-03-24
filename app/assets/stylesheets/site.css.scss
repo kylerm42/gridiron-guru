@@ -156,6 +156,14 @@ a:hover {
   margin-bottom: 0px;
 }
 
+.table-hover > tbody > tr.dark-section > td {
+  background-color: $darkGrey;
+}
+
+.table-hover > tbody > tr.dark-section:nth-child(odd) > td {
+  background-color: $darkGrey;
+}
+
 .table-striped > tbody > tr:nth-child(odd) > td {
   background-color: #124D6E;
 }

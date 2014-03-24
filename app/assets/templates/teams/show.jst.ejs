@@ -105,8 +105,34 @@
       <th data-sort-col="recTD">TD</th>
     </tr>
   </thead>
-
-  <tbody></tbody>
+  <tbody id='starting-lineup'>
+    <tr class='centered dark-section'><td colspan='13' class='no-padding'>
+      <small>Starting Lineup</small>
+    </td></tr>
+    <% rosterSpots.startingQB().forEach(function(rosterQB) { %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterQB }) %>
+    <% }) %>
+    <% rosterSpots.startingRB().forEach(function(rosterRB) { %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterRB }) %>
+    <% }) %>
+    <% rosterSpots.startingWR().forEach(function(rosterWR) { %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterWR }) %>
+    <% }) %>
+    <% rosterSpots.startingTE().forEach(function(rosterTE) { %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterTE }) %>
+    <% }) %>
+    <% rosterSpots.startingRWT().forEach(function(rosterRWT) { %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterRWT }) %>
+    <% }) %>
+  </tbody>
+  <tbody id='starting-lineup'>
+    <tr class='centered dark-section'><td colspan='13' class='no-padding'>
+      <small>Bench</small>
+    </td></tr>
+    <% rosterSpots.benchPlayers().forEach(function(benchPlayer) { %>
+      <%= JST['teams/roster_row']({ rosterSpot: benchPlayer }) %>
+    <% }) %>
+  </tbody>
 </table>
 
 <div class="modal fade" id="trade-modal" tabindex="-1" role="dialog" aria-labelledby="addDropLabel" aria-hidden="true">

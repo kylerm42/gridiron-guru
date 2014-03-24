@@ -47,8 +47,8 @@ class Player < ActiveRecord::Base
   POSITIONS = ["QB", "RB", "WR", "TE", "K", "DEF"]
 
   TEAMS = {
-    "FA" =>  ["Free", "Agent"],
-    "DAL" =>  ["Dallas", "Cowboys"],
+    "FA" => ["Free", "Agent"],
+    "DAL" => ["Dallas", "Cowboys"],
     "PHI" => ["Philadelphia", "Eagles"],
     "NYG" => ["New York", "Giants"],
     "WAS" => ["Washington", "Redskins"],

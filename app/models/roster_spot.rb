@@ -11,6 +11,17 @@
 #
 
 class RosterSpot < ActiveRecord::Base
+  ROSTER_POSITIONS = {
+    "QB" => 1,
+    "RB" => 2,
+    "WR" => 3,
+    "TE" => 4,
+    "W/R/T" => 5,
+    "K" => 6,
+    "DEF" => 7,
+    "BN" => 8
+  }
+
   validates :team_id, presence: true, uniqueness: { scope: :player_id }
   validates :position, presence: true,
                               inclusion: { in: %w{QB RB WR TE R/W/T K DEF BN} }

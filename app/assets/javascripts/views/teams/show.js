@@ -1,10 +1,11 @@
-FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
+FantasyFootball.Views.TeamShow = Backbone.View.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.collection, 'add', this.addRosterRow);
-    this.listenTo(this.collection, 'remove', this.removeRosterRow);
-    this.listenTo(this.collection, 'sync', this.addRosterRows);
-    this.model.rosterSpots().each(this.addRosterRow.bind(this))
+    this.listenTo(this.collection, 'sync', this.render);
+    // this.listenTo(this.collection, 'add', this.addRosterRow);
+    // this.listenTo(this.collection, 'remove', this.removeRosterRow);
+    // this.listenTo(this.collection, 'sync', this.addRosterRows);
+    // this.model.rosterSpots().each(this.addRosterRow.bind(this))
   },
 
   template: JST['teams/show'],
@@ -18,9 +19,11 @@ FantasyFootball.Views.TeamShow = Backbone.CompositeView.extend({
 
   render: function () {
     console.log('rendering team show')
-    var renderedContent = this.template({ team: this.model });
+    var renderedContent = this.template({
+      team: this.model,
+      rosterSpots: this.collection
+    });
     this.$el.html(renderedContent);
-    this.renderSubviews();
 
     // for keeping row width when dragging
     var fixHelper = function(e, ui) {
