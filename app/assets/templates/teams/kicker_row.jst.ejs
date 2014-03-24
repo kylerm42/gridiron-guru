@@ -37,31 +37,40 @@
     </small>
   </td>
   <td>
-    <%= rosterSpot.player.get('pass_yards') %>
+    <%= rosterSpot.player.get('made_pat') %>
   </td>
   <td>
-    <%= rosterSpot.player.get('pass_tds') %>
+    <%= rosterSpot.player.get('made_20') %>
   </td>
   <td>
-    <%= rosterSpot.player.get('pass_ints') %>
+    <%= rosterSpot.player.get('made_30') %>
   </td>
   <td>
-    <%= rosterSpot.player.get('rush_yards') %>
+    <%= rosterSpot.player.get('made_40') %>
   </td>
   <td>
-    <%= rosterSpot.player.get('rush_tds') %>
+    <%= rosterSpot.player.get('made_50') %>
   </td>
   <td>
-    <%= rosterSpot.player.get('rec_yards') %>
+    <%= rosterSpot.player.get('made_50_plus') %>
   </td>
   <td>
-    <%= rosterSpot.player.get('rec_tds') %>
+    <%= rosterSpot.player.get('miss_pat') %>
   </td>
   <td>
-    <%= rosterSpot.player.get('two_pt_conv') %>
+    <%= rosterSpot.player.get('miss_20') %>
   </td>
   <td>
-    <%= rosterSpot.player.get('fumbles') %>
+    <%= rosterSpot.player.get('miss_30') %>
+  </td>
+  <td>
+    <%= rosterSpot.player.get('miss_40') %>
+  </td>
+  <td>
+    <%= rosterSpot.player.get('miss_50') %>
+  </td>
+  <td>
+    <%= rosterSpot.player.get('miss_50_plus') %>
   </td>
   <td>
     <%= parseFloat(Math.round(rosterSpot.player.points() * 100) / 100).toFixed(2) %>

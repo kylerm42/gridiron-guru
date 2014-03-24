@@ -22,7 +22,7 @@ FantasyFootball.Collections.RosterSpots = Backbone.Collection.extend({
       rosterSpots.rosterValues[rs1.player.get('position')] -
       rosterSpots.rosterValues[rs2.player.get('position')]
     });
-    return sortedBench
+    return sortedBench;
   },
 
   startingQB: function () {
@@ -49,8 +49,28 @@ FantasyFootball.Collections.RosterSpots = Backbone.Collection.extend({
     return this.where({ position: 'K' });
   },
 
+  benchK: function () {
+    var rosterSpots = this;
+    var benchPlayers = this.where({ position: 'BN' });
+    var filteredBench = benchPlayers.filter(function(rosterSpot) {
+      var position = rosterSpot.player.get('position');
+      return position === 'K'
+    });
+    return filteredBench;
+  },
+
   startingDEF: function () {
     return this.where({ position: 'DEF' });
+  },
+
+  benchDEF: function () {
+    var rosterSpots = this;
+    var benchPlayers = this.where({ position: 'BN' });
+    var filteredBench = benchPlayers.filter(function(rosterSpot) {
+      var position = rosterSpot.player.get('position');
+      return position === 'DEF'
+    });
+    return filteredBench;
   },
 
   getOrFetch: function (id) {

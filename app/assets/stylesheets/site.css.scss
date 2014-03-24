@@ -58,6 +58,11 @@ $darkerBlue: #0B344A;
 .margin-md {
   margin: 30px;
 }
+
+.margin-top-md {
+  margin-top: 20px;
+}
+
 .margin-top-sm {
   margin-top: 7px;
 }
@@ -108,6 +113,10 @@ a:hover {
   background-color: $darkBlue;
   border-radius: 0px;
   padding: 10px 30px 30px 30px;
+}
+
+.container {
+  margin-bottom: 30px;
 }
 
 .dropdown-menu, .popover, .alert {
@@ -191,6 +200,18 @@ a:hover {
 
 .table-hover tbody tr:not(.success, .danger):hover td {
   background-color: #303030;
+}
+
+.ui-draggable-dragging {
+  background-color: $darkBlue;
+}
+
+.table-striped.table-hover tbody tr.darker td {
+  background-color: $darkerBlue;
+}
+
+.table-striped.table-hover tbody tr.info td {
+  background-color: $lightBlue;
 }
 
 // modal/popover styles

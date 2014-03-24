@@ -11,10 +11,11 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
   template: JST['teams/show'],
 
   events: {
-    "sort": "setPlaceholder",
-    "click .drop-player": "dropPlayer",
+    'sort': 'setPlaceholder',
+    'click .drop-player': 'dropPlayer',
     'click .trade-sent-btn': 'sentTradeOpen',
-    'click .trade-received-btn': 'receivedTradeOpen'
+    'click .trade-received-btn': 'receivedTradeOpen',
+    'drop': 'swapRosterSpot'
   },
 
   render: function () {
@@ -26,25 +27,74 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     this.$el.html(renderedContent);
 
     // for keeping row width when dragging
-    var fixHelper = function(e, ui) {
-    	ui.children().each(function() {
+    var fixHelper = function(ui) {
+      console.log($(ui.currentTarget).children())
+      console.log(this)
+    	$(ui.currentTarget).children().each(function() {
+        console.log(this)
     		$(this).width($(this).width());
     		$(this).height($(this).height());
     	});
-    	return ui;
+    	return ui.currentTarget;
     };
 
-    $("tbody").sortable({
+    $('tbody tr[data-roster-spot]').draggable({
       containment: 'parent',
-      distance: 10,
-      revert: 150,
-      opacity: 0.7,
-      helper: fixHelper,
-      forcePlaceholderSize: true,
-      tolerance: 'pointer'
+      distance: 15,
+      axis: 'y',
+      helper: 'clone',
+      opacity: 0.75,
+      revert: 'invalid',
+      revertDuration: 250,
     });
 
+    $('tbody tr[data-roster-spot]').droppable({
+      accept: function (ui) {
+        if ($(this).data('roster-spot') === 'BN') {
+          if (ui.data('roster-spot') === $(this).data('position')) {
+            return true;
+          } else if (ui.data('roster-spot') === 'R/W/T') {
+            if ($(this).data('position') === 'RB' || $(this).data('position') === 'WR'
+                || $(this).data('position') === 'TE') {
+              return true;
+            };
+          };
+        };
+        if ($(this).data('roster-spot') === 'R/W/T') {
+          return (ui.data('position') === 'RB' || ui.data('position') === 'WR' ||
+                  ui.data('position') === 'TE')
+        }
+        return $(this).data('roster-spot') === ui.data('position');
+      },
+      activeClass: 'darker',
+      hoverClass: 'info',
+      tolerance: 'pointer'
+    })
+
     return this;
+  },
+
+  swapRosterSpot: function (event, dragged) {
+    var $original = $(event.target);
+    var $swapped = $(dragged.draggable[0]);
+    var $newOriginal = $('<tr></tr>').html($swapped.html());
+    var $newSwapped = $('<tr></tr>').html($original.html());
+    $original.html($newOriginal.html());
+    $swapped.html($newSwapped.html());
+
+    var tempPosition = $original.data('position');
+    $original.attr('data-position', $swapped.data('position'));
+    $swapped.attr('data-position', tempPosition);
+
+    var tempId = $original.data('id');
+    $original.attr('data-id', $swapped.data('id'));
+    $swapped.attr('data-id', tempId);
+
+    $original.children().first().text($original.data('roster-spot'));
+    $swapped.children().first().text($swapped.data('roster-spot'));
+
+    console.log($original);
+    console.log($swapped);
   },
 
   addRosterRow: function (rosterSpot) {
