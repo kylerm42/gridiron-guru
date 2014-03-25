@@ -15,6 +15,7 @@
 //= require jquery.ui.draggable
 //= require jquery.ui.droppable
 //= require bootstrap
+//= require alertify
 //= require underscore
 //= require backbone
 //= require fantasy_football

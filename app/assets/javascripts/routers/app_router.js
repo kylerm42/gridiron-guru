@@ -94,7 +94,8 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
     if (!FantasyFootball.currentUser.id) {
       Backbone.history.navigate('')
       this.homeShow();
-      // show some error
+
+      alertify.log("You must sign in to do that", '', 2000);
       return true
     }
   }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323002512) do
+ActiveRecord::Schema.define(version: 20140325165803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,12 +48,22 @@ ActiveRecord::Schema.define(version: 20140323002512) do
     t.integer  "manager_id",                      null: false
     t.string   "password_digest"
     t.boolean  "private",         default: false
+    t.integer  "current_week",    default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "leagues", ["manager_id"], name: "index_leagues_on_manager_id", using: :btree
   add_index "leagues", ["name"], name: "index_leagues_on_name", using: :btree
+
+  create_table "matchups", force: true do |t|
+    t.integer  "home_team_id"
+    t.float    "home_team_score"
+    t.integer  "away_team_id"
+    t.float    "away_team_score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -188,6 +198,42 @@ ActiveRecord::Schema.define(version: 20140323002512) do
   create_table "watched_players", force: true do |t|
     t.integer  "team_id"
     t.integer  "player_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "weekly_stats", force: true do |t|
+    t.integer  "player_id",                 null: false
+    t.integer  "week_id",                   null: false
+    t.integer  "pass_yards",    default: 0
+    t.integer  "pass_tds",      default: 0
+    t.integer  "pass_ints",     default: 0
+    t.integer  "rush_yards",    default: 0
+    t.integer  "rush_tds",      default: 0
+    t.integer  "receptions",    default: 0
+    t.integer  "rec_yards",     default: 0
+    t.integer  "rec_tds",       default: 0
+    t.integer  "fumbles",       default: 0
+    t.integer  "two_pt_conv",   default: 0
+    t.integer  "made_pat",      default: 0
+    t.integer  "miss_pat",      default: 0
+    t.integer  "made_20",       default: 0
+    t.integer  "miss_20",       default: 0
+    t.integer  "made_30",       default: 0
+    t.integer  "miss_30",       default: 0
+    t.integer  "made_40",       default: 0
+    t.integer  "miss_40",       default: 0
+    t.integer  "made_50",       default: 0
+    t.integer  "miss_50",       default: 0
+    t.integer  "made_50_plus",  default: 0
+    t.integer  "miss_50_plus",  default: 0
+    t.integer  "sacks",         default: 0
+    t.integer  "interceptions", default: 0
+    t.integer  "fum_rec",       default: 0
+    t.integer  "safeties",      default: 0
+    t.integer  "def_tds",       default: 0
+    t.integer  "ret_tds",       default: 0
+    t.integer  "pts_allowed",   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -41,7 +41,6 @@
 #
 
 class Player < ActiveRecord::Base
-  require 'addressable/uri'
   extend   PlayersHelper
 
   POSITIONS = ["QB", "RB", "WR", "TE", "K", "DEF"]
@@ -96,6 +95,7 @@ class Player < ActiveRecord::Base
   has_many :leagues,
            through: :teams,
            source: :league
+  has_many :weekly_stats
 
   def name
     self.first_name + " " + self.last_name

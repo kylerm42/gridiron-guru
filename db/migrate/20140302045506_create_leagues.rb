@@ -5,6 +5,7 @@ class CreateLeagues < ActiveRecord::Migration
       t.integer :manager_id, null: false
       t.string :password_digest
       t.boolean :private, default: false
+      t.integer :current_week, default: 0
 
       t.timestamps
     end

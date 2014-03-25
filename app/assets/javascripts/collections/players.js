@@ -8,6 +8,8 @@ FantasyFootball.Collections.Players = Backbone.Collection.extend({
   },
   model: FantasyFootball.Models.Player,
 
+  comparator: 'points',
+
   getOrFetch: function (id) {
     var model;
     var players = this;

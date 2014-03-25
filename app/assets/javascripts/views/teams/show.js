@@ -44,7 +44,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
       axis: 'y',
       helper: 'clone',
       opacity: 0.75,
-      revert: 'invalid',
+      revert: false,
       revertDuration: 250,
     });
 
@@ -98,7 +98,11 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     originalRosterSpot.unset('player');
     swappedRosterSpot.unset('player');
 
-    originalRosterSpot.save();
+    originalRosterSpot.save({}, {
+      success: function () {
+        alertify.log("Roster saved successfully!", "success", 2000)
+      }
+    });
     swappedRosterSpot.save();
 
 

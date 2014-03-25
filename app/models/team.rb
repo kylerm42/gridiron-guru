@@ -15,6 +15,7 @@
 #
 
 class Team < ActiveRecord::Base
+  after_create :league_full?
   validates :league, presence: true
   validates :name, :user_id, presence: true, uniqueness: { scope: :league_id }
 
@@ -44,4 +45,12 @@ class Team < ActiveRecord::Base
   has_many :watched_players,
            through: :watched_player_joins,
            source: :player
+
+  def league_full?
+    @league = self.league
+    if @league.teams.count == 10
+      @league.current_week = 1
+      @league.save!
+    end
+  end
 end

@@ -34,6 +34,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
 
   render: function () {
     console.log('rendering player index');
+    this.collection.sort();
     var renderedContent = this.template({
       players: this.collection,
       league: this.league
@@ -95,7 +96,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
         }
       });
     } else {
-      // show some error
+      alertify.log("You must select a player to drop", 'error', 3000);
     }
   },
 
@@ -222,7 +223,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       $('#player-action-modal .modal-body').html(tradeSendModalView.render().$el);
       $('#trade-complete').on('click', this.tradeComplete.bind(this));
     } else {
-      // show some error
+      alertify.log("You must select at least one player", 'error', 3000);
     }
   },
 
@@ -257,7 +258,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       $('#player-action-modal .modal-body').html(tradeConfirmModalView.render().$el);
       $('#trade-confirm').on('click', this.tradeConfirm.bind(this));
     } else {
-      // show some error
+      alertify.log("You must select at least one player", 'error', 3000);
     }
   },
 

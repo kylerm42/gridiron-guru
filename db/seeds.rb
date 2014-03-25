@@ -21,10 +21,66 @@ User.create(username: "test2",
             email: "test2@test.com",
             password: "123456")
 
+User.create(username: "test3",
+            first_name: "John",
+            last_name: "Doe",
+            email: "test3@test.com",
+            password: "123456")
+
+User.create(username: "test4",
+            first_name: "John",
+            last_name: "Doe",
+            email: "test4@test.com",
+            password: "123456")
+
+User.create(username: "test5",
+            first_name: "John",
+            last_name: "Doe",
+            email: "test5@test.com",
+            password: "123456")
+
+User.create(username: "test6",
+            first_name: "John",
+            last_name: "Doe",
+            email: "test6@test.com",
+            password: "123456")
+
+User.create(username: "test7",
+            first_name: "John",
+            last_name: "Doe",
+            email: "test7@test.com",
+            password: "123456")
+
+User.create(username: "test8",
+            first_name: "John",
+            last_name: "Doe",
+            email: "test8@test.com",
+            password: "123456")
+
+User.create(username: "test9",
+            first_name: "John",
+            last_name: "Doe",
+            email: "test9@test.com",
+            password: "123456")
+
+User.create(username: "test0",
+            first_name: "John",
+            last_name: "Doe",
+            email: "test0@test.com",
+            password: "123456")
+
 League.create(name: "Test league", manager_id: 1)
 
 Team.create(name: "Test team", user_id: 1, league_id: 1)
 Team.create(name: "Z team", user_id: 2, league_id: 1)
+Team.create(name: "3 team", user_id: 3, league_id: 1)
+Team.create(name: "4 team", user_id: 4, league_id: 1)
+Team.create(name: "5 team", user_id: 5, league_id: 1)
+Team.create(name: "6 team", user_id: 6, league_id: 1)
+Team.create(name: "7 team", user_id: 7, league_id: 1)
+Team.create(name: "8 team", user_id: 8, league_id: 1)
+Team.create(name: "9 team", user_id: 9, league_id: 1)
+Team.create(name: "0 team", user_id: 10, league_id: 1)
 
 RosterSpot.create(team_id: 1, player_id: 8, position: 'QB')
 RosterSpot.create(team_id: 1, player_id: 75, position: 'RB')
