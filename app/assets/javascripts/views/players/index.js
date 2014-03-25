@@ -84,6 +84,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       this.addDrop.set('dropped_player_id', droppedPlayerId);
       this.addDrop.save({}, {
         success: function () {
+          alertify.log("Successfully added a player!", 'success', 3000)
           $('#player-action-modal').modal('hide');
           $('.modal-backdrop').remove();
           $('body').removeClass('modal-open');

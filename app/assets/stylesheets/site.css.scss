@@ -71,6 +71,10 @@ $darkerBlue: #0B344A;
   margin-top: 2px;
 }
 
+.margin-right-sm {
+  margin-right: 7px;
+}
+
 .no-margin {
   margin: 0px;
 }
@@ -133,13 +137,22 @@ a:hover {
   border-width: 2px;
 }
 
+.btn.btn-hover-border-light-blue:hover {
+  border-color: $lightBlue;
+}
+
 .btn-primary {
   background-color: #0B344A;
   border-color: #0D3F59;
   &:hover {
-    background-color: #0B344A;
+    background-color: $darkerBlue;
     border-color: $darkBlue;
   }
+}
+
+.btn-primary.active {
+  background-color: $lightBlue;
+  border-color: $darkerBlue;
 }
 
 .btn-success {
@@ -158,6 +171,10 @@ a:hover {
     background-color: $bigRed;
     border-color: #BD0C00;
   }
+}
+
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child), .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+  border-radius: 0px;
 }
 
 // table styles
