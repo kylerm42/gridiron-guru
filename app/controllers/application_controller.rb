@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     return nil if session[:token].nil?
     current_session = Session.find_by_token(session[:token])
 
-    current_session ? User.includes(:teams).find(current_session.user_id) : nil
+    @current_user = current_session ? User.includes(:teams).find(current_session.user_id) : nil
   end
 
   def logged_in?

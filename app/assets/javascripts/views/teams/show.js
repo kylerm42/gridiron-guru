@@ -2,7 +2,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.collection, 'sync', this.render);
-    // this.listenTo(this.collection, 'add', this.addRosterRow);
+    // this.listenTo(this.collection, 'change', this.updateRosterSpots);
     // this.listenTo(this.collection, 'remove', this.removeRosterRow);
     // this.listenTo(this.collection, 'sync', this.addRosterRows);
     // this.model.rosterSpots().each(this.addRosterRow.bind(this))
@@ -49,23 +49,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     });
 
     $('tbody tr[data-roster-spot]').droppable({
-      accept: function (ui) {
-        if ($(this).data('roster-spot') === 'BN') {
-          if (ui.data('roster-spot') === $(this).data('position')) {
-            return true;
-          } else if (ui.data('roster-spot') === 'R/W/T') {
-            if ($(this).data('position') === 'RB' || $(this).data('position') === 'WR'
-                || $(this).data('position') === 'TE') {
-              return true;
-            };
-          };
-        };
-        if ($(this).data('roster-spot') === 'R/W/T') {
-          return (ui.data('position') === 'RB' || ui.data('position') === 'WR' ||
-                  ui.data('position') === 'TE')
-        }
-        return $(this).data('roster-spot') === ui.data('position');
-      },
+      accept: this.rosterDropAccept,
       activeClass: 'darker',
       hoverClass: 'info',
       tolerance: 'pointer'
@@ -74,27 +58,78 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     return this;
   },
 
+  rosterDropAccept: function (ui) {
+    if ($(this).data('roster-spot') === 'BN') {
+      if (ui.data('roster-spot') === $(this).data('position')) {
+        return true;
+      } else if (ui.data('roster-spot') === 'R/W/T') {
+        if ($(this).data('position') === 'RB' || $(this).data('position') === 'WR'
+            || $(this).data('position') === 'TE') {
+          return true;
+        };
+      };
+    };
+    if ($(this).data('roster-spot') === 'R/W/T') {
+      if (ui.data('roster-spot') === 'BN') {
+        return (ui.data('position') === 'RB' || ui.data('position') === 'WR' ||
+                ui.data('position') === 'TE')
+      } else {
+        return (ui.data('position') === $(this).data('position'));
+      };
+    }
+    return $(this).data('roster-spot') === ui.data('position');
+  },
+
   swapRosterSpot: function (event, dragged) {
     var $original = $(event.target);
     var $swapped = $(dragged.draggable[0]);
-    var $newOriginal = $('<tr></tr>').html($swapped.html());
-    var $newSwapped = $('<tr></tr>').html($original.html());
-    $original.html($newOriginal.html());
-    $swapped.html($newSwapped.html());
 
-    var tempPosition = $original.data('position');
-    $original.attr('data-position', $swapped.data('position'));
-    $swapped.attr('data-position', tempPosition);
+    var $placeholder = $('<tr><td></td></tr>');
+    $swapped.after($placeholder);
+    $original.after($swapped);
+    $placeholder.replaceWith($original);
 
-    var tempId = $original.data('id');
-    $original.attr('data-id', $swapped.data('id'));
-    $swapped.attr('data-id', tempId);
+    var originalRosterSpot = this.collection.get($original.data('roster-id'));
+    var swappedRosterSpot = this.collection.get($swapped.data('roster-id'));
 
-    $original.children().first().text($original.data('roster-spot'));
-    $swapped.children().first().text($swapped.data('roster-spot'));
+    var tempPosition = originalRosterSpot.get('position');
+    originalRosterSpot.set('position', swappedRosterSpot.get('position'));
+    swappedRosterSpot.set('position', tempPosition);
+    originalRosterSpot.unset('player');
+    swappedRosterSpot.unset('player');
 
-    console.log($original);
-    console.log($swapped);
+    originalRosterSpot.save();
+    swappedRosterSpot.save();
+
+
+    // var $newOriginal = $('<tr></tr>').html($swapped.html());
+    // var $newSwapped = $('<tr></tr>').html($original.html());
+    // $original.html($newOriginal.html());
+    // $swapped.html($newSwapped.html());
+    //
+    // var originalRosterSpot = this.collection.get($original.data('roster-id'));
+    // originalRosterSpot.set('player_id', $swapped.data('id'));
+    //
+    // var swappedRosterSpot = this.collection.get($swapped.data('roster-id'));
+    // swappedRosterSpot.set('player_id', $original.data('id'));
+    //
+    // var tempPlayer = originalRosterSpot.player;
+    // originalRosterSpot.player = swappedRosterSpot.player;
+    // swappedRosterSpot.player = tempPlayer;
+    //
+    // $original.attr('data-id', originalRosterSpot.get('player_id'));
+    // $swapped.attr('data-id', swappedRosterSpot.get('player_id'));
+    //
+    // var tempPosition = $original.data('position');
+    // $original.attr('data-position', $swapped.data('position'));
+    // $swapped.attr('data-position', tempPosition);
+    //
+    // $original.children().first().text($original.data('roster-spot'));
+    // $swapped.children().first().text($swapped.data('roster-spot'));
+  },
+
+  updateRosterSpots: function (event) {
+    this.render();
   },
 
   addRosterRow: function (rosterSpot) {
