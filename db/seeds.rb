@@ -8,6 +8,18 @@
 
 
 Player.seed_players
+Player.create(first_name: 'Ted', last_name: 'Ginn', nfl_team: 'CAR', position: 'WR')
+Player.create(first_name: 'Denard', last_name: 'Robinson', nfl_team: 'JAX', position: 'RB')
+Player.create(first_name: 'Cecil', last_name: 'Shorts', nfl_team: 'JAX', position: 'WR')
+Player.create(first_name: 'Roy', last_name: 'Helu', nfl_team: 'WAS', position: 'RB')
+Player.create(first_name: 'Chris', last_name: 'Thompson', nfl_team: 'WAS', position: 'RB')
+Player.create(first_name: 'Demarcus', last_name: 'Dobbs', nfl_team: 'SF', position: 'TE')
+Player.create(first_name: 'Louis', last_name: 'Murphy', nfl_team: 'NYG', position: 'WR')
+Player.create(first_name: 'Michael', last_name: 'Ford', nfl_team: 'CHI', position: 'RB')
+Player.create(first_name: 'Chase', last_name: 'Reynolds', nfl_team: 'STL', position: 'RB')
+
+Player.seed_stats!
+
 
 User.create(username: "test",
             first_name: "Test",
@@ -125,3 +137,5 @@ trade2.trade_send_players.create(player_id: 10)
 trade2.trade_send_players.create(player_id: 69)
 trade2.trade_receive_players.create(player_id: 9)
 trade2.trade_receive_players.create(player_id: 237)
+
+League.first.update({ current_week: 9 })

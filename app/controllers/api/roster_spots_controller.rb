@@ -11,6 +11,14 @@ class Api::RosterSpotsController < ApplicationController
     end
   end
 
+  def index
+    @week = params[:week] || 'all'
+    @user = current_user
+    @team = Team.includes(:owner).find(params[:team_id])
+    @roster_spots = RosterSpot.includes(player: :weekly_stats).where(player_id: params[:players])
+    render :index
+  end
+
   private
 
     def roster_spot_params

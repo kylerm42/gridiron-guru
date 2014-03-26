@@ -1,6 +1,7 @@
 FantasyFootball.Views.TeamShow = Backbone.View.extend({
   initialize: function (options) {
-    this.listenTo(this.model, 'sync', this.render);
+    this.week = 'all';
+    this.listenTo(this.model, 'sync change', this.render);
     this.listenTo(this.collection, 'sync', this.render);
     // this.listenTo(this.collection, 'change', this.updateRosterSpots);
     // this.listenTo(this.collection, 'remove', this.removeRosterRow);
@@ -15,6 +16,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     'click .drop-player': 'dropPlayer',
     'click .trade-sent-btn': 'sentTradeOpen',
     'click .trade-received-btn': 'receivedTradeOpen',
+    'click .week-select': 'weekUpdate',
     'drop': 'swapRosterSpot'
   },
 
@@ -26,35 +28,42 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     });
     this.$el.html(renderedContent);
 
+    $('.btn-group input[data-week-id="' + this.week + '"]').parent().addClass('active');
+
     // for keeping row width when dragging
     var fixHelper = function(ui) {
-      console.log($(ui.currentTarget).children())
-      console.log(this)
-    	$(ui.currentTarget).children().each(function() {
-        console.log(this)
-    		$(this).width($(this).width());
-    		$(this).height($(this).height());
+      var $target = $(ui.currentTarget)
+      var $newRow = $('<tr></tr>').html($target.html());
+      $newRow.width($target.width());
+      var children = $target.children();
+
+    	$newRow.children().each(function(i, child) {
+        $(child).width($(children[i]).width() + +$(children[i]).css('padding')[0] * 2)
+                .css('padding', '8px');
     	});
-    	return ui.currentTarget;
+
+    	return $newRow;
     };
 
-    $('tbody tr[data-roster-spot]').draggable({
-      containment: 'parent',
-      distance: 15,
-      axis: 'y',
-      helper: 'clone',
-      opacity: 0.75,
-      revert: false,
-      revertDuration: 250,
-    });
+    if (this.model.get('user_id') === FantasyFootball.currentUser.id) {
+      $('tbody tr[data-roster-spot]').draggable({
+        appendTo: 'parent',
+        containment: 'parent',
+        distance: 15,
+        axis: 'y',
+        helper: fixHelper,
+        opacity: 0.75,
+        revert: false,
+        revertDuration: 250,
+      });
 
-    $('tbody tr[data-roster-spot]').droppable({
-      accept: this.rosterDropAccept,
-      activeClass: 'darker',
-      hoverClass: 'info',
-      tolerance: 'pointer'
-    })
-
+      $('tbody tr[data-roster-spot]').droppable({
+        accept: this.rosterDropAccept,
+        activeClass: 'darker',
+        hoverClass: 'info',
+        tolerance: 'pointer'
+      });
+    };
     return this;
   },
 
@@ -68,7 +77,11 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
           return true;
         };
       };
-    };
+    } else {
+      if (ui.data('roster-spot') !== 'BN' && ui.data('roster-spot') === $(this).data('roster-spot')) {
+        return false
+      }
+    }
     if ($(this).data('roster-spot') === 'R/W/T') {
       if (ui.data('roster-spot') === 'BN') {
         return (ui.data('position') === 'RB' || ui.data('position') === 'WR' ||
@@ -100,40 +113,28 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
 
     originalRosterSpot.save({}, {
       success: function () {
-        alertify.log("Roster saved successfully!", "success", 2000)
+        alertify.log("Roster saved successfully!", "success", 2000);
       }
     });
     swappedRosterSpot.save();
-
-
-    // var $newOriginal = $('<tr></tr>').html($swapped.html());
-    // var $newSwapped = $('<tr></tr>').html($original.html());
-    // $original.html($newOriginal.html());
-    // $swapped.html($newSwapped.html());
-    //
-    // var originalRosterSpot = this.collection.get($original.data('roster-id'));
-    // originalRosterSpot.set('player_id', $swapped.data('id'));
-    //
-    // var swappedRosterSpot = this.collection.get($swapped.data('roster-id'));
-    // swappedRosterSpot.set('player_id', $original.data('id'));
-    //
-    // var tempPlayer = originalRosterSpot.player;
-    // originalRosterSpot.player = swappedRosterSpot.player;
-    // swappedRosterSpot.player = tempPlayer;
-    //
-    // $original.attr('data-id', originalRosterSpot.get('player_id'));
-    // $swapped.attr('data-id', swappedRosterSpot.get('player_id'));
-    //
-    // var tempPosition = $original.data('position');
-    // $original.attr('data-position', $swapped.data('position'));
-    // $swapped.attr('data-position', tempPosition);
-    //
-    // $original.children().first().text($original.data('roster-spot'));
-    // $swapped.children().first().text($swapped.data('roster-spot'));
   },
 
-  updateRosterSpots: function (event) {
-    this.render();
+  weekUpdate: function (event) {
+    var $currentTarget = $(event.currentTarget);
+    this.week = $currentTarget.children('input').data('week-id')
+
+    var playerIds = [];
+    this.collection.each(function (rosterSpot) {
+      playerIds.push(rosterSpot.player.id);
+    });
+
+    this.collection.fetch({
+      data: {
+        week: this.week,
+        players: playerIds,
+        team_id: this.model.id
+      }
+    })
   },
 
   addRosterRow: function (rosterSpot) {

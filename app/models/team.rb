@@ -45,12 +45,28 @@ class Team < ActiveRecord::Base
   has_many :watched_players,
            through: :watched_player_joins,
            source: :player
+  has_many :home_matchups,
+           foreign_key: :home_team_id,
+           class_name: "Matchup"
+  has_many :away_matchups,
+           foreign_key: :away_team_id,
+           class_name: "Matchup"
 
   def league_full?
     @league = self.league
     if @league.teams.count == 10
       @league.current_week = 1
+      @league.create_matchups!
       @league.save!
     end
+  end
+
+  def matchups
+    Matchup.where("home_team_id = ? OR away_team_id = ?", self.id, self.id).first
+  end
+
+  def weekly_matchup(week)
+    Matchup.where("week = ? AND (home_team_id = ? OR away_team_id = ?)",
+                  week, self.id, self.id).first
   end
 end

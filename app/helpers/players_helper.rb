@@ -11,13 +11,7 @@ module PlayersHelper
         position: 'QB',
         first_name: name.shift,
         last_name: name.join(" "),
-        nfl_team: team,
-        pass_yards: qb['PYds'],
-        pass_tds: qb['PTD'],
-        pass_ints: qb['Int'],
-        rush_yards: qb['RuYds'],
-        rush_tds: qb['RuTD'],
-        fumbles: qb['FumL'],
+        nfl_team: team
       )
     end
 
@@ -29,12 +23,7 @@ module PlayersHelper
         position: 'RB',
         first_name: name.shift,
         last_name: name.join(" "),
-        nfl_team: team,
-        rush_yards: rb['RuYds'],
-        rush_tds: rb['RuTD'],
-        rec_yards: rb['RecYds'],
-        rec_tds: rb['RecTD'],
-        fumbles: rb['FumL'],
+        nfl_team: team
       )
     end
 
@@ -46,11 +35,7 @@ module PlayersHelper
         position: 'WR',
         first_name: name.shift,
         last_name: name.join(" "),
-        nfl_team: team,
-        rec_yards: wr['RecYds'],
-        rec_tds: wr['RecTD'],
-        ret_tds: wr['PRTD'].to_i + wr['KRTD'].to_i,
-        fumbles: wr['FumL'],
+        nfl_team: team
       )
     end
 
@@ -62,12 +47,7 @@ module PlayersHelper
         position: 'TE',
         first_name: name.shift,
         last_name: name.join(" "),
-        nfl_team: team,
-        rec_yards: te['RecYds'],
-        rec_tds: te['RecTD'],
-        rush_yards: te['RuYds'],
-        rush_tds: te['RuTD'],
-        fumbles: te['FumL'],
+        nfl_team: team
       )
     end
 
@@ -143,5 +123,97 @@ module PlayersHelper
       team = "JAX"
     end
     team
+  end
+
+  def create_weekly_stats(players, p, week)
+    player = players.where(last_name: p['name'].split('.').last, position: p['pos'])
+    if player.length > 1
+      player = player.select do |single|
+        single.first_name[0] == p['name'].split('.').first
+      end
+    end
+    if player.length > 1
+      player = player.select do |single|
+        if p['team'] == 'JAC'
+          single.nfl_team == 'JAX'
+        else
+          single.nfl_team == p['team']
+        end
+      end
+    end
+    if p['name'] == 'R.Griffin' && p['team'] == 'WAS' && p['pos'] == 'QB'
+      player = players.where(last_name: 'Griffin III', nfl_team: 'WAS')
+    end
+    player = player.first
+
+    player.weekly_stats.new(week: week,
+                            pass_yards: p['passing_yds'] || 0,
+                            pass_tds: p['passing_tds'] || 0,
+                            pass_ints: p['passing_ints'] || 0,
+                            rush_yards: p['rushing_yds'] || 0,
+                            rush_tds: p['rushing_tds'] || 0,
+                            receptions: p['receiving_rec'] || 0,
+                            rec_yards: p['receiving_yds'] || 0,
+                            rec_tds: p['receiving_tds'] || 0,
+                            fumbles: p['fumbles_lost'] || 0,
+                            two_pt_conv: p['passing_twoptm'].to_i +
+                                         p['receiving_twoptm'].to_i +
+                                         p['rushing_twoptm'].to_i,
+                            )
+    player.save!
+  end
+
+  def create_season_stats(players, p)
+    player = players.where(last_name: p['name'].split('.').last, position: p['pos'])
+    if player.length > 1
+      player = player.select do |single|
+        single.first_name[0] == p['name'].split('.').first
+      end
+    end
+    if player.length > 1
+      player = player.select do |single|
+        if p['team'] == 'JAC'
+          single.nfl_team == 'JAX'
+        else
+          single.nfl_team == p['team']
+        end
+      end
+    end
+    if p['name'] == 'R.Griffin' && p['team'] == 'WAS' && p['pos'] == 'QB'
+      player = players.where(last_name: 'Griffin III', nfl_team: 'WAS')
+    end
+    player = player.first
+
+    player.update_attributes({
+      pass_yards: p['passing_yds'] || 0,
+      pass_tds: p['passing_tds'] || 0,
+      pass_ints: p['passing_ints'] || 0,
+      rush_yards: p['rushing_yds'] || 0,
+      rush_tds: p['rushing_tds'] || 0,
+      receptions: p['receiving_rec'] || 0,
+      rec_yards: p['receiving_yds'] || 0,
+      rec_tds: p['receiving_tds'] || 0,
+      fumbles: p['fumbles_lost'] || 0,
+      two_pt_conv: p['passing_twoptm'].to_i +
+                   p['receiving_twoptm'].to_i +
+                   p['rushing_twoptm'].to_i,
+      })
+  end
+
+  def seed_stats!
+    players = Player.all
+    8.times do |i|
+      week = CSV.open("lib/week#{i + 1}.csv", headers: true)
+      week.each do |p|
+        next unless ['QB', 'RB', 'WR', 'TE'].include?(p['pos'])
+        self.create_weekly_stats(players, p, i + 1)
+      end
+    end
+
+    weeks = CSV.open("lib/weeks1_8.csv", headers: true)
+    weeks.each do |p|
+      next unless ['QB', 'RB', 'WR', 'TE'].include?(p['pos'])
+      self.create_season_stats(players, p)
+    end
   end
 end

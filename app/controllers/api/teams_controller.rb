@@ -25,9 +25,11 @@ class Api::TeamsController < ApplicationController
   end
 
   def show
+    @week = params[:week] || 'all'
     if @user = current_user
-      @current_user_team = current_user.teams.where(league_id: params[:league_id]).first
+      @current_user_team = @user.teams.find_by_league_id(params[:league_id])
     end
+    @matchup = @team.weekly_matchup(@team.league.current_week)
     render :show
   end
 
@@ -61,7 +63,9 @@ class Api::TeamsController < ApplicationController
                             league: :teams,
                             sent_trades: [:send_players, :receive_players],
                             received_trades: [:send_players, :receive_players],
-                            roster_spots: :player)
+                            roster_spots: [player: :weekly_stats],
+                            home_matchups: [:home_team, :away_team],
+                            away_matchups: [:home_team, :away_team])
                             .find(params[:id])
     end
 end

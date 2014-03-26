@@ -2,6 +2,10 @@ FantasyFootball.Collections.RosterSpots = Backbone.Collection.extend({
   url: '/api/roster_spots',
   model: FantasyFootball.Models.RosterSpot,
 
+  comparator: function (rosterSpot) {
+    return this.rosterValues[rosterSpot.player.get('position')];
+  },
+
   rosterValues: {
     'QB': 1,
     'RB': 2,
@@ -89,4 +93,8 @@ FantasyFootball.Collections.RosterSpots = Backbone.Collection.extend({
       return model;
     }
   },
+
+  parse: function (json) {
+    return json.roster_spots
+  }
 });

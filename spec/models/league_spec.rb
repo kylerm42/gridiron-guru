@@ -7,6 +7,7 @@
 #  manager_id      :integer          not null
 #  password_digest :string(255)
 #  private         :boolean          default(FALSE)
+#  current_week    :integer          default(0)
 #  created_at      :datetime
 #  updated_at      :datetime
 #

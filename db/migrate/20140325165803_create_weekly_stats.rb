@@ -2,7 +2,8 @@ class CreateWeeklyStats < ActiveRecord::Migration
   def change
     create_table :weekly_stats do |t|
       t.integer :player_id, null: false
-      t.integer :week_id, null: false
+      t.integer :week, null: false
+      t.string :opponent
 
       t.integer :pass_yards, default: 0
       t.integer :pass_tds, default: 0
@@ -39,5 +40,7 @@ class CreateWeeklyStats < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :weekly_stats, :player_id
+    add_index :weekly_stats, :week
   end
 end

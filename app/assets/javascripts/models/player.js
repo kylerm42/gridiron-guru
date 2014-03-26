@@ -1,4 +1,8 @@
 FantasyFootball.Models.Player = Backbone.Model.extend({
+  initialize: function() {
+    this.set('points', this.points());
+  },
+
   urlRoot: '/api/players',
 
   fullName: function () {

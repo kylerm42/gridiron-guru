@@ -39,34 +39,38 @@
       <% } %>
     </small>
   </td>
-  <td>
-    <%= rosterSpot.player.get('pass_yards') %>
-  </td>
-  <td>
-    <%= rosterSpot.player.get('pass_tds') %>
-  </td>
-  <td>
-    <%= rosterSpot.player.get('pass_ints') %>
-  </td>
-  <td>
-    <%= rosterSpot.player.get('rush_yards') %>
-  </td>
-  <td>
-    <%= rosterSpot.player.get('rush_tds') %>
-  </td>
-  <td>
-    <%= rosterSpot.player.get('rec_yards') %>
-  </td>
-  <td>
-    <%= rosterSpot.player.get('rec_tds') %>
-  </td>
-  <td>
-    <%= rosterSpot.player.get('two_pt_conv') %>
-  </td>
-  <td>
-    <%= rosterSpot.player.get('fumbles') %>
-  </td>
-  <td>
-    <%= parseFloat(Math.round(rosterSpot.player.points() * 100) / 100).toFixed(2) %>
-  </td>
+  <% if (rosterSpot.player.get('bye') === true) { %>
+    <td colspan='10' class='centered'>Bye</td>
+  <% } else { %>
+    <td>
+      <%= rosterSpot.player.get('pass_yards') %>
+    </td>
+    <td>
+      <%= rosterSpot.player.get('pass_tds') %>
+    </td>
+    <td>
+      <%= rosterSpot.player.get('pass_ints') %>
+    </td>
+    <td>
+      <%= rosterSpot.player.get('rush_yards') %>
+    </td>
+    <td>
+      <%= rosterSpot.player.get('rush_tds') %>
+    </td>
+    <td>
+      <%= rosterSpot.player.get('rec_yards') %>
+    </td>
+    <td>
+      <%= rosterSpot.player.get('rec_tds') %>
+    </td>
+    <td>
+      <%= rosterSpot.player.get('two_pt_conv') %>
+    </td>
+    <td>
+      <%= rosterSpot.player.get('fumbles') %>
+    </td>
+    <td>
+      <%= parseFloat(Math.round(rosterSpot.player.points() * 100) / 100).toFixed(2) %>
+    </td>
+  <% } %>
 </tr>

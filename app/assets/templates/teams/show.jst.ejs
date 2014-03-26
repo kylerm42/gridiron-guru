@@ -49,57 +49,14 @@
 <div class='row'>
   <div class='col-sm-7 btn-group btn-group-xs' data-toggle='buttons'>
     <span class='pull-left margin-right-sm margin-top-xs'>Week #</span>
-    <label class='btn btn-primary btn-hover-border-light-blue active'>
+    <label class='week-select btn btn-primary btn-hover-border-light-blue'>
       <input type='radio' name='week' data-week-id='all'>Season
     </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='1'>1
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='2'>2
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='3'>3
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='4'>4
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='5'>5
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='6'>6
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='7'>7
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='8'>8
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='9'>9
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='10'>10
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='11'>11
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='12'>12
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='13'>13
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='14'>14
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='15'>15
-    </label>
-    <label class='btn btn-primary btn-hover-border-light-blue'>
-      <input type='radio' name='week' data-week-id='16'>16
-    </label>
+    <% for (i = 1; i < team.league().get('current_week'); i++) { %>
+      <label class='week-select btn btn-primary btn-hover-border-light-blue'>
+        <input type='radio' name='week' data-week-id='<%= i %>'><%= i %>
+      </label>
+    <% } %>
   </div>
 
   <div class='col-sm-5 pull-right'>

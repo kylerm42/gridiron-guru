@@ -20,7 +20,8 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     });
 
     this.listenTo(this.league, 'sync', this.render);
-    this.listenTo(this.collection, 'add', this.addPlayerRow);
+    // this.listenTo(this.collection, 'add', this.addPlayerRow);
+    this.listenTo(this.collection, 'sync', this.addPlayerRows);
     this.listenTo(this.currentTeam.players(), 'add remove', this.render)
   },
 
@@ -52,6 +53,13 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     });
     this.addSubview('tbody', playerRowView);
     playerRowView.render();
+  },
+
+  addPlayerRows: function (players) {
+    var view = this;
+    players.forEach(function (player) {
+      view.addPlayerRow(player);
+    });
   },
 
   addPlayer: function (event) {

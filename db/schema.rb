@@ -57,10 +57,11 @@ ActiveRecord::Schema.define(version: 20140325165803) do
   add_index "leagues", ["name"], name: "index_leagues_on_name", using: :btree
 
   create_table "matchups", force: true do |t|
-    t.integer  "home_team_id"
-    t.float    "home_team_score"
-    t.integer  "away_team_id"
-    t.float    "away_team_score"
+    t.integer  "week",                          null: false
+    t.integer  "home_team_id",                  null: false
+    t.float    "home_team_score", default: 0.0
+    t.integer  "away_team_id",                  null: false
+    t.float    "away_team_score", default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -204,7 +205,8 @@ ActiveRecord::Schema.define(version: 20140325165803) do
 
   create_table "weekly_stats", force: true do |t|
     t.integer  "player_id",                 null: false
-    t.integer  "week_id",                   null: false
+    t.integer  "week",                      null: false
+    t.string   "opponent"
     t.integer  "pass_yards",    default: 0
     t.integer  "pass_tds",      default: 0
     t.integer  "pass_ints",     default: 0
@@ -237,5 +239,8 @@ ActiveRecord::Schema.define(version: 20140325165803) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "weekly_stats", ["player_id"], name: "index_weekly_stats_on_player_id", using: :btree
+  add_index "weekly_stats", ["week"], name: "index_weekly_stats_on_week", using: :btree
 
 end
