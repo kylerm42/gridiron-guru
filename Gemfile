@@ -14,6 +14,7 @@ gem 'serialize_json-rails'
 gem 'addressable'
 gem 'rest-client'
 gem 'json'
+gem 'thin'
 
 group :development, :test do
   gem 'rspec-rails'

@@ -22,8 +22,17 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
 
   render: function () {
     console.log('rendering team show')
+    if (this.model.matchup.get('home_team')) {
+      if (this.model.matchup.get('home_team_id') === this.model.id) {
+        var opponent = this.model.matchup.get('away_team');
+      } else {
+        var opponent = this.model.matchup.get('home_team');
+      };
+    };
     var renderedContent = this.template({
       team: this.model,
+      matchup: this.model.matchup,
+      opponent: opponent,
       rosterSpots: this.collection
     });
     this.$el.html(renderedContent);
@@ -41,7 +50,6 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
         $(child).width($(children[i]).width() + +$(children[i]).css('padding')[0] * 2)
                 .css('padding', '8px');
     	});
-
     	return $newRow;
     };
 

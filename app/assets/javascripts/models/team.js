@@ -16,6 +16,9 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
       });
       this._rosterSpots = rosterSpots;
     };
+    if (options.matchup) {
+      this.matchup = new FantasyFootball.Models.Matchup(options.matchup);
+    }
   },
 
   urlRoot: function () {
@@ -85,6 +88,9 @@ FantasyFootball.Models.Team = Backbone.Model.extend({
 
     this.league().set(json.league);
     delete json.league;
+
+    this.matchup = new FantasyFootball.Models.Matchup(json.matchup);
+    delete json.matchup;
 
     return json;
   }

@@ -77,7 +77,9 @@
               "player": <%= roster_spot.player.to_json.html_safe %>}
               <%= team.roster_spots.last != roster_spot ? "," : "" %>
             <% end %>
-          ]}
+          ],
+          "matchup": <%= team.current_matchup.to_json.html_safe %>
+          }<%= @user.teams.last != team ? "," : "" %>
         <% end %>
       <% end %>
     ]}

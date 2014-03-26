@@ -1,22 +1,19 @@
 FantasyFootball.Models.Matchup = Backbone.Model.extend({
-  initialize: function (options) {
-    if (options.home_team) {
-      this._homeTeam = FantasyFootball.teams.getOrFetch(options.home_team.id);
-    }
-    if (options.away_team) {
-      this._awayTeam = FantasyFootball.teams.getOrFetch(options.away_team.id);
-    }
-  },
-
   urlRoot: '/api/matchups',
 
-  teams: function () {
-    if (!this._teams) {
-      this._teams = new FantasyFootball.Collections.Teams([], {
-        team: this
-      });
-    }
-
-    return this._teams;
-  }
+  // homeTeam: function () {
+  //   if (!this._homeTeam) {
+  //     this._homeTeam = FantasyFootball.teams.getOrFetch(this.get('home_team_id'));
+  //   };
+  //
+  //   return this._homeTeam;
+  // },
+  //
+  // awayTeam: function () {
+  //   if (!this._awayTeam) {
+  //     this._awayTeam = FantasyFootball.teams.getOrFetch(this.get('away_team_id'));
+  //   };
+  //
+  //   return this._awayTeam;
+  // }
 });

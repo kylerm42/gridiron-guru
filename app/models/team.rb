@@ -69,4 +69,8 @@ class Team < ActiveRecord::Base
     Matchup.where("week = ? AND (home_team_id = ? OR away_team_id = ?)",
                   week, self.id, self.id).first
   end
+
+  def current_matchup
+    Matchup.where("week = ? AND (home_team_id = ? OR away_team_id = ?)",                                  self.league.current_week, self.id, self.id).first
+  end
 end

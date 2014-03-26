@@ -87,10 +87,18 @@ $darkerBlue: #0B344A;
   position: relative;
 }
 
-.absolute-bottom-right {
+.absolute {
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+}
+
+.top-right {
+  top: 0px;
+  right: 0px;
+}
+
+.bottom-right {
+  bottom: 0px;
+  right: 0px;
 }
 
 .alert-info {

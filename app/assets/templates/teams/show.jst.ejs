@@ -6,11 +6,19 @@
         <small><%= team.league() ? team.league().get('name') : null %></small>
       </a>
     </h1>
-    <h4 class='no-margin absolute-bottom-right'>
+    <div class='absolute bottom-right'>
+      <% if (matchup.get('home_team') && matchup.get('away_team')) { %>
+        <a href='#/matchups/<%= matchup.id %>'>
+          Week <%= matchup.get('week') %></a> vs. <%= opponent.name %>
+        <small>(<%= opponent.wins %>-<%= opponent.losses %>-<%= opponent.ties %>)</small>
+      <% } %>
+    </div>
+    <h4 class='no-margin absolute top-right'>
       <%= team.get('wins') %>-<%= team.get('losses') %>-<%= team.get('ties') %> /
       1st place
     </h4>
   </div>
+
   <% team.sentTrades().forEach(function(trade) { %>
     <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix fade in'>
       <div class='margin-top-xs pull-left'>

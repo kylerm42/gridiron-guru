@@ -10,7 +10,7 @@ json.league do
   end
 end
 json.matchup do
-  json.(@matchup, :id, :week)
+  json.(@matchup, :id, :week, :home_team_id, :away_team_id)
   json.home_team do
     json.(@matchup.home_team, :id, :name, :wins, :losses, :ties)
     json.score @matchup.home_team_score
