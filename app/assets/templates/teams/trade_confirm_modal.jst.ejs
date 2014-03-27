@@ -1,0 +1,49 @@
+<h2 class='no-margin-top'>
+  <%= otherTeam.get('name') %>
+  <small><span class='glyphicon glyphicon-transfer'></span></small>
+  <%= team.get('name') %>
+</h2>
+<table class='table table-hover table-striped'>
+  <thead>
+    <tr class='info'>
+      <th rowspan='2' class='no-border-top'>Select</th>
+      <th rowspan='2' class='no-border-top'>Player</th>
+      <th colspan='3' class='centered helper'>
+        <small>Passing</small>
+      </th>
+      <th colspan='2' class='centered helper'>
+        <small>Rushing</small>
+      </th>
+      <th colspan='2' class='centered helper'>
+        <small>Receiving</small>
+      </th>
+      <th rowspan='2' class='no-border-top'>2 Pt</th>
+      <th rowspan='2' class='no-border-top'>Fum<br>Lost</th>
+      <th rowspan='2' class='no-border-top'>Points</th>
+    </tr>
+    <tr class='info'>
+      <th>Yds</th>
+      <th>TD</th>
+      <th>Int</th>
+      <th>Yds</th>
+      <th>TD</th>
+      <th>Yds</th>
+      <th>TD</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr class='success centered'><td colspan='12' class='no-padding'>
+      <small>Receiving players</small>
+    </td></tr>
+    <% tradeForRows.forEach(function(row) { %>
+      <tr><%= row.html() %></tr>
+    <% }) %>
+    <tr class='danger centered'><td colspan='12' class='no-padding'>
+      <small>Sending players</small>
+    </td></tr>
+    <% tradeAwayRows.forEach(function(row) { %>
+      <tr><%= row.html() %></tr>
+    <% }) %>
+  </tbody>
+</table>

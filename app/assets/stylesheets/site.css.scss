@@ -186,6 +186,13 @@ a:hover {
   }
 }
 
+.navbar-default .navbar-toggle {
+  border-color: $lightBlue;
+  background-color: $darkGrey;
+  border-radius: 0px;
+  border-width: 2px;
+}
+
 .btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child), .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
   border-radius: 0px;
 }

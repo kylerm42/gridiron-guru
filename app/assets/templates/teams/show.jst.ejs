@@ -7,10 +7,12 @@
       </a>
     </h1>
     <div class='absolute bottom-right'>
-      <% if (matchup.get('home_team') && matchup.get('away_team')) { %>
-        <a href='#/leagues/<%= team.get('league_id') %>/matchups/<%= matchup.id %>'>
-          Week <%= matchup.get('week') %></a> vs. <%= opponent.name %>
-        <small>(<%= opponent.wins %>-<%= opponent.losses %>-<%= opponent.ties %>)</small>
+      <% if (matchup) { %>
+        <% if (matchup.get('home_team') && matchup.get('away_team')) { %>
+          <a href='#/leagues/<%= team.get('league_id') %>/matchups/<%= matchup.id %>'>
+            Week <%= matchup.get('week') %></a> vs. <%= opponent.name %>
+          <small>(<%= opponent.wins %>-<%= opponent.losses %>-<%= opponent.ties %>)</small>
+        <% } %>
       <% } %>
     </div>
     <h4 class='no-margin absolute top-right'>

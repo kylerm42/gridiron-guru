@@ -1,0 +1,88 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h2 class='no-margin-top'>
+    <%= team.get('name') %>
+    <small><span class='glyphicon glyphicon-chevron-right'></span></small>
+    <%= currentTeam.get('name') %>
+  </h2>
+</div>
+
+  <div class="modal-body">
+  <table class='table table-hover table-striped'>
+    <thead>
+      <tr class='info'>
+        <th rowspan='2' class='no-border-top'>Select</th>
+        <th rowspan='2' class='no-border-top'>Player</th>
+        <th colspan='3' class='centered helper'>
+          <small>Passing</small>
+        </th>
+        <th colspan='2' class='centered helper'>
+          <small>Rushing</small>
+        </th>
+        <th colspan='2' class='centered helper'>
+          <small>Receiving</small>
+        </th>
+        <th rowspan='2' class='no-border-top'>2 Pt</th>
+        <th rowspan='2' class='no-border-top'>Fum<br>Lost</th>
+        <th rowspan='2' class='no-border-top'>Points</th>
+      </tr>
+      <tr class='info'>
+        <th>Yds</th>
+        <th>TD</th>
+        <th>Int</th>
+        <th>Yds</th>
+        <th>TD</th>
+        <th>Yds</th>
+        <th>TD</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% rosterSpots.forEach(function(rosterSpot) { %>
+        <tr>
+          <td>
+            <input type="checkbox" name="dropped-player" value="<%= rosterSpot.player.id %>">
+          </td>
+          <td>
+            <%= rosterSpot.player.fullName() %><br>
+            <small class='smaller'><%= rosterSpot.player.get('position') %> / <%= rosterSpot.player.get('nfl_team') %></small>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('pass_yards') %>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('pass_tds') %>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('pass_ints') %>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('rush_yards') %>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('rush_tds') %>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('rec_yards') %>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('rec_tds') %>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('two_pt_conv') %>
+          </td>
+          <td>
+            <%= rosterSpot.player.get('fumbles') %>
+          </td>
+          <td>
+            <%= parseFloat(Math.round(rosterSpot.player.points() * 100) / 100).toFixed(2) %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <button type="button" class="btn btn-success accept-btn">Continue</button>
+</div>

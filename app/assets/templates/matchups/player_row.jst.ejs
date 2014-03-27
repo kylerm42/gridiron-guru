@@ -1,0 +1,24 @@
+<tr data-position='<%= rosterSpot.player.get('position') %>'
+    data-roster-spot='<%= rosterSpot.get('position') %>'
+    data-id='<%= rosterSpot.player.id %>'
+    data-roster-id='<%= rosterSpot.id %>'>
+  <td>
+    <%= rosterSpot.get('position') %>
+  </td>
+  <td>
+    <%= rosterSpot.player.fullName() %><br>
+    <small class='smaller'>
+      <%= rosterSpot.player.get('position') %> / <%= rosterSpot.player.get('nfl_team') %>
+      <% if (rosterSpot.player.get('team') && rosterSpot.player.get('team'.name)) { %>
+        / <%= rosterSpot.player.get('team').name %>
+      <% } %>
+    </small>
+  </td>
+  <% if (rosterSpot.player.get('bye') === true) { %>
+    <td class='centered'>0</td>
+  <% } else { %>
+    <td class='centered'>
+      <%= parseFloat(Math.round(rosterSpot.player.points() * 100) / 100).toFixed(2) %>
+    </td>
+  <% } %>
+</tr>

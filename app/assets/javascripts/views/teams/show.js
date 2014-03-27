@@ -16,6 +16,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
   events: {
     'sort': 'setPlaceholder',
     'click .drop-player': 'dropPlayer',
+    'click .trade-player': 'tradePlayer',
     'click .trade-sent-btn': 'sentTradeOpen',
     'click .trade-received-btn': 'receivedTradeOpen',
     'click .week-select': 'weekUpdate',
@@ -24,7 +25,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
 
   render: function () {
     console.log('rendering team show')
-    if (this.model.matchup.get('home_team')) {
+    if (this.model.matchup) {
       if (this.model.matchup.get('home_team_id') === this.model.id) {
         var opponent = this.model.matchup.get('away_team');
       } else {
@@ -75,6 +76,14 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
       });
     };
     return this;
+  },
+
+  tradePlayer: function (event) {
+    console.log('trading player');
+    var $currentTarget = $(event.currentTarget);
+    var tradePlayer = this.collection.get($currentTarget.data('id'));
+
+
   },
 
   rosterDropAccept: function (ui) {
