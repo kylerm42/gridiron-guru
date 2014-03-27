@@ -1,0 +1,30 @@
+<% if (matchup.homeTeam) { %>
+  <div class='dark shadow-sm clearfix padded margin-md relative row'>
+    <div class='col-sm-6'>
+      <h1 class='pull-left no-margin'>
+        <%= matchup.homeTeam.get('name') %>
+        <small>(<%= matchup.homeTeam.get('wins') %>-<%= matchup.homeTeam.get('losses') %>-<%= matchup.homeTeam.get('ties') %>)</small>
+      </h1>
+      <h1 class='pull-right no-margin'><%= matchup.homeTeam.get('score') %></h1>
+    </div>
+    <div class='col-sm-6'>
+      <h1 class='pull-left no-margin'><%= matchup.awayTeam.get('score') %></h1>
+      <h1 class='pull-right no-margin'>
+        <small>(<%= matchup.homeTeam.get('wins') %>-<%= matchup.homeTeam.get('losses') %>-<%= matchup.homeTeam.get('ties') %>)</small>
+        <%= matchup.awayTeam.get('name') %>
+      </h1>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-sm-6'>
+      <table class='table table-hover table-striped'>
+
+      </table>
+    </div>
+
+    <div class='col-sm-6'>
+
+    </div>
+  </div>
+<% } %>

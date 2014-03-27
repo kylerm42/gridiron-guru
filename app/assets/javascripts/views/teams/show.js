@@ -2,6 +2,8 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
   initialize: function (options) {
     this.week = 'all';
     this.listenTo(this.model, 'sync change', this.render);
+    this.listenTo(this.model.receivedTrades(), 'remove', this.render);
+    this.listenTo(this.model.sentTrades(), 'remove', this.render);
     this.listenTo(this.collection, 'sync', this.render);
     // this.listenTo(this.collection, 'change', this.updateRosterSpots);
     // this.listenTo(this.collection, 'remove', this.removeRosterRow);
@@ -197,9 +199,11 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
 
   dropConfirm: function (event) {
     console.log('confirming drop')
+    var view = this;
     var $currentTarget = $(event.currentTarget);
     $currentTarget.attr('disabled', 'disabled').text('Dropping...');
     var playerId = $currentTarget.data('id');
+    var player = this.collection.get(playerId);
 
     var addDrop = new FantasyFootball.Models.AddDrop({
       dropped_player_id: playerId,
@@ -209,7 +213,8 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     addDrop.save({}, {
       success: function (resp) {
         $('.drop-player').popover('hide')
-        $('#player-' + playerId).remove();
+        $('tr[data-id="' + playerId + '"]').remove();
+        view.collection.remove(player);
       }
     });
   },
@@ -271,6 +276,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
       success: function () {
         console.log('success');
         $('#trade-modal').modal('hide');
+        debugger
       }
     });
   },

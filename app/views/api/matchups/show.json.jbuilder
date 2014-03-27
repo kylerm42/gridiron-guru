@@ -1,4 +1,5 @@
 json.(@matchup, :id, :home_team_id, :home_team_score, :away_team_id, :away_team_score, :week)
+json.league_id @matchup.home_team.league_id
 
 json.home_team do
   json.(@matchup.home_team, :id, :name, :wins, :losses, :ties)

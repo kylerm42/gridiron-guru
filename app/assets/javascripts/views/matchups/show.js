@@ -1,7 +1,12 @@
 FantasyFootball.Views.MatchupShow = Backbone.View.extend({
+  initialize: function () {
+    this.listenTo(this.model, 'sync', this.render)
+  },
+
   template: JST['matchups/show'],
 
   render: function () {
+    console.log('rendering matchup show')
     var renderedContent = this.template({
       matchup: this.model
     });

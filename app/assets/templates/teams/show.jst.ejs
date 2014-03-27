@@ -8,7 +8,7 @@
     </h1>
     <div class='absolute bottom-right'>
       <% if (matchup.get('home_team') && matchup.get('away_team')) { %>
-        <a href='#/matchups/<%= matchup.id %>'>
+        <a href='#/leagues/<%= team.get('league_id') %>/matchups/<%= matchup.id %>'>
           Week <%= matchup.get('week') %></a> vs. <%= opponent.name %>
         <small>(<%= opponent.wins %>-<%= opponent.losses %>-<%= opponent.ties %>)</small>
       <% } %>
@@ -101,9 +101,9 @@
 <table class='table table-hover table-striped'>
   <thead>
     <tr class='info'>
-      <th rowspan='2' class='no-border-top'>POS</th>
-      <th rowspan='2' class='no-border-top'>Action</th>
-      <th rowspan='2' class='no-border-top'>Player</th>
+      <th rowspan='2'>POS</th>
+      <th rowspan='2'>Action</th>
+      <th rowspan='2'>Player</th>
       <th colspan='3' class='centered helper'>
         <small>Passing</small>
       </th>
@@ -113,9 +113,9 @@
       <th colspan='2' class='centered helper'>
         <small>Receiving</small>
       </th>
-      <th rowspan='2' class='no-border-top'>2 Pt</th>
-      <th rowspan='2' class='no-border-top'>Fum<br>Lost</th>
-      <th rowspan='2' class='no-border-top'>Points</th>
+      <th rowspan='2'>2 Pt</th>
+      <th rowspan='2'>Fum<br>Lost</th>
+      <th rowspan='2'>Points</th>
     </tr>
     <tr class='info'>
       <th>Yds</th>

@@ -19,7 +19,6 @@ class Team < ActiveRecord::Base
   validates :league, presence: true
   validates :name, :user_id, presence: true, uniqueness: { scope: :league_id }
 
-
   belongs_to :owner,
              foreign_key: :user_id,
              class_name: "User"
@@ -71,6 +70,7 @@ class Team < ActiveRecord::Base
   end
 
   def current_matchup
-    Matchup.where("week = ? AND (home_team_id = ? OR away_team_id = ?)",                                  self.league.current_week, self.id, self.id).first
+    Matchup.where("week = ? AND (home_team_id = ? OR away_team_id = ?)",
+    self.league.current_week, self.id, self.id).first
   end
 end

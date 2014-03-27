@@ -11,13 +11,12 @@ FantasyFootball.Collections.Teams = Backbone.Collection.extend({
   getOrFetch: function (id, leagueId) {
     var model;
     var teams = this;
-
     if (model = this.get(id)) {
       model.fetch();
       return model;
     } else {
       model = new FantasyFootball.Models.Team({ id: id, league_id: this.leagueId || leagueId });
-      model.fetch({
+      model.fetch({ league_id: this.leagueId || leagueId }, {
         success: function () { teams.add(model) }
       });
 

@@ -1,19 +1,13 @@
 FantasyFootball.Models.Matchup = Backbone.Model.extend({
   urlRoot: '/api/matchups',
 
-  homeTeam: function () {
-    if (!this._homeTeam) {
-      this._homeTeam = FantasyFootball.teams.getOrFetch(this.get('home_team_id'));
-    };
+  parse: function (json) {
+    this.homeTeam = new FantasyFootball.Models.Team(json.home_team);
+    delete json.home_team;
 
-    return this._homeTeam;
-  },
+    this.awayTeam = new FantasyFootball.Models.Team(json.away_team);
+    delete json.away_team;
 
-  awayTeam: function () {
-    if (!this._awayTeam) {
-      this._awayTeam = FantasyFootball.teams.getOrFetch(this.get('away_team_id'));
-    };
-
-    return this._awayTeam;
+    return json;
   }
 });

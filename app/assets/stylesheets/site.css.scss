@@ -83,6 +83,11 @@ $darkerBlue: #0B344A;
   margin-bottom: 0px;
 }
 
+.no-margin-vertical {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .relative {
   position: relative;
 }
@@ -237,6 +242,10 @@ a:hover {
 
 .table-striped.table-hover tbody tr.info td {
   background-color: $lightBlue;
+}
+
+.table-hover tbody tr.dark-section:hover td {
+  background-color: $darkGrey;
 }
 
 // modal/popover styles
