@@ -9,11 +9,6 @@ class Api::LeaguesController < ApplicationController
     render json: @leagues
   end
 
-  def for_user
-    @leagues = current_user.leagues
-    render json: @leagues
-  end
-
   def new
     if logged_in?
       @league = League.new

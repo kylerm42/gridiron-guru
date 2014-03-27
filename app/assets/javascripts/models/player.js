@@ -37,7 +37,7 @@ FantasyFootball.Models.Player = Backbone.Model.extend({
     var defTDs = this.get('def_tds') * 6;
     var retTDs = this.get('ret_tds') * 6;
     var points = this.get('pts_allowed');
-    if (points === 0) { var ptsAllowed = 10 };
+    if (points === 0 && this.get('position') === 'DEF') { var ptsAllowed = 10 };
     if (points <= 6 && points > 0) { var ptsAllowed = 7 };
     if (points <= 13 && points > 6) { var ptsAllowed = 4 };
     if (points <= 20 && points > 13) { var ptsAllowed = 1 };
@@ -45,7 +45,7 @@ FantasyFootball.Models.Player = Backbone.Model.extend({
     if (points <= 34 && points > 27) { var ptsAllowed = -1 };
     if (points >= 35) { var ptsAllowed = -4 };
 
-    this.set('points', passYards + passTDs + passInts + rushYards + rushTDs + recYards + recTDs + twoPtConv + fumbles + madePAT + missPAT + made20 + miss20 + made30 + miss30 + made40 + miss40 + made50 + miss50 + made50Plus + sacks + interceptions + fumRec + safeties + defTDs + retTDs + ptsAllowed);
+    this.set('points', passYards + passTDs + passInts + rushYards + rushTDs + recYards + recTDs + twoPtConv + fumbles + madePAT + missPAT + made20 + miss20 + made30 + miss30 + made40 + miss40 + made50 + miss50 + made50Plus + sacks + interceptions + fumRec + safeties + defTDs + retTDs + (ptsAllowed || 0));
     return this.get('points');
   }
 });

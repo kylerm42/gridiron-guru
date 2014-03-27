@@ -9,6 +9,7 @@ window.FantasyFootball = {
     FantasyFootball.currentUser = new FantasyFootball.Models.User(userJson);
     FantasyFootball.teams = new FantasyFootball.Collections.Teams(teamsJson);
     FantasyFootball.leagues = new FantasyFootball.Collections.Leagues();
+    FantasyFootball.matchups = new FantasyFootball.Collections.Matchups();
 
     this.router = new FantasyFootball.Routers.AppRouter({
       $rootEl: $('div#content')
