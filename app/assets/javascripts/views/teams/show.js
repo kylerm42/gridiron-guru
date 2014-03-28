@@ -1,5 +1,9 @@
 FantasyFootball.Views.TeamShow = Backbone.View.extend({
   initialize: function (options) {
+    this.currentTeam = FantasyFootball.teams.findWhere({
+      league_id: +options.leagueId,
+      user_id: +FantasyFootball.currentUser.id
+    });
     this.week = 'all';
     this.listenTo(this.model, 'sync change', this.render);
     this.listenTo(this.model.receivedTrades(), 'remove', this.render);
@@ -81,9 +85,98 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
   tradePlayer: function (event) {
     console.log('trading player');
     var $currentTarget = $(event.currentTarget);
-    var tradePlayer = this.collection.get($currentTarget.data('id'));
+    var tradePlayer = this.collection.get($currentTarget.data('id')).player;
 
+    this.trade = new FantasyFootball.Models.Trade({
+      league_id: this.model.get('league_id'),
+      sender_id: this.currentTeam.id,
+      receiver_id: this.model.id
+    });
 
+    var modalContent = JST['teams/trade_receive_modal']({
+      team: this.model,
+      currentTeam: this.currentTeam,
+      rosterSpots: this.model.rosterSpots()
+    });
+
+    $('#trade-modal .modal-content').html(modalContent);
+    $('[value="' + tradePlayer.id + '"]').attr('checked', 'checked');
+    $('#continue-btn').on('click', this.tradeContinue.bind(this));
+  },
+
+  tradeContinue: function (event) {
+    console.log('continuing trade');
+    var view = this;
+    var tradePlayers = $('input:checked');
+
+    if (tradePlayers.length > 0) {
+      var tradeForIds = [];
+      this.tradeForRows = [];
+      tradePlayers.each(function (i, input) {
+        tradeForIds.push(+$(input).val());
+        view.tradeForRows.push($('<tr>').html($(input).closest('tr').html()));
+      });
+      this.tradeForRows.forEach(function (row, idx) {
+        $($(row).children('td')[0]).empty();
+      });
+
+      this.trade.set('trade_receive_player_ids', tradeForIds);
+
+      var modalContent = JST['teams/trade_send_modal']({
+        getPlayerRows: this.tradeForRows,
+        rosterSpots: this.currentTeam.rosterSpots(),
+        team: this.currentTeam,
+        otherTeam: this.model
+      });
+
+      $('#trade-modal .modal-content').html(modalContent);
+      $('#trade-complete').on('click', this.tradeComplete.bind(this));
+    } else {
+      alertify.log("You must select at least one player", 'error', 3000);
+    }
+  },
+
+  tradeComplete: function (event) {
+    console.log('completing trade');
+    var tradePlayers = $('input:checked');
+
+    if (tradePlayers.length > 0) {
+      var tradeAwayIds = [];
+      var tradeAwayRows = [];
+      tradePlayers.each(function (i, input) {
+        tradeAwayIds.push(+$(input).val());
+        tradeAwayRows.push($('<tr>').html($(input).closest('tr').html()));
+      });
+      tradeAwayRows.forEach(function (row, idx) {
+        $($(row).children('td')[0]).empty();
+      });
+
+      this.trade.set('trade_send_player_ids', tradeAwayIds);
+
+      var modalContent = JST['teams/trade_confirm_modal']({
+        tradeForRows: this.tradeForRows,
+        tradeAwayRows: tradeAwayRows,
+        team: this.currentTeam,
+        otherTeam: this.model
+      });
+
+      $('#trade-modal .modal-content').html(modalContent);
+      $('#confirm-btn').on('click', this.tradeConfirm.bind(this));
+    } else {
+      alertify.log("You must select at least one player", 'error', 3000);
+    }
+  },
+
+  tradeConfirm: function (event) {
+    $('#confirm-btn').attr('disabled', 'disabled').text('Submitting...');
+
+    this.trade.save({}, {
+      success: function () {
+        console.log('trade sent!');
+        alertify.log("Trade sent!", 'success', 3000);
+        $('#trade-modal').modal('hide');
+      }
+    });
   },
 
   rosterDropAccept: function (ui) {
@@ -254,6 +347,8 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     this.openTrade.destroy({
       success: function () {
         $('#trade-modal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
         view.model.sentTrades().remove(view.openTrade);
         $('.trade-sent-btn[data-id="' + view.openTrade.id + '"').parent()
                                                                 .alert('close')

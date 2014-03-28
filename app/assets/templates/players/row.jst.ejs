@@ -2,27 +2,29 @@
   <%= player.get('position') %>
 </td>
 <td class='actions'>
-  <% if (player.get('team')) { %>
-    <% if (player.get('team').current_team) { %>
-      <button class="drop-player btn btn-danger btn-xs" id='drop-<%= player.id %>'
-              data-id='<%= player.id %>' data-name='<%= player.fullName() %>'
-              data-container="body" data-placement="top">
-        <span class='glyphicon glyphicon-minus-sign'></span>
-      </button>
-    <% } else if (player.get('team').id) { %>
-      <button class="trade-player btn btn-primary btn-xs" data-id='<%= player.id %>'
-              data-toggle="modal" data-target="#player-action-modal">
-        <span class='glyphicon glyphicon-transfer'></span>
-      </button>
-    <% } else { %>
-      <button class="add-player btn btn-success btn-xs" data-id='<%= player.id %>'
-              data-toggle="modal" data-target="#player-action-modal">
-        <span class='glyphicon glyphicon-plus-sign'></span>
-      </button>
-  <% }} %>
-  <button class='watch-player btn btn-default btn-xs' data-id='<%= player.id %>'>
-    <span class='glyphicon glyphicon-eye-open'></span>
-  </button>
+  <div class='btn-group btn-group-xs'>
+    <% if (player.get('team')) { %>
+      <% if (player.get('team').current_team) { %>
+        <button class="drop-player btn btn-danger btn-xs" id='drop-<%= player.id %>'
+                data-id='<%= player.id %>' data-name='<%= player.fullName() %>'
+                data-container="body" data-placement="top">
+          <span class='glyphicon glyphicon-minus-sign'></span>
+        </button>
+      <% } else if (player.get('team').id) { %>
+        <button class="trade-player btn btn-primary btn-xs" data-id='<%= player.id %>'
+                data-toggle="modal" data-target="#player-action-modal">
+          <span class='glyphicon glyphicon-transfer'></span>
+        </button>
+      <% } else { %>
+        <button class="add-player btn btn-success btn-xs" data-id='<%= player.id %>'
+                data-toggle="modal" data-target="#player-action-modal">
+          <span class='glyphicon glyphicon-plus-sign'></span>
+        </button>
+    <% }} %>
+    <button class='watch-player btn btn-default btn-xs' data-id='<%= player.id %>'>
+      <span class='glyphicon glyphicon-eye-open'></span>
+    </button>
+  </div>
 </td>
 <td>
   <%= player.fullName() %><br>

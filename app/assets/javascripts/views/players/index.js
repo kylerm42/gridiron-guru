@@ -277,6 +277,7 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     this.trade.save({}, {
       success: function () {
         console.log('trade sent!');
+        alertify.log("Trade sent!", 'success', 3000);
         $('#player-action-modal').modal('hide');
         $('.confirm-btn').removeAttr('disabled');
       }

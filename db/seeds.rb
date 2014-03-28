@@ -264,6 +264,6 @@ trade2 = Trade.create(sender_id: 2, receiver_id: 1, status: 'sent')
 trade2.trade_send_players.create(player_id: 10)
 trade2.trade_send_players.create(player_id: 69)
 trade2.trade_receive_players.create(player_id: 9)
-trade2.trade_receive_players.create(player_id: 237)
+trade2.trade_receive_players.create(player_id: 248)
 
 League.first.update({ current_week: 9 })

@@ -48,7 +48,8 @@ FantasyFootball.Routers.AppRouter = Backbone.Router.extend({
 
     var teamShowView = new FantasyFootball.Views.TeamShow({
       model: team,
-      collection: team.rosterSpots()
+      collection: team.rosterSpots(),
+      leagueId: leagueId
     });
 
     this._swapView(teamShowView);
