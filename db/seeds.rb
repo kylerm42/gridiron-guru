@@ -22,25 +22,25 @@ Player.seed_stats!
 
 
 User.create(username: "test",
-            first_name: "Test",
-            last_name: "User",
+            first_name: "Charizard",
+            last_name: "Charmander",
             email: "test@test.com",
             password: "123456")
 
 User.create(username: "test2",
-            first_name: "John",
+            first_name: "Xerxes",
             last_name: "Doe",
             email: "test2@test.com",
             password: "123456")
 
 User.create(username: "test3",
-            first_name: "John",
+            first_name: "Caesar",
             last_name: "Doe",
             email: "test3@test.com",
             password: "123456")
 
 User.create(username: "test4",
-            first_name: "John",
+            first_name: "Cleopatra",
             last_name: "Doe",
             email: "test4@test.com",
             password: "123456")
@@ -83,16 +83,16 @@ User.create(username: "test0",
 
 League.create(name: "Test league", manager_id: 1)
 
-Team.create(name: "Test team", user_id: 1, league_id: 1)
-Team.create(name: "Z team", user_id: 2, league_id: 1)
-Team.create(name: "3 team", user_id: 3, league_id: 1)
-Team.create(name: "4 team", user_id: 4, league_id: 1)
-Team.create(name: "5 team", user_id: 5, league_id: 1)
-Team.create(name: "6 team", user_id: 6, league_id: 1)
-Team.create(name: "7 team", user_id: 7, league_id: 1)
-Team.create(name: "8 team", user_id: 8, league_id: 1)
-Team.create(name: "9 team", user_id: 9, league_id: 1)
-Team.create(name: "0 team", user_id: 10, league_id: 1)
+Team.create(name: "MewTwoChains", user_id: 1, league_id: 1)
+Team.create(name: "Every Day I'm Russellin'", user_id: 2, league_id: 1)
+Team.create(name: "Zac Stacy's Mom", user_id: 3, league_id: 1)
+Team.create(name: "There's An AP For That", user_id: 4, league_id: 1)
+Team.create(name: "Welker Texas Ranger", user_id: 5, league_id: 1)
+Team.create(name: "What Would Jones-Drew?", user_id: 6, league_id: 1)
+Team.create(name: "Vick In A Box", user_id: 7, league_id: 1)
+Team.create(name: "The Real McCoy", user_id: 8, league_id: 1)
+Team.create(name: "Aaron Hernandcuffs", user_id: 9, league_id: 1)
+Team.create(name: "Harvin A Bad Time", user_id: 10, league_id: 1)
 
 RosterSpot.create(team_id: 1, player_id: 8, position: 'QB')
 RosterSpot.create(team_id: 1, player_id: 75, position: 'RB')
