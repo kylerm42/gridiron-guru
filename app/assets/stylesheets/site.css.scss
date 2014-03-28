@@ -71,6 +71,10 @@ $darkerBlue: #0B344A;
   margin-top: 2px;
 }
 
+.margin-bottom-sm {
+  margin-bottom: 7px;
+}
+
 .margin-right-sm {
   margin-right: 7px;
 }
@@ -195,6 +199,14 @@ a:hover {
 
 .btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child), .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
   border-radius: 0px;
+}
+
+.pager li.previous > button {
+  float: left;
+}
+
+.pager li.next > button {
+  float: right;
 }
 
 // table styles

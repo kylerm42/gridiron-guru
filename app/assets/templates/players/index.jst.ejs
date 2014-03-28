@@ -1,9 +1,52 @@
 <h1>
-  All Players
+  Player List
 <% if (league.get('name')) { %>
   <small><%= league.get('name') %></small>
 <% } %>
 </h1>
+
+<div class='row'>
+  <div class='col-sm-7 btn-group btn-group-xs margin-bottom-sm' data-toggle='buttons'>
+    <label class='pos-select btn btn-primary btn-hover-border-light-blue'>
+      <input type='radio' name='position' data-position='all'>All Offense
+    </label>
+    <label class='pos-select btn btn-primary btn-hover-border-light-blue'>
+      <input type='radio' name='position' data-position='QB'>QB
+    </label>
+    <label class='pos-select btn btn-primary btn-hover-border-light-blue'>
+      <input type='radio' name='position' data-position='RB'>RB
+    </label>
+    <label class='pos-select btn btn-primary btn-hover-border-light-blue'>
+      <input type='radio' name='position' data-position='WR'>WR
+    </label>
+    <label class='pos-select btn btn-primary btn-hover-border-light-blue'>
+      <input type='radio' name='position' data-position='TE'>TE
+    </label>
+    <label class='pos-select btn btn-primary btn-hover-border-light-blue'>
+      <input type='radio' name='position' data-position='R/W/T'>R/W/T
+    </label>
+    <label class='pos-select btn btn-primary btn-hover-border-light-blue'>
+      <input type='radio' name='position' data-position='K'>K
+    </label>
+    <label class='pos-select btn btn-primary btn-hover-border-light-blue'>
+      <input type='radio' name='position' data-position='DEF'>DEF
+    </label>
+  </div>
+
+  <div class='col-sm-5 pull-right'>
+    <div class='pull-right btn-group btn-group-xs margin-bottom-sm' data-toggle='buttons'>
+      <label class='avail-select btn btn-primary btn-hover-border-light-blue'>
+        <input type='radio' name='position' data-avail='available'>Available
+      </label>
+      <label class='avail-select btn btn-primary btn-hover-border-light-blue'>
+        <input type='radio' name='position' data-avail='taken'>Taken
+      </label>
+      <label class='avail-select btn btn-primary btn-hover-border-light-blue'>
+        <input type='radio' name='position' data-avail='all'>All Players
+      </label>
+    </div>
+  </div>
+</div>
 
 <table class='table table-hover table-striped'>
   <thead>
@@ -37,6 +80,21 @@
 
   <tbody></tbody>
 </table>
+
+<ul class='pager clearfix no-margin-bottom'>
+  <li class='previous'>
+    <button class='btn btn-default' id='prev-page'>
+      <span class'glyphicon glyphicon-backward'></span>
+      Previous
+    </button>
+  </li>
+  <li class='next'>
+    <button class='btn btn-default' id='next-page'>
+      Next
+      <span class'glyphicon glyphicon-forward'></span>
+    </button>
+  </li>
+</ul>
 
 <div class="modal fade" id="player-action-modal" tabindex="-1" role="dialog" aria-labelledby="addDropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">

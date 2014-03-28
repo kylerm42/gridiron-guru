@@ -30,6 +30,8 @@ FantasyFootball.Collections.Players = Backbone.Collection.extend({
   },
 
   parse: function (json) {
+    this.page = +json.page;
+    this.totalPages = +json.total_pages;
     return json.players;
   }
 })

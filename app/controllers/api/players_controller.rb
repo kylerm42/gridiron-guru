@@ -15,9 +15,19 @@ class Api::PlayersController < ApplicationController
       ON p.id = j.player_id
     WHERE p.position IN (?)
     SQL
+    @positions = params[:positions]
+    @positions = ['QB', 'RB', 'WR', 'TE'] if @positions == 'all' || !@positions
+    @positions = ['RB', 'WR', 'TE'] if @positions == 'R/W/T'
+
+    @page = params[:page].to_i || 1
+    @offset = (@page) * 35 || 0
+
     @current_team = current_user.teams.includes(:players)
                                       .find_by_league_id(params[:league_id])
-    @players = Player.find_by_sql([query, params[:league_id], ['QB']])
+    @all_players = Player.find_by_sql([query, params[:league_id], @positions])
+                         .sort_by { |player| player.id }
+    @players = @all_players[@offset...@offset + 35]
+    p @offset
     render :index
   end
 

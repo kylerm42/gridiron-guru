@@ -15,6 +15,7 @@ gem 'addressable'
 gem 'rest-client'
 gem 'json'
 gem 'thin'
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails'

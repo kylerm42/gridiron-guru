@@ -12,6 +12,10 @@ FantasyFootball.Views.PlayersIndexRow = Backbone.View.extend({
 
 FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
   initialize: function (options) {
+    this.positions = 'all';
+    this.page = 1
+    this.week = 'all';
+    this.availability = 'available';
     this.collection = options.collection;
     this.league = options.league;
     this.currentTeam = FantasyFootball.teams.findWhere({
@@ -22,15 +26,19 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     this.listenTo(this.league, 'sync', this.render);
     // this.listenTo(this.collection, 'add', this.addPlayerRow);
     this.listenTo(this.collection, 'sync', this.addPlayerRows);
-    this.listenTo(this.currentTeam.players(), 'add remove', this.render)
+    this.listenTo(this.currentTeam.players(), 'add remove sync', this.render)
   },
 
   template: JST['players/index'],
 
   events: {
-    "click .add-player": 'addPlayer',
-    "click .drop-player": 'dropPlayer',
-    "click .trade-player": 'tradePlayer'
+    'click .add-player': 'addPlayer',
+    'click .drop-player': 'dropPlayer',
+    'click .trade-player': 'tradePlayer',
+    'click .pos-select': 'positionSelect',
+    'click .avail-select': 'availSelect',
+    'click #next-page': 'nextPage',
+    'click #prev-page': 'prevPage'
   },
 
   render: function () {
@@ -44,7 +52,52 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
     this.$el.html(renderedContent);
     this.renderSubviews();
 
+    $('.btn-group input[data-position="' + this.positions + '"]').parent().addClass('active');
+    $('.btn-group input[data-avail="' + this.availability + '"]').parent().addClass('active');
+
     return this;
+  },
+
+  positionSelect: function (event) {
+    var view = this;
+    $currentTarget = $(event.currentTarget);
+    this.positions = $currentTarget.children('input').data('position');
+    console.log(this.positions)
+    $('tbody tr').remove();
+    $loadRow = $('<td></td>').attr('colspan', '13').addClass('centered')
+                             .text("Loading players...")
+    $('tbody').append($('<tr>').html($loadRow))
+    this.collection.fetch({
+      data: { positions: this.positions },
+      reset: true,
+      success: function () {
+        $('tbody').empty()
+      }
+    });
+  },
+
+  availSelect: function (event) {
+
+  },
+
+  nextPage: function (event) {
+    console.log('called')
+    this.page++
+    $('tbody tr').remove();
+    $loadRow = $('<td></td>').attr('colspan', '13').addClass('centered')
+                             .text("Loading players...")
+    $('tbody').append($('<tr>').html($loadRow))
+    this.collection.fetch({
+      data: { page: this.page, positions: this.positions },
+      reset: true,
+      success: function () {
+        $('tbody').empty()
+      }
+    })
+  },
+
+  prevPage: function (event) {
+
   },
 
   addPlayerRow: function (player) {
