@@ -81,7 +81,6 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
   },
 
   nextPage: function (event) {
-    console.log('called')
     this.page++
     $('tbody tr').remove();
     $loadRow = $('<td></td>').attr('colspan', '13').addClass('centered')
@@ -93,11 +92,22 @@ FantasyFootball.Views.PlayersIndex = Backbone.CompositeView.extend({
       success: function () {
         $('tbody').empty()
       }
-    })
+    });
   },
 
   prevPage: function (event) {
-
+    this.page--
+    $('tbody tr').remove();
+    $loadRow = $('<td></td>').attr('colspan', '13').addClass('centered')
+                             .text("Loading players...")
+    $('tbody').append($('<tr>').html($loadRow))
+    this.collection.fetch({
+      data: { page: this.page, positions: this.positions },
+      reset: true,
+      success: function () {
+        $('tbody').empty()
+      }
+    });
   },
 
   addPlayerRow: function (player) {
