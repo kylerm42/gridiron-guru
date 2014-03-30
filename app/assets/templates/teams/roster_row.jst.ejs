@@ -26,6 +26,7 @@
     </div>
   </td>
   <td>
+		<!-- <img src='assets/<%= rosterSpot.player.get('nfl_team') %>.gif' class='pull-left'> -->
     <%= rosterSpot.player.fullName() %><br>
     <small class='smaller'>
       <%= rosterSpot.player.get('position') %> / <%= rosterSpot.player.get('nfl_team') %>
@@ -34,6 +35,7 @@
       <% } %>
     </small>
   </td>
+	<td>Game stats here</td>
   <% if (rosterSpot.player.get('bye') === true) { %>
     <td colspan='10' class='centered'>Bye</td>
   <% } else { %>

@@ -100,4 +100,54 @@ class Player < ActiveRecord::Base
   def name
     self.first_name + " " + self.last_name
   end
+
+  def points
+    if self.position == 'DEF'
+      if self.pts_allowed == 0
+        pts_allowed = 10
+      elsif self.pts_allowed < 7
+        pts_allowed = 7
+      elsif self.pts_allowed < 14
+        pts_allowed = 4
+      elsif self.pts_allowed < 21
+        pts_allowed = 1
+      elsif self.pts_allowed < 28
+        pts_allowed = 0
+      elsif self.pts_allowed < 35
+        pts_allowed = -1
+      else
+        pts_allowed = -4
+      end
+    else
+      pts_allowed = 0
+    end
+    self.pass_yards / 25.0 +
+    self.pass_tds * 4 +
+    self.pass_ints * -2 +
+    self.rush_yards / 10.0 +
+    self.rush_tds * 6 +
+    self.rec_yards / 10.0 +
+    self.rec_tds * 6 +
+    self.two_pt_conv * 2 +
+    self.fumbles * -2 +
+    self.made_pat * 1 +
+    self.miss_pat * -1 +
+    self.made_20 * 2 +
+    self.miss_20 * -2 +
+    self.made_30 * 2 +
+    self.miss_30 * -2 +
+    self.made_40 * 3 +
+    self.miss_40 * -3 +
+    self.made_50 * 4 +
+    self.miss_50 * -4 +
+    self.made_50_plus * 5 +
+    self.miss_50_plus * -5 +
+    self.sacks * 1 +
+    self.interceptions * 2 +
+    self.fum_rec * 2 +
+    self.safeties * 2 +
+    self.def_tds * 6 +
+    self.ret_tds * 6 +
+    pts_allowed
+  end
 end

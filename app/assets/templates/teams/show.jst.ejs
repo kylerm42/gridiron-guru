@@ -101,11 +101,27 @@
 </div>
 
 <table class='table table-hover table-striped'>
+	<colgroup>
+		<col class='col-3-pct'>
+		<col class='col-8-pct'>
+		<col class='col-20-pct'>
+		<col class='col-30-pct'>
+		<col class='col-5-pct'>
+		<col class='col-3-pct'>
+		<col class='col-3-pct'>
+		<col class='col-5-pct'>
+		<col class='col-3-pct'>
+		<col class='col-5-pct'>
+		<col class='col-3-pct'>
+		<col class='col-3-pct'>
+		<col class='col-5-pct'>
+	</colgroup>
   <thead>
     <tr class='info'>
       <th rowspan='2'>POS</th>
       <th rowspan='2'>Action</th>
       <th rowspan='2'>Player</th>
+      <th rowspan='2'>Status</th>
       <th colspan='3' class='centered helper'>
         <small>Passing</small>
       </th>
@@ -130,7 +146,7 @@
     </tr>
   </thead>
   <tbody id='lineup'>
-    <tr class='centered dark-section'><td colspan='13' class='no-padding'>
+    <tr class='centered dark-section'><td colspan='14' class='no-padding'>
       <small>Starting Lineup</small>
     </td></tr>
     <% rosterSpots.startingQB().forEach(function(rosterQB) { %>
@@ -148,7 +164,7 @@
     <% rosterSpots.startingRWT().forEach(function(rosterRWT) { %>
       <%= JST['teams/roster_row']({ rosterSpot: rosterRWT }) %>
     <% }) %>
-    <tr class='centered dark-section'><td colspan='13' class='no-padding'>
+    <tr class='centered dark-section'><td colspan='14' class='no-padding'>
       <small>Bench</small>
     </td></tr>
     <% rosterSpots.benchPlayers().forEach(function(benchPlayer) { %>

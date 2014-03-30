@@ -25,7 +25,7 @@ class Api::PlayersController < ApplicationController
     @current_team = current_user.teams.includes(:players)
                                       .find_by_league_id(params[:league_id])
     @all_players = Player.find_by_sql([query, params[:league_id], @positions])
-                         .sort_by { |player| player.id }
+                         .sort_by { |player| -player.points }
     @players = @all_players[@offset...@offset + 35]
     p @offset
     render :index

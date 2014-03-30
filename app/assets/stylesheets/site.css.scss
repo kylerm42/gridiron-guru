@@ -212,6 +212,7 @@ a:hover {
 // table styles
 .table {
   margin-bottom: 0px;
+	font-size: 12px;
 }
 
 .table-hover > tbody > tr.dark-section > td {
@@ -265,6 +266,26 @@ a:hover {
 
 .table-hover tbody tr.dark-section:hover td {
   background-color: $darkGrey;
+}
+
+.col-3-pct {
+	width: 3%;
+}
+
+.col-5-pct {
+	width: 5%;
+}
+
+.col-7-pct {
+	width: 7%;
+}
+
+.col-8-pct {
+	width: 8%;
+}
+
+.col-10-pct {
+	width: 10%;
 }
 
 // modal/popover styles
