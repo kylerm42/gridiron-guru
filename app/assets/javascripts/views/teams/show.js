@@ -45,6 +45,9 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     this.$el.html(renderedContent);
 
     $('.btn-group input[data-week-id="' + this.week + '"]').parent().addClass('active');
+		if (this.model.get('user_id') === FantasyFootball.currentUser.id) {
+			$('[data-position]').addClass('roster-pos');
+		};
 
     // for keeping row width when dragging
     var fixHelper = function(ui) {
@@ -64,6 +67,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
       $('tbody tr[data-roster-spot]').draggable({
         appendTo: 'parent',
         containment: 'parent',
+				cursor: 'move',
         distance: 15,
         axis: 'y',
         helper: fixHelper,

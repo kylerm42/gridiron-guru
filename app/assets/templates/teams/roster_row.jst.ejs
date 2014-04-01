@@ -26,13 +26,12 @@
     </div>
   </td>
   <td>
-		<!-- <img src='assets/<%= rosterSpot.player.get('nfl_team') %>.gif' class='pull-left'> -->
+		<div class='c c-<%= rosterSpot.player.get('nfl_team').toLowerCase() %>'>
+			<div></div>
+		</div>
     <%= rosterSpot.player.fullName() %><br>
-    <small class='smaller'>
+    <small class='smaller sub-row'>
       <%= rosterSpot.player.get('position') %> / <%= rosterSpot.player.get('nfl_team') %>
-      <% if (rosterSpot.player.get('team') && rosterSpot.player.get('team'.name)) { %>
-        / <%= rosterSpot.player.get('team').name %>
-      <% } %>
     </small>
   </td>
 	<td>Game stats here</td>

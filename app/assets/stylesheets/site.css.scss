@@ -268,6 +268,10 @@ a:hover {
   background-color: $darkGrey;
 }
 
+.roster-pos {
+	cursor: move;
+}
+
 .col-3-pct {
 	width: 3%;
 }
@@ -286,6 +290,11 @@ a:hover {
 
 .col-10-pct {
 	width: 10%;
+}
+
+.sub-row {
+	position: relative;
+	top: -3px;
 }
 
 // modal/popover styles

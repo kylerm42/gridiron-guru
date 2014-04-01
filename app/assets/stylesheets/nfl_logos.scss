@@ -2,11 +2,12 @@
     height: 27px;
     padding-left: 45px;
     position: relative;
+		float: left;
 }
-.c b {
-    background-image: url("/static/img/clubLogos40x27_1389660237.png");
+.c div {
+    background-image: url("nfl_logos.png");
     background-repeat: no-repeat;
-    display: block;
+    display: inline-block;
     height: 27px;
     left: 0;
     margin-bottom: -1px;
@@ -15,105 +16,105 @@
     top: 1px;
     width: 40px;
 }
-.c-buf b {
+.c-buf div {
     background-position: 0 0;
 }
-.c-ne b {
+.c-ne div {
     background-position: 0 -27px;
 }
-.c-bal b {
+.c-bal div {
     background-position: 0 -54px;
 }
-.c-cle b {
+.c-cle div {
     background-position: 0 -81px;
 }
-.c-hou b {
+.c-hou div {
     background-position: 0 -108px;
 }
-.c-jac b, .c-jax b {
+.c-jac div, .c-jax div {
     background-position: 0 -135px;
 }
-.c-den b {
+.c-den div {
     background-position: 0 -162px;
 }
-.c-oak b {
+.c-oak div {
     background-position: 0 -189px;
 }
-.c-mia b {
+.c-mia div {
     background-position: 0 -216px;
 }
-.c-nyj b {
+.c-nyj div {
     background-position: 0 -243px;
 }
-.c-cin b {
+.c-cin div {
     background-position: 0 -270px;
 }
-.c-pit b {
+.c-pit div {
     background-position: 0 -297px;
 }
-.c-ind b {
+.c-ind div {
     background-position: 0 -324px;
 }
-.c-ten b {
+.c-ten div {
     background-position: 0 -351px;
 }
-.c-kc b {
+.c-kc div {
     background-position: 0 -378px;
 }
-.c-sd b {
+.c-sd div {
     background-position: 0 -405px;
 }
-.c-dal b {
+.c-dal div {
     background-position: 0 -432px;
 }
-.c-phi b {
+.c-phi div {
     background-position: 0 -459px;
 }
-.c-chi b {
+.c-chi div {
     background-position: 0 -486px;
 }
-.c-gb b {
+.c-gb div {
     background-position: 0 -513px;
 }
-.c-atl b {
+.c-atl div {
     background-position: 0 -540px;
 }
-.c-no b {
+.c-no div {
     background-position: 0 -567px;
 }
-.c-ari b {
+.c-ari div {
     background-position: 0 -594px;
 }
-.c-sf b {
+.c-sf div {
     background-position: 0 -621px;
 }
-.c-nyg b {
+.c-nyg div {
     background-position: 0 -648px;
 }
-.c-was b {
+.c-was div {
     background-position: 0 -675px;
 }
-.c-det b {
+.c-det div {
     background-position: 0 -702px;
 }
-.c-min b {
+.c-min div {
     background-position: 0 -729px;
 }
-.c-car b {
+.c-car div {
     background-position: 0 -756px;
 }
-.c-tb b {
+.c-tb div {
     background-position: 0 -783px;
 }
-.c-sea b {
+.c-sea div {
     background-position: 0 -810px;
 }
-.c-stl b {
+.c-stl div {
     background-position: 0 -837px;
 }
-.c-DEF b {
+.c-DEF div {
     background: url("http://s.nflcdn.com/static/content/public/static/img/fantasy/avatar/40x27/DEF.png") no-repeat scroll left top rgba(0, 0, 0, 0);
 }
-.c-noteam b, .c-fa b {
+.c-noteam b, .c-fa div {
     background: url("/static/img/nflLogo40x27_1389660237.png") no-repeat scroll left top rgba(0, 0, 0, 0);
 }

@@ -1,6 +1,7 @@
 <tr data-position='<%= rosterSpot.player.get('position') %>'
     data-roster-spot='<%= rosterSpot.get('position') %>'
-    data-id='<%= rosterSpot.player.id %>'>
+    data-id='<%= rosterSpot.player.id %>'
+		class='roster-pos'>
   <td>
     <%= rosterSpot.get('position') %>
   </td>
@@ -25,6 +26,9 @@
     </div>
   </td>
   <td>
+		<div class='c c-<%= rosterSpot.player.get('nfl_team').toLowerCase() %>'>
+			<div></div>
+		</div>
     <%= rosterSpot.player.fullName() %><br>
     <small class='smaller'>
       <%= rosterSpot.player.get('position') %> / <%= rosterSpot.player.get('nfl_team') %>
