@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-FantasyFootball::Application.config.secret_key_base = 'd5ea697fc39d17f254d3973ed6966e9e3607b2b0891f075dbd8203f9c418476b0df2ec0d9d9bc2f1b90ec7464520c907a20f0f75b5bd349ad76a7e22d43c9e29'
+GridironGuru::Application.config.secret_key_base = 'd5ea697fc39d17f254d3973ed6966e9e3607b2b0891f075dbd8203f9c418476b0df2ec0d9d9bc2f1b90ec7464520c907a20f0f75b5bd349ad76a7e22d43c9e29'

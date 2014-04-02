@@ -82,6 +82,13 @@ ActiveRecord::Schema.define(version: 20140325165803) do
     t.string   "last_name",                    null: false
     t.string   "position",                     null: false
     t.string   "nfl_team",      default: "FA", null: false
+    t.date     "birthdate"
+    t.string   "college"
+    t.integer  "height"
+    t.integer  "weight"
+    t.integer  "years_pro"
+    t.integer  "profile_id"
+    t.string   "gsis_id"
     t.integer  "pass_yards",    default: 0
     t.integer  "pass_tds",      default: 0
     t.integer  "pass_ints",     default: 0

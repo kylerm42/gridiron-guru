@@ -2,6 +2,21 @@ require 'csv'
 
 module PlayersHelper
 
+  def seed_playersjjj
+    contents = File.read('lib/players.json')
+    things = JSON.parse(contents)
+    things.each do |player|
+      next unless player['status'] == "ACT"
+      Player.new({
+        first_name: player['first_name'],
+        last_name: player['last_name'],
+        college: player['college'],
+        birthdate: Date.strptime(player['birthdate'], '%m/%d/%Y'),
+        gsis_id: player['gsis_id']
+      })
+    end
+  end
+
   def seed_players
     qb_list = CSV.open('lib/stats-qb.csv', headers: true)
     qb_list.each do |qb|

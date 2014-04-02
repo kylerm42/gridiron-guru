@@ -1,4 +1,4 @@
-FantasyFootball::Application.routes.draw do
+GridironGuru::Application.routes.draw do
   root to: 'site#root'
 
   resources :users, except: [:index, :destroy], param: :username do

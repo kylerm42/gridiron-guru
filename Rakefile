@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-FantasyFootball::Application.load_tasks
+GridironGuru::Application.load_tasks

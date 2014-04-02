@@ -5,6 +5,13 @@ class CreatePlayers < ActiveRecord::Migration
       t.string :last_name, null: false
       t.string :position, null: false
       t.string :nfl_team, null: false, default: 'FA'
+      t.date :birthdate
+      t.string :college
+      t.integer :height
+      t.integer :weight
+      t.integer :years_pro
+      t.integer :profile_id
+      t.string :gsis_id
 
       t.integer :pass_yards, default: 0
       t.integer :pass_tds, default: 0
