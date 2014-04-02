@@ -169,8 +169,6 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.1.1)
       json (~> 1.4)
-    rename (1.0.2)
-      rails (>= 3.0.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.14.1)
@@ -251,7 +249,6 @@ DEPENDENCIES
   pg
   pry-rails
   rails (= 4.0.2)
-  rename
   rest-client
   rspec-rails
   sass-rails (~> 4.0.0)
