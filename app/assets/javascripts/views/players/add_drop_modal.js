@@ -8,7 +8,8 @@ FantasyFootball.Views.PlayersAddDropModal = Backbone.View.extend({
 
   render: function () {
     this.$addedPlayerRow.children('.actions').remove();
-    $(this.$addedPlayerRow.children()[0]).html('')
+    this.$addedPlayerRow.children('.status').remove();
+    $(this.$addedPlayerRow.children()[0]).html('');
 
     var modalContent = this.template({
       rosterSpots: this.collection,

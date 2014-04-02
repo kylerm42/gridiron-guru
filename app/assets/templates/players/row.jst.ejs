@@ -31,14 +31,14 @@
 		<div></div>
 	</div>
   <%= player.fullName() %><br>
-  <small class='smaller'>
+  <small class='smaller sub-row'>
     <%= player.get('position') %> / <%= player.get('nfl_team') %>
     <% if (player.get('team') && player.get('team').name) { %>
       / <%= player.get('team').name %>
     <% } %>
   </small>
 </td>
-<td>
+<td class='status'>
 	Game stats here
 </td>
 <td>
