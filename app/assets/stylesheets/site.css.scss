@@ -268,10 +268,6 @@ a:hover {
   background-color: $darkGrey;
 }
 
-.roster-pos {
-	cursor: move;
-}
-
 .col-3-pct {
 	width: 3%;
 }
@@ -311,6 +307,24 @@ a:hover {
 .sub-row {
 	position: relative;
 	top: -3px;
+}
+
+tr[data-roster-spot]:hover {
+	cursor: grab;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+}
+
+tr[data-roster-spot]:active {
+	cursor: grabbing;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+}
+
+.dragging {
+	cursor: grabbing;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
 }
 
 // modal/popover styles

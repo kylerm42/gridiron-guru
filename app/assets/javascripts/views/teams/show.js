@@ -52,7 +52,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     // for keeping row width when dragging
     var fixHelper = function(ui) {
       var $target = $(ui.currentTarget)
-      var $newRow = $('<tr></tr>').html($target.html());
+      var $newRow = $('<tr></tr>').html($target.html()).addClass('dragging');
       $newRow.width($target.width());
       var children = $target.children();
 
@@ -67,7 +67,6 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
       $('tbody tr[data-roster-spot]').draggable({
         appendTo: 'parent',
         containment: 'parent',
-				cursor: 'move',
         distance: 15,
         axis: 'y',
         helper: fixHelper,
