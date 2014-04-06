@@ -1,4 +1,4 @@
-class Api::LeaguesController < ApplicationController
+class LeaguesController < ApplicationController
   before_action :find_league, only: [:show, :edit, :update]
   before_action :unauthorized_redirect, only: [:edit, :update, :destroy]
   before_action :private_league_redirect, only: :show
@@ -7,6 +7,12 @@ class Api::LeaguesController < ApplicationController
   def index
     @leagues = League.where(private: false)
     render json: @leagues
+  end
+
+  def show
+    @league = League.find(params[:id])
+    @user = current_user
+    render :show
   end
 
   def new
@@ -34,11 +40,6 @@ class Api::LeaguesController < ApplicationController
 
       render json: @team.errors.full_messages, status: :unprocessable_entity
     end
-  end
-
-  def show
-    @current_user = current_user
-    @league = League.includes(teams: :owner).find(params[:id])
   end
 
   def edit
