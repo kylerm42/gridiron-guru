@@ -5,26 +5,28 @@
   <td>
     <%= rosterSpot.get('position') %>
   </td>
-  <td class='actions'>
-    <div class='btn-group btn-group-xs'>
-      <% if (rosterSpot.player.get('team')) { %>
-        <% if (rosterSpot.player.get('team').current_team) { %>
-          <button class="drop-player btn btn-danger btn-xs" id='drop-<%= rosterSpot.player.id %>'
-                  data-id='<%= rosterSpot.player.id %>' data-name='<%= rosterSpot.player.fullName() %>'
-                  data-container="body" data-placement="top">
-            <span class='glyphicon glyphicon-minus-sign'></span>
-          </button>
-        <% } else if (rosterSpot.player.get('team').id) { %>
-          <button class="trade-player btn btn-primary btn-xs" data-id='<%= rosterSpot.id %>'
-                  data-toggle="modal" data-target="#trade-modal">
-            <span class='glyphicon glyphicon-transfer'></span>
-          </button>
-      <% }} %>
-      <button class='watch-player btn btn-default btn-xs' data-id='<%= rosterSpot.player.id %>'>
-        <span class='glyphicon glyphicon-eye-open'></span>
-      </button>
-    </div>
-  </td>
+	<% if (FantasyFootball.league.get('member')) { %>
+	  <td class='actions'>
+	    <div class='btn-group btn-group-xs'>
+	      <% if (rosterSpot.player.get('team')) { %>
+	        <% if (rosterSpot.player.get('team').current_team) { %>
+	          <button class="drop-player btn btn-danger btn-xs" id='drop-<%= rosterSpot.player.id %>'
+	                  data-id='<%= rosterSpot.player.id %>' data-name='<%= rosterSpot.player.fullName() %>'
+	                  data-container="body" data-placement="top">
+	            <span class='glyphicon glyphicon-minus-sign'></span>
+	          </button>
+	        <% } else if (rosterSpot.player.get('team').id) { %>
+	          <button class="trade-player btn btn-primary btn-xs" data-id='<%= rosterSpot.id %>'
+	                  data-toggle="modal" data-target="#trade-modal">
+	            <span class='glyphicon glyphicon-transfer'></span>
+	          </button>
+	      <% }} %>
+	      <button class='watch-player btn btn-default btn-xs' data-id='<%= rosterSpot.player.id %>'>
+	        <span class='glyphicon glyphicon-eye-open'></span>
+	      </button>
+	    </div>
+	  </td>
+	<% } %>
   <td>
 		<div class='c c-<%= rosterSpot.player.get('nfl_team').toLowerCase() %>'>
 			<div></div>

@@ -25,7 +25,7 @@
         <% if @user = current_user %>
           <%= render 'layouts/sign_out' %>
           <ul class="nav navbar-nav navbar-right">
-            <li><a>Welcome, <%= @user.first_name %></a></li>
+            <li><a>Welcome, <%= @user.first_name %><span class='caret'></span></a></li>
           </ul>
         <% else %>
           <%= render 'layouts/sign_in' %>
@@ -55,36 +55,6 @@
       <%= yield %>
     </div>
   </div>
-
-
-  <script type="application/json" charset="utf-8" id='current-user'>
-    { "user": <% if @user %>
-     <%= @user.to_json(only: [:id, :username, :email, :first_name, :last_name]).html_safe %>
-   <% else %>
-      { "id": null }
-    <% end %> }
-  </script>
-  <script type="application/json" charset="utf-8" id='current-teams'>
-    { "teams": [
-      <% if @user %>
-        <% @user.teams.each do |team| %>
-          {"id": <%= team.id %>,
-          "name": "<%= team.name %>",
-          "league_id": <%= team.league_id %>,
-          "user_id": <%= team.user_id %>,
-          "roster_spots": [
-            <% team.roster_spots.each do |roster_spot| %>
-              {"position": "<%= roster_spot.position %>",
-              "player": <%= roster_spot.player.to_json.html_safe %>}
-              <%= team.roster_spots.last != roster_spot ? "," : "" %>
-            <% end %>
-          ],
-          "matchup": <%= team.current_matchup.to_json.html_safe %>
-          }<%= @user.teams.last != team ? "," : "" %>
-        <% end %>
-      <% end %>
-    ]}
-  </script>
 </body>
 </html>
 

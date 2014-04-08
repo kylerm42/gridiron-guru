@@ -2,21 +2,21 @@
   <div class='relative clearfix'>
     <h1 class='pull-left no-margin'>
       <%= team.escape('name') %>
-      <a href="#/leagues/<%= team.league() ? team.league().id : 0 %>">
-        <small><%= team.league() ? team.league().get('name') : null %></small>
+      <a href="#">
+        <small><%= FantasyFootball.league.escape('name') %></small>
       </a>
     </h1>
     <div class='absolute bottom-right'>
       <% if (matchup) { %>
         <% if (matchup.get('home_team') && matchup.get('away_team')) { %>
           <a href='#/leagues/<%= team.get('league_id') %>/matchups/<%= matchup.id %>'>
-            Week <%= matchup.get('week') %></a> vs. <%= opponent.name %>
+            Week <%= matchup.escape('week') %></a> vs. <%= opponent.name %>
           <small>(<%= opponent.wins %>-<%= opponent.losses %>-<%= opponent.ties %>)</small>
         <% } %>
       <% } %>
     </div>
     <h4 class='no-margin absolute top-right'>
-      <%= team.get('wins') %>-<%= team.get('losses') %>-<%= team.get('ties') %> /
+      <%= team.escape('wins') %>-<%= team.escape('losses') %>-<%= team.escape('ties') %> /
       1st place
     </h4>
   </div>
@@ -25,9 +25,9 @@
     <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix fade in'>
       <div class='margin-top-xs pull-left'>
         <small><span class='glyphicon glyphicon-transfer'></span></small>
-        <%= trade.get('sender').name %>
+        <%= trade.escape('sender').name %>
         <small><span class='glyphicon glyphicon-chevron-right'></span></small>
-        <%= trade.get('receiver').name %>
+        <%= trade.escape('receiver').name %>
       </div>
       <button class='btn btn-xs btn-primary pull-right trade-sent-btn'
               data-id='<%= trade.id %>'
@@ -41,10 +41,10 @@
     <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix'>
       <div class='margin-top-xs pull-left'>
         <small><span class='glyphicon glyphicon-transfer'></span></small>
-          <%= trade.get('sender').name %>
+          <%= trade.escape('sender').name %>
         </span>
         <small><span class='glyphicon glyphicon-chevron-right'></span></small>
-        <%= trade.get('receiver').name %>
+        <%= trade.escape('receiver').name %>
       </div>
       <button class='btn btn-xs btn-primary pull-right trade-received-btn'
               data-id='<%= trade.id %>'
@@ -62,7 +62,7 @@
     <label class='week-select btn btn-primary btn-hover-border-light-blue'>
       <input type='radio' name='week' data-week-id='all'>Season
     </label>
-    <% for (i = 1; i < team.league().get('current_week'); i++) { %>
+    <% for (i = 1; i < FantasyFootball.league.escape('current_week'); i++) { %>
       <label class='week-select btn btn-primary btn-hover-border-light-blue'>
         <input type='radio' name='week' data-week-id='<%= i %>'><%= i %>
       </label>
@@ -70,33 +70,29 @@
   </div>
 
   <div class='col-sm-5 pull-right'>
-    <% if (team.league()) { %>
-      <ul class='pull-right list-inline'>
-        <li>
-          <a href='#/leagues/<%= team.league().id %>/players'>
-            Add Players
-          </a>
-        </li> /
-        <li>
-          <a href="#/leagues/<%= team.league().id %>/teams/<%= team.id %>/watched">
-            Watch List
-          </a>
-        </li>
-        <% if (team.league().get('teams')) { %>/
-        <li class="dropdown" id="teams">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Teams<b class="caret"></b></a>
+    <ul class='pull-right list-inline'>
+      <li>
+        <a href='#/players'>
+          Add Players
+        </a>
+      </li> /
+      <li>
+        <a href="#/teams/<%= team.id %>/watched">
+          Watch List
+        </a>
+      </li>/
+      <li class="dropdown" id="teams">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Teams<b class="caret"></b></a>
 
-            <ul class="dropdown-menu">
-              <% team.league().get('teams').forEach(function(otherTeam) { %>
-                <li>
-                  <a href="#"><%= otherTeam.name %></a>
-                </li>
-              <% }); %>
-            </ul>
-        </li>
-        <% } %>
-      </ul>
-    <% }; %>
+          <ul class="dropdown-menu align-right">
+            <% FantasyFootball.league.teams().each(function(otherTeam) { %>
+              <li>
+                <a href="#/teams/<%= otherTeam.id %>"><%= otherTeam.escape('name') %></a>
+              </li>
+            <% }); %>
+          </ul>
+      </li>
+    </ul>
   </div>
 </div>
 

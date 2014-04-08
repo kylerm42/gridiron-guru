@@ -10,7 +10,7 @@ class LeaguesController < ApplicationController
   end
 
   def show
-    @league = League.find(params[:id])
+    @league = League.includes(teams: [:owner, :players]).find(params[:id])
     @user = current_user
     render :show
   end

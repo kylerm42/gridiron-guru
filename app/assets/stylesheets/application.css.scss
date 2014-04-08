@@ -13,5 +13,6 @@
  */
 
 @import 'bootstrap';
-@import 'alertify.default';
-@import 'alertify.core';
+@import './alertify/alertify.default';
+@import './alertify/alertify.core';
+@import './ionicons/ionicons';

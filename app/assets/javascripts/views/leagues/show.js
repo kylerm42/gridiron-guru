@@ -1,18 +1,19 @@
 FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
   initialize: function (options) {
+		var view = this;
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.collection, 'sync', this.addTeams);
+		this.model.teams().each(function (team) { view.addTeam(team) });
   },
 
   template: JST['leagues/show'],
 
   render: function () {
-    console.log('rendering league show')
+    console.log('rendering league show');
     var renderedContent = this.template({ league: this.model });
     this.$el.html(renderedContent);
 
-    if (!this.collection.findWhere({ user_id: FantasyFootball.currentUser.id })) {
-      var joinLeagueLink = $('<a>').attr('href', '#/leagues/' + this.model.id + '/teams/new');
+    if (!this.model.get('member')) {
+      var joinLeagueLink = $('<a>').attr('href', '#/teams/new');
       joinLeagueLink.html('Join this league');
 
       this.$el.append(joinLeagueLink);
@@ -22,23 +23,15 @@ FantasyFootball.Views.LeagueShow = Backbone.CompositeView.extend({
   },
 
   addTeam: function (team) {
-    team.set('league', this.model)
     var teamRowView = new FantasyFootball.Views.TeamRow({ model: team });
-    this.addSubview('tbody', teamRowView)
+    this.addSubview('tbody', teamRowView);
     teamRowView.render();
-  },
-
-  addTeams: function (teams) {
-    var view = this
-    teams.forEach(function (team) {
-      view.addTeam(team);
-    })
   }
 });
 
 FantasyFootball.Views.TeamRow = Backbone.View.extend({
   tagName: 'tr',
-  template: JST['teams/row'],
+  template: JST['leagues/team_row'],
 
   render: function () {
     var renderedContent = this.template({ team: this.model });

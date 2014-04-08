@@ -4,12 +4,12 @@ window.FantasyFootball = {
   Views: {},
   Routers: {},
   initialize: function() {
-    var userJson = JSON.parse($('#current-user').html()).user;
-    var teamsJson = JSON.parse($('#current-teams').html()).teams;
-    FantasyFootball.currentUser = new FantasyFootball.Models.User(userJson);
-    FantasyFootball.teams = new FantasyFootball.Collections.Teams(teamsJson);
-    FantasyFootball.leagues = new FantasyFootball.Collections.Leagues();
-    FantasyFootball.matchups = new FantasyFootball.Collections.Matchups();
+		leagueJson = $('#current-league').html();
+		if (!leagueJson) { return };
+		userJson = $('#current-user').html();
+
+    FantasyFootball.league = new FantasyFootball.Models.League(JSON.parse(leagueJson));
+		FantasyFootball.currentUser = new FantasyFootball.Models.User(JSON.parse(userJson));
 
     this.router = new FantasyFootball.Routers.AppRouter({
       $rootEl: $('div#content')

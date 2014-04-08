@@ -309,19 +309,13 @@ a:hover {
 	top: -3px;
 }
 
-tr[data-roster-spot]:hover {
+.current-roster:hover {
 	cursor: grab;
 	cursor: -moz-grab;
 	cursor: -webkit-grab;
 }
 
-tr[data-roster-spot]:active {
-	cursor: grabbing;
-	cursor: -moz-grabbing;
-	cursor: -webkit-grabbing;
-}
-
-.dragging {
+.current-roster:active {
 	cursor: grabbing;
 	cursor: -moz-grabbing;
 	cursor: -webkit-grabbing;
@@ -383,6 +377,11 @@ tr[data-roster-spot]:active {
 
 .modal-footer {
   margin-top: 0px;
+}
+
+.align-right {
+	right: 0px;
+	left: inherit;
 }
 
 // alertify

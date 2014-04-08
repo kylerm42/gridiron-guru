@@ -1,11 +1,13 @@
 FantasyFootball.Models.League = Backbone.Model.extend({
-  urlRoot: 'api/leagues',
+	initialize: function (options) {
+		this._teams = new FantasyFootball.Collections.Teams(options.teams)
+	},
+
+  urlRoot: 'leagues',
 
   teams: function () {
     if (!this._teams) {
-      this._teams = new FantasyFootball.Collections.Teams({
-        leagueId: this.id
-      });
+      this._teams = new FantasyFootball.Collections.Teams();
     }
 
     return this._teams;
