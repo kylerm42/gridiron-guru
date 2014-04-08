@@ -3,7 +3,7 @@
   <h2 class='no-margin-top'>
     <%= otherTeam.get('name') %>
     <small><span class='glyphicon glyphicon-transfer'></span></small>
-    <%= team.get('name') %>
+    <%= FantasyFootball.ownedTeam.get('name') %>
   </h2>
 </div>
 
@@ -53,6 +53,9 @@
     </tbody>
   </table>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-success" id="confirm-btn">Submit Trade</button>
+  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+  <button type="button" class="btn btn-success" id="confirm-btn">
+		Send Trade
+		<span class='glyphicon glyphicon-send'></span>
+	</button>
 </div>

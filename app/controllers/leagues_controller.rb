@@ -10,7 +10,12 @@ class LeaguesController < ApplicationController
   end
 
   def show
-    @league = League.includes(teams: [:owner, :players]).find(params[:id])
+    @league = League.includes(teams:
+                      [:owner,
+                      :players,
+                      sent_trades: [:send_players, :receive_players, :sender, :receiver],
+                      received_trades: [:send_players, :receive_players, :sender, :receiver]
+                      ]).find(params[:id])
     @user = current_user
     render :show
   end

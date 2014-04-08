@@ -5,15 +5,16 @@ GridironGuru::Application.routes.draw do
     resource :session, only: :index
   end
 
-  resources :leagues, only: [:index, :show, :create, :update, :destroy]
+  resources :leagues, only: [:index, :show, :create, :update, :destroy] do
 
-  namespace :api, defaults: { format: :json } do
-    resources :teams, only: [:index, :show, :create, :update, :destroy]
-    resources :add_drops, only: [:create]
-    resources :players, only: [:index, :show]
-    resources :trades, only: [:create, :update, :destroy]
-    resources :roster_spots, only: [:index, :create, :update, :destroy]
-    resources :matchups, only: [:show, :index]
+    namespace :api, defaults: { format: :json } do
+      resources :teams, only: [:index, :show, :create, :update, :destroy]
+      resources :add_drops, only: [:create]
+      resources :players, only: [:index, :show]
+      resources :trades, only: [:create, :update, :destroy]
+      resources :roster_spots, only: [:index, :create, :update, :destroy]
+      resources :matchups, only: [:show, :index]
+    end
   end
 
   resource :session, only: [:new, :create, :destroy]

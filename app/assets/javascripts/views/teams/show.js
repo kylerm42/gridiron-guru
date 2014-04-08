@@ -27,20 +27,31 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
         var opponent = this.model.matchup.get('home_team');
       };
     };
+
+		var ownedTeam = (this.model.get('user_id') === FantasyFootball.currentUser.id)
+
     var renderedContent = this.template({
       team: this.model,
       matchup: this.model.matchup,
       opponent: opponent,
-      rosterSpots: this.model.rosterSpots()
+      rosterSpots: this.model.rosterSpots(),
+			ownedTeam: ownedTeam
     });
     this.$el.html(renderedContent);
 
     this.$el.find('.btn-group input[data-week-id="' + this.week + '"]').parent().addClass('active');
 
+    if (ownedTeam) {
+			this.setSwappable();
+    };
+    return this;
+  },
+
+	setSwappable: function () {
     // for keeping row width when dragging
     var fixHelper = function(ui) {
       var $target = $(ui.currentTarget)
-      var $newRow = $('<tr></tr>').html($target.html());
+      var $newRow = $('<tr></tr>').html($target.html()).addClass('dragging');
       $newRow.width($target.width());
       var children = $target.children();
 
@@ -51,43 +62,39 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     	return $newRow;
     };
 
-    if (this.model.get('user_id') === FantasyFootball.currentUser.id) {
-			this.$el.find('tr[data-roster-spot]').addClass('current-roster');
-      this.$el.find('tbody tr[data-roster-spot]').draggable({
-        appendTo: 'parent',
-        containment: 'parent',
-        distance: 15,
-        axis: 'y',
-        helper: fixHelper,
-        opacity: 0.75,
-        revert: false,
-        revertDuration: 1250,
-      });
+		this.$el.find('tr[data-roster-spot]').addClass('current-roster');
+    this.$el.find('tbody tr[data-roster-spot]').draggable({
+      appendTo: 'parent',
+      containment: 'parent',
+      distance: 8,
+      axis: 'y',
+      helper: fixHelper,
+      opacity: 0.75,
+      revert: false,
+      revertDuration: 250,
+    });
 
-      this.$el.find('tbody tr[data-roster-spot]').droppable({
-        accept: this.rosterDropAccept,
-        activeClass: 'darker',
-        hoverClass: 'info',
-        tolerance: 'pointer'
-      });
-    };
-    return this;
-  },
+    this.$el.find('tbody tr[data-roster-spot]').droppable({
+      accept: this.rosterDropAccept,
+      activeClass: 'darker',
+      hoverClass: 'info',
+      tolerance: 'pointer'
+    });
+	},
 
   tradePlayer: function (event) {
     console.log('trading player');
     var $currentTarget = $(event.currentTarget);
-    var tradePlayer = this.collection.get($currentTarget.data('id')).player;
+    var tradePlayer = this.model.rosterSpots().get($currentTarget.data('id')).player;
 
     this.trade = new FantasyFootball.Models.Trade({
       league_id: this.model.get('league_id'),
-      sender_id: this.currentTeam.id,
+      sender_id: FantasyFootball.ownedTeam.id,
       receiver_id: this.model.id
     });
 
     var modalContent = JST['teams/trade_receive_modal']({
       team: this.model,
-      currentTeam: this.currentTeam,
       rosterSpots: this.model.rosterSpots()
     });
 
@@ -116,8 +123,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
 
       var modalContent = JST['teams/trade_send_modal']({
         getPlayerRows: this.tradeForRows,
-        rosterSpots: this.currentTeam.rosterSpots(),
-        team: this.currentTeam,
+        rosterSpots: FantasyFootball.ownedTeam.rosterSpots(),
         otherTeam: this.model
       });
 
@@ -148,7 +154,6 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
       var modalContent = JST['teams/trade_confirm_modal']({
         tradeForRows: this.tradeForRows,
         tradeAwayRows: tradeAwayRows,
-        team: this.currentTeam,
         otherTeam: this.model
       });
 
@@ -206,14 +211,17 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     $original.after($swapped);
     $placeholder.replaceWith($original);
 
-    var originalRosterSpot = this.collection.get($original.data('roster-id'));
-    var swappedRosterSpot = this.collection.get($swapped.data('roster-id'));
+    var originalRosterSpot = this.model.rosterSpots().get($original.data('roster-id'));
+    var swappedRosterSpot = this.model.rosterSpots().get($swapped.data('roster-id'));
 
     var tempPosition = originalRosterSpot.get('position');
     originalRosterSpot.set('position', swappedRosterSpot.get('position'));
     swappedRosterSpot.set('position', tempPosition);
-    originalRosterSpot.unset('player');
-    swappedRosterSpot.unset('player');
+
+		$original.children().first().html(originalRosterSpot.get('position'));
+		$original.attr('data-roster-spot', originalRosterSpot.get('position'));
+		$swapped.children().first().html(swappedRosterSpot.get('position'));
+		$swapped.attr('data-roster-spot', swappedRosterSpot.get('position'));
 
     originalRosterSpot.save({}, {
       success: function () {
@@ -271,7 +279,6 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     var droppedPlayerName = $currentTarget.data('name');
 
     var $confirm = $('<button>').addClass('btn btn-danger pull-right drop-confirm')
-                                .attr('id', 'drop-' + this.droppedPlayerId)
                                 .attr('data-id', this.droppedPlayerId)
                                 .text('Confirm');
     var $cancel = $('<button>').addClass('btn btn-default drop-cancel')
@@ -297,7 +304,8 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     var $currentTarget = $(event.currentTarget);
     $currentTarget.attr('disabled', 'disabled').text('Dropping...');
     var playerId = $currentTarget.data('id');
-    var player = this.collection.get(playerId);
+		var rosterId = $('tr[data-id="' + playerId + '"]').data('roster-id')
+    var rosterSpot = this.model.rosterSpots().get(rosterId);
 
     var addDrop = new FantasyFootball.Models.AddDrop({
       dropped_player_id: playerId,
@@ -308,14 +316,14 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
       success: function (resp) {
         $('.drop-player').popover('hide')
         $('tr[data-id="' + playerId + '"]').remove();
-        view.collection.remove(player);
+        view.model.rosterSpots().remove(rosterSpot);
       }
     });
   },
 
   dropCancel: function (event) {
     var popoverId = $(event.currentTarget).data('id')
-    $('#drop-' + popoverId).popover('hide')
+    $('[data-id="' + popoverId + '"]').popover('hide')
   },
 
   sentTradeOpen: function (event) {
@@ -372,7 +380,6 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
       success: function () {
         console.log('success');
         $('#trade-modal').modal('hide');
-        debugger
       }
     });
   },
@@ -411,4 +418,4 @@ FantasyFootball.Views.RosterRow = Backbone.View.extend({
     this.$el.addClass('full-width').attr('id', 'player-' + this.model.player.id).html(renderedContent);
     return this;
   }
-})
+});

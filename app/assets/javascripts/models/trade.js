@@ -1,16 +1,10 @@
 FantasyFootball.Models.Trade = Backbone.Model.extend({
   initialize: function (options) {
-    this._sendPlayers = new FantasyFootball.Collections.Players(options.send_players, {
-      leagueId: this.get('league_id')
-    });
-    this._receivePlayers = new FantasyFootball.Collections.Players(options.receive_players, {
-      leagueId: this.get('league_id')
-    });
+    this._sendPlayers = new FantasyFootball.Collections.Players(options.send_players);
+    this._receivePlayers = new FantasyFootball.Collections.Players(options.receive_players);
   },
 
-  urlRoot: function () {
-    return '/api/leagues/' + this.get('league_id') + '/trades';
-  },
+  urlRoot: 'api/trades',
 
   sendPlayers: function () {
     if (!this._sendPlayers) {

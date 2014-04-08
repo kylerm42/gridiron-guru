@@ -3,7 +3,7 @@
   <h2 class='no-margin-top'>
     <%= team.get('name') %>
     <small><span class='glyphicon glyphicon-chevron-right'></span></small>
-    <%= currentTeam.get('name') %>
+    <%= FantasyFootball.ownedTeam.get('name') %>
   </h2>
 </div>
 
@@ -83,6 +83,6 @@
   </table>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
   <button type="button" class="btn btn-success" id="continue-btn">Continue</button>
 </div>

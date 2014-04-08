@@ -10,6 +10,7 @@ window.FantasyFootball = {
 
     FantasyFootball.league = new FantasyFootball.Models.League(JSON.parse(leagueJson));
 		FantasyFootball.currentUser = new FantasyFootball.Models.User(JSON.parse(userJson));
+		FantasyFootball.ownedTeam = FantasyFootball.league.teams().findWhere({ owned: true })
 
     this.router = new FantasyFootball.Routers.AppRouter({
       $rootEl: $('div#content')

@@ -1,6 +1,8 @@
 FantasyFootball.Models.Team = Backbone.Model.extend({
   initialize: function (options) {
     this._rosterSpots = new FantasyFootball.Collections.RosterSpots(options.roster_spots);
+    this._sentTrades = new FantasyFootball.Collections.Trades(options.sent_trades);
+    this._receivedTrades = new FantasyFootball.Collections.Trades(options.received_trades);
     if (options.matchup) {
       this.matchup = new FantasyFootball.Models.Matchup(options.matchup);
     }

@@ -25,9 +25,9 @@
     <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix fade in'>
       <div class='margin-top-xs pull-left'>
         <small><span class='glyphicon glyphicon-transfer'></span></small>
-        <%= trade.escape('sender').name %>
+        <%= FantasyFootball.league.teams().get(trade.get('sender').id).escape('name') %>
         <small><span class='glyphicon glyphicon-chevron-right'></span></small>
-        <%= trade.escape('receiver').name %>
+        <%= FantasyFootball.league.teams().get(trade.get('receiver').id).escape('name') %>
       </div>
       <button class='btn btn-xs btn-primary pull-right trade-sent-btn'
               data-id='<%= trade.id %>'
@@ -41,10 +41,10 @@
     <div class='alert alert-info padded-sm no-margin-bottom margin-top-sm clearfix'>
       <div class='margin-top-xs pull-left'>
         <small><span class='glyphicon glyphicon-transfer'></span></small>
-          <%= trade.escape('sender').name %>
+          <%= FantasyFootball.league.teams().get(trade.get('sender').id).escape('name') %>
         </span>
         <small><span class='glyphicon glyphicon-chevron-right'></span></small>
-        <%= trade.escape('receiver').name %>
+        <%= FantasyFootball.league.teams().get(trade.get('receiver').id).escape('name') %>
       </div>
       <button class='btn btn-xs btn-primary pull-right trade-received-btn'
               data-id='<%= trade.id %>'
@@ -63,7 +63,7 @@
       <input type='radio' name='week' data-week-id='all'>Season
     </label>
     <% for (i = 1; i < FantasyFootball.league.escape('current_week'); i++) { %>
-      <label class='week-select btn btn-primary btn-hover-border-light-blue'>
+      <label class='week-select btn btn-primary'>
         <input type='radio' name='week' data-week-id='<%= i %>'><%= i %>
       </label>
     <% } %>
@@ -100,7 +100,7 @@
 	<colgroup>
 		<col class='col-3-pct'>
 		<col class='col-8-pct'>
-		<col class='col-20-pct'>
+		<col class='col-21-pct'>
 		<col class='col-30-pct'>
 		<col class='col-5-pct'>
 		<col class='col-3-pct'>
@@ -116,7 +116,7 @@
   <thead>
     <tr class='info'>
       <th rowspan='2'>POS</th>
-      <th rowspan='2'>Action</th>
+      <% if (FantasyFootball.league.get('member')) { %><th rowspan='2'>Action</th><% } %>
       <th rowspan='2'>Player</th>
       <th rowspan='2'>Status</th>
       <th colspan='3' class='centered helper'>
@@ -147,25 +147,25 @@
       <small>Starting Lineup</small>
     </td></tr>
     <% rosterSpots.startingQB().forEach(function(rosterQB) { %>
-      <%= JST['teams/roster_row']({ rosterSpot: rosterQB }) %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterQB, ownedTeam: ownedTeam }) %>
     <% }) %>
     <% rosterSpots.startingRB().forEach(function(rosterRB) { %>
-      <%= JST['teams/roster_row']({ rosterSpot: rosterRB }) %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterRB, ownedTeam: ownedTeam }) %>
     <% }) %>
     <% rosterSpots.startingWR().forEach(function(rosterWR) { %>
-      <%= JST['teams/roster_row']({ rosterSpot: rosterWR }) %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterWR, ownedTeam: ownedTeam }) %>
     <% }) %>
     <% rosterSpots.startingTE().forEach(function(rosterTE) { %>
-      <%= JST['teams/roster_row']({ rosterSpot: rosterTE }) %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterTE, ownedTeam: ownedTeam }) %>
     <% }) %>
     <% rosterSpots.startingRWT().forEach(function(rosterRWT) { %>
-      <%= JST['teams/roster_row']({ rosterSpot: rosterRWT }) %>
+      <%= JST['teams/roster_row']({ rosterSpot: rosterRWT, ownedTeam: ownedTeam }) %>
     <% }) %>
     <tr class='centered dark-section'><td colspan='14' class='no-padding'>
       <small>Bench</small>
     </td></tr>
     <% rosterSpots.benchPlayers().forEach(function(benchPlayer) { %>
-      <%= JST['teams/roster_row']({ rosterSpot: benchPlayer }) %>
+      <%= JST['teams/roster_row']({ rosterSpot: benchPlayer, ownedTeam: ownedTeam }) %>
     <% }) %>
   </tbody>
 </table>

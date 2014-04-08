@@ -146,24 +146,20 @@ a:hover {
 
 // form styles
 .form-control {
-  border-radius: 0px;
+  border-radius: 2px;
 }
 
 .btn {
-  border-radius: 0px;
-  border-width: 2px;
-}
-
-.btn.btn-hover-border-light-blue:hover {
-  border-color: $lightBlue;
+  border-radius: 2px;
+  border-width: 1px;
 }
 
 .btn-primary {
-  background-color: #0B344A;
+  background-color: $darkerBlue;
   border-color: #0D3F59;
   &:hover {
-    background-color: $darkerBlue;
-    border-color: $darkBlue;
+    background-color: $darkBlue;
+    border-color: $darkerBlue;
   }
 }
 
@@ -190,15 +186,15 @@ a:hover {
   }
 }
 
+.btn-group-xs > .btn {
+	border-radius: 2px;
+}
+
 .navbar-default .navbar-toggle {
   border-color: $lightBlue;
   background-color: $darkGrey;
   border-radius: 0px;
-  border-width: 2px;
-}
-
-.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child), .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
-  border-radius: 0px;
+  border-width: 1px;
 }
 
 .pager li.previous > button {
@@ -292,8 +288,8 @@ a:hover {
 	width: 10%;
 }
 
-.col-20-pct {
-	width: 20%;
+.col-21-pct {
+	width: 21%;
 }
 
 .col-23-pct {
@@ -316,6 +312,12 @@ a:hover {
 }
 
 .current-roster:active {
+	cursor: grabbing;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+}
+
+.dragging {
 	cursor: grabbing;
 	cursor: -moz-grabbing;
 	cursor: -webkit-grabbing;

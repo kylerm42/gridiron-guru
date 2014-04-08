@@ -81,7 +81,7 @@ User.create(username: "test0",
             email: "test0@test.com",
             password: "123456")
 
-League.create(name: "Test league", manager_id: 1)
+League.create(name: "Arkham Knights", manager_id: 1)
 
 Team.create(name: "MewTwoChains", user_id: 1, league_id: 1)
 Team.create(name: "Every Day I'm Russellin'", user_id: 2, league_id: 1)
