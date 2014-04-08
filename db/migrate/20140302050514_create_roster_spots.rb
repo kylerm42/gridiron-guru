@@ -8,6 +8,7 @@ class CreateRosterSpots < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :roster_spots, [:team_id, :player_id], unique: true
+    add_index :roster_spots, :team_id
+    add_index :roster_spots, :player_id
   end
 end

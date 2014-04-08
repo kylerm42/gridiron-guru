@@ -5,6 +5,7 @@
   <td>
     <%= rosterSpot.get('position') %>
   </td>
+	<% if (rosterSpot.player.id) { %>
 	<% if (FantasyFootball.league.get('member')) { %>
 	  <td class='actions'>
 	    <div class='btn-group btn-group-xs'>
@@ -70,4 +71,7 @@
       <%= parseFloat(Math.round(rosterSpot.player.points() * 100) / 100).toFixed(2) %>
     </td>
   <% } %>
+	<% } else { %>
+		<td colspan='13' class='centered'>Empty</td>
+	<% } %>
 </tr>

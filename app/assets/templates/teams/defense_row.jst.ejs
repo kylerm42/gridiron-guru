@@ -1,31 +1,34 @@
 <tr data-position='<%= rosterSpot.player.get('position') %>'
     data-roster-spot='<%= rosterSpot.get('position') %>'
-    data-id='<%= rosterSpot.player.id %>'>
+    data-id='<%= rosterSpot.player.id %>'
+    data-roster-id='<%= rosterSpot.id %>'>
   <td>
     <%= rosterSpot.get('position') %>
   </td>
-  <td class='actions'>
-    <div class='btn-group btn-group-xs'>
-      <% if (rosterSpot.player.get('team')) { %>
-        <% if (rosterSpot.player.get('team').current_team) { %>
-          <button class="drop-player btn btn-danger" id='drop-<%= rosterSpot.player.id %>'
+	<% if (rosterSpot.player.id) { %>
+	<% if (FantasyFootball.league.get('member')) { %>
+	  <td class='actions'>
+	    <div class='btn-group btn-group-xs'>
+	        <% if (ownedTeam) { %>
+          <button class="drop-player btn btn-danger btn-xs"
                   data-id='<%= rosterSpot.player.id %>' data-name='<%= rosterSpot.player.fullName() %>'
                   data-container="body" data-placement="top">
             <span class='glyphicon glyphicon-minus-sign'></span>
           </button>
-        <% } else if (rosterSpot.player.get('team').id) { %>
-          <button class="trade-player btn btn-primary" data-id='<%= rosterSpot.id %>'
+        <% } else { %>
+          <button class="trade-player btn btn-primary btn-xs" data-id='<%= rosterSpot.id %>'
                   data-toggle="modal" data-target="#trade-modal">
             <span class='glyphicon glyphicon-transfer'></span>
           </button>
-      <% }} %>
-      <button class='watch-player btn btn-default' data-id='<%= rosterSpot.player.id %>'>
-        <span class='glyphicon glyphicon-eye-open'></span>
-      </button>
-    </div>
-  </td>
+	      <% } %>
+	      <button class='watch-player btn btn-default btn-xs' data-id='<%= rosterSpot.player.id %>'>
+	        <span class='glyphicon glyphicon-eye-open'></span>
+	      </button>
+	    </div>
+	  </td>
+	<% } %>
   <td>
-		<div class='c c-<%= rosterSpot.player.get('nfl_team').toLowerCase() %>'>
+		<div class='nfl-logo nfl-logo-<%= rosterSpot.player.get('nfl_team').toLowerCase() %>'>
 			<div></div>
 		</div>
     <%= rosterSpot.player.fullName() %><br>
@@ -60,4 +63,7 @@
   <td>
     <%= parseFloat(Math.round(rosterSpot.player.points() * 100) / 100).toFixed(2) %>
   </td>
+	<% } else { %>
+		<td colspan='13' class='centered'>Empty</td>
+	<% } %>
 </tr>

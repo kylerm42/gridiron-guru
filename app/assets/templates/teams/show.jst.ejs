@@ -204,14 +204,14 @@
       <small>Starting Kicker</small>
     </td></tr>
     <% rosterSpots.startingK().forEach(function(rosterK) { %>
-      <%= JST['teams/kicker_row']({ rosterSpot: rosterK }) %>
+      <%= JST['teams/kicker_row']({ rosterSpot: rosterK, ownedTeam: ownedTeam }) %>
     <% }) %>
   <% if (rosterSpots.benchK().length > 0) { %>
       <tr class='centered dark-section'><td colspan='16' class='no-padding'>
         <small>Bench</small>
       </td></tr>
       <% rosterSpots.benchK().forEach(function(benchK) { %>
-        <%= JST['teams/kicker_row']({ rosterSpot: benchK }) %>
+        <%= JST['teams/kicker_row']({ rosterSpot: benchK, ownedTeam: ownedTeam }) %>
       <% }) %>
     <% } %>
   </tbody>
@@ -246,14 +246,14 @@
       <small>Starting Defense</small>
     </td></tr>
     <% rosterSpots.startingDEF().forEach(function(rosterDEF) { %>
-      <%= JST['teams/defense_row']({ rosterSpot: rosterDEF }) %>
+      <%= JST['teams/defense_row']({ rosterSpot: rosterDEF, ownedTeam: ownedTeam }) %>
     <% }) %>
   <% if (rosterSpots.benchDEF().length > 0) { %>
       <tr class='centered dark-section'><td colspan='16' class='no-padding'>
         <small>Bench</small>
       </td></tr>
       <% rosterSpots.benchDEF().forEach(function(benchDEF) { %>
-        <%= JST['teams/defense_row']({ rosterSpot: benchDEF }) %>
+        <%= JST['teams/defense_row']({ rosterSpot: benchDEF, ownedTeam: ownedTeam }) %>
       <% }) %>
     <% } %>
   </tbody>

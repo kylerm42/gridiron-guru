@@ -22,7 +22,7 @@ class RosterSpot < ActiveRecord::Base
     "BN" => 8
   }
 
-  validates :team_id, presence: true, uniqueness: { scope: :player_id }
+  validates :team_id, presence: true
   validates :position, presence: true,
                               inclusion: { in: %w{QB RB WR TE R/W/T K DEF BN} }
 

@@ -5,7 +5,12 @@ class Api::RosterSpotsController < ApplicationController
     @current_user = current_user
 
     if @roster_spot.update_attributes(roster_spot_params)
-      render :show
+      if @roster_spot.position == 'BN' && @roster_spot.player_id == nil
+        @roster_spot.destroy
+        render json: @roster_spot
+      else
+        render :show
+      end
     else
       render json: @roster_spot.errors
     end

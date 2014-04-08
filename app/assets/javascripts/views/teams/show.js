@@ -4,7 +4,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     this.listenTo(this.model, 'sync change', this.render);
     this.listenTo(this.model.receivedTrades(), 'remove', this.render);
     this.listenTo(this.model.sentTrades(), 'remove', this.render);
-    this.listenTo(this.model.rosterSpots(), 'sync', this.render);
+    this.listenTo(this.model.rosterSpots(), 'sync change:player', this.render);
   },
 
   template: JST['teams/show'],
@@ -63,7 +63,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     };
 
 		this.$el.find('tr[data-roster-spot]').addClass('current-roster');
-    this.$el.find('tbody tr[data-roster-spot]').draggable({
+    this.$el.find('tbody tr[data-roster-spot][data-position!=""]').draggable({
       appendTo: 'parent',
       containment: 'parent',
       distance: 8,
@@ -75,7 +75,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     });
 
     this.$el.find('tbody tr[data-roster-spot]').droppable({
-      accept: this.rosterDropAccept,
+      accept: this.rosterSwapAccept,
       activeClass: 'darker',
       hoverClass: 'info',
       tolerance: 'pointer'
@@ -176,7 +176,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     });
   },
 
-  rosterDropAccept: function (ui) {
+  rosterSwapAccept: function (ui) {
     if ($(this).data('roster-spot') === 'BN') {
       if (ui.data('roster-spot') === $(this).data('position')) {
         return true;
@@ -203,6 +203,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
   },
 
   swapRosterSpot: function (event, dragged) {
+		var view = this;
     var $original = $(event.target);
     var $swapped = $(dragged.draggable[0]);
 
@@ -223,12 +224,21 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
 		$swapped.children().first().html(swappedRosterSpot.get('position'));
 		$swapped.attr('data-roster-spot', swappedRosterSpot.get('position'));
 
-    originalRosterSpot.save({}, {
+		if (swappedRosterSpot.get('position') === 'BN' && !swappedRosterSpot.player.id) {
+			view.model.rosterSpots().remove(swappedRosterSpot);
+			$swapped.remove()
+		};
+		if (originalRosterSpot.get('position') === 'BN' && !originalRosterSpot.player.id) {
+			view.model.rosterSpots().remove(originalRosterSpot)
+			$original.remove()
+		};
+
+    originalRosterSpot.save();
+    swappedRosterSpot.save({}, {
       success: function () {
         alertify.log("Roster saved successfully!", "success", 2000);
       }
     });
-    swappedRosterSpot.save();
   },
 
   weekUpdate: function (event) {
@@ -315,8 +325,14 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     addDrop.save({}, {
       success: function (resp) {
         $('.drop-player').popover('hide')
-        $('tr[data-id="' + playerId + '"]').remove();
-        view.model.rosterSpots().remove(rosterSpot);
+				if (rosterSpot.get('position') === 'BN') {
+	        $('tr[data-id="' + playerId + '"]').remove();
+	        view.model.rosterSpots().remove(rosterSpot);
+				} else {
+					rosterSpot.player.id = null;
+					$newRow = JST['teams/roster_row']({ rosterSpot: rosterSpot, ownedTeam: true })
+					$('tr[data-id="' + playerId + '"]').replaceWith($newRow)
+				}
       }
     });
   },

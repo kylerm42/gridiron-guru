@@ -42,13 +42,13 @@ class Api::AddDropsController < ApplicationController
         end
       end.each { |trade| trade.destroy }
 
-      @dropped.destroy
+      @dropped.player_id = nil
     end
 
-    if @add_drop.save && @team.save
+    if @add_drop.save && @team.save && @dropped.save
       render json: @dropped
     else
-      render json: flash[:error]
+      render json: @dropped.errors
     end
   end
 end

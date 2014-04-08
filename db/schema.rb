@@ -134,7 +134,8 @@ ActiveRecord::Schema.define(version: 20140325165803) do
     t.datetime "updated_at"
   end
 
-  add_index "roster_spots", ["team_id", "player_id"], name: "index_roster_spots_on_team_id_and_player_id", unique: true, using: :btree
+  add_index "roster_spots", ["player_id"], name: "index_roster_spots_on_player_id", using: :btree
+  add_index "roster_spots", ["team_id"], name: "index_roster_spots_on_team_id", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "token",      null: false
