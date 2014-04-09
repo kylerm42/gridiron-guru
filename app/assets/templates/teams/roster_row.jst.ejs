@@ -3,7 +3,11 @@
     data-id='<%= rosterSpot.player.id %>'
     data-roster-id='<%= rosterSpot.id %>'>
   <td>
-    <%= rosterSpot.get('position') %>
+		<% if (rosterSpot.get('position') === 'BN') { %>
+			<%= rosterSpot.get('position') %>
+		<% } else { %>
+	    <strong><%= rosterSpot.get('position') %></strong>
+		<% } %>
   </td>
 	<% if (rosterSpot.player.id) { %>
 	<% if (FantasyFootball.league.get('member')) { %>

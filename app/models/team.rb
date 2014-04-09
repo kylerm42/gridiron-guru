@@ -66,6 +66,62 @@ class Team < ActiveRecord::Base
     self.league.current_week, self.id, self.id).first
   end
 
+  def fill_roster_spots
+    roster_spots = self.roster_spots
+    qbs = roster_spots.select { |rs| rs.position == 'QB' }
+    rbs = roster_spots.select { |rs| rs.position == 'RB' }
+    wrs = roster_spots.select { |rs| rs.position == 'WR' }
+    tes = roster_spots.select { |rs| rs.position == 'TE' }
+    rwts = roster_spots.select { |rs| rs.position == 'R/W/T' }
+    ks = roster_spots.select { |rs| rs.position == 'K' }
+    defs = roster_spots.select { |rs| rs.position == 'DEF' }
+    valid = false
+
+    until valid
+      valid = true
+      if qbs.length < 1
+        roster_spot = self.roster_spots.build({ position: 'QB', player_id: nil })
+        qbs << roster_spot
+        valid = false
+      end
+      if rbs.length < 2
+        roster_spot = self.roster_spots.build({ position: 'RB', player_id: nil })
+        rbs << roster_spot
+        valid = false
+      end
+      if wrs.length < 2
+        roster_spot = self.roster_spots.build({ position: 'WR', player_id: nil })
+        wrs << roster_spot
+        valid = false
+      end
+      if tes.length < 1
+        roster_spot = self.roster_spots.build({ position: 'TE', player_id: nil })
+        tes << roster_spot
+        valid = false
+      end
+      if rwts.length < 1
+        roster_spot = self.roster_spots.build({ position: 'R/W/T', player_id: nil })
+        rwts << roster_spot
+        valid = false
+      end
+      if ks.length < 1
+        roster_spot = self.roster_spots.build({ position: 'K', player_id: nil })
+        ks << roster_spot
+        valid = false
+      end
+      if defs.length < 1
+        roster_spot = self.roster_spots.build({ position: 'DEF', player_id: nil })
+        defs << roster_spot
+        valid = false
+      end
+    end
+
+    roster_spots.select { |rs| rs.position == 'BN' && rs.player_id == nil }
+                .each { |rs| rs.destroy }
+
+    self
+  end
+
   private
 
     def league_full?
@@ -75,59 +131,5 @@ class Team < ActiveRecord::Base
         @league.create_matchups!
         @league.save!
       end
-    end
-
-    def fill_roster_spots
-      roster_spots = self.roster_spots
-      qbs = roster_spots.select { |rs| rs.position == 'QB' }
-      rbs = roster_spots.select { |rs| rs.position == 'RB' }
-      wrs = roster_spots.select { |rs| rs.position == 'WR' }
-      tes = roster_spots.select { |rs| rs.position == 'TE' }
-      rwts = roster_spots.select { |rs| rs.position == 'R/W/T' }
-      ks = roster_spots.select { |rs| rs.position == 'K' }
-      defs = roster_spots.select { |rs| rs.position == 'DEF' }
-      valid = false
-
-      until valid
-        valid = true
-        if qbs.length < 1
-          roster_spot = self.roster_spots.build({ position: 'QB', player_id: nil })
-          qbs << roster_spot
-          valid = false
-        end
-        if rbs.length < 2
-          roster_spot = self.roster_spots.build({ position: 'RB', player_id: nil })
-          rbs << roster_spot
-          valid = false
-        end
-        if wrs.length < 2
-          roster_spot = self.roster_spots.build({ position: 'WR', player_id: nil })
-          wrs << roster_spot
-          valid = false
-        end
-        if tes.length < 1
-          roster_spot = self.roster_spots.build({ position: 'TE', player_id: nil })
-          tes << roster_spot
-          valid = false
-        end
-        if rwts.length < 1
-          roster_spot = self.roster_spots.build({ position: 'R/W/T', player_id: nil })
-          rwts << roster_spot
-          valid = false
-        end
-        if ks.length < 1
-          roster_spot = self.roster_spots.build({ position: 'K', player_id: nil })
-          ks << roster_spot
-          valid = false
-        end
-        if defs.length < 1
-          roster_spot = self.roster_spots.build({ position: 'DEF', player_id: nil })
-          defs << roster_spot
-          valid = false
-        end
-      end
-
-      roster_spots.select { |rs| rs.position == 'BN' && rs.player_id == nil }
-                  .each { |rs| rs.destroy }
     end
 end

@@ -4,7 +4,7 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
     this.listenTo(this.model, 'sync change', this.render);
     this.listenTo(this.model.receivedTrades(), 'remove', this.render);
     this.listenTo(this.model.sentTrades(), 'remove', this.render);
-    this.listenTo(this.model.rosterSpots(), 'sync change:player', this.render);
+    this.listenTo(this.model.rosterSpots(), 'sync', this.render);
   },
 
   template: JST['teams/show'],
@@ -330,8 +330,10 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
 	        view.model.rosterSpots().remove(rosterSpot);
 				} else {
 					rosterSpot.player.id = null;
-					$newRow = JST['teams/roster_row']({ rosterSpot: rosterSpot, ownedTeam: true })
-					$('tr[data-id="' + playerId + '"]').replaceWith($newRow)
+					$newRow = $(JST['teams/roster_row']({ rosterSpot: rosterSpot, ownedTeam: true }));
+					$newRow.attr('data-position', "");
+					$('tr[data-id="' + playerId + '"]').replaceWith($newRow);
+					view.setSwappable();
 				}
       }
     });
@@ -389,13 +391,22 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
   },
 
   receivedTradeAccept: function (event) {
+		var view = this;
     $('.deny-btn').attr('disabled', 'disabled');
     $('.accept-btn').attr('disabled', 'disabled').text("Accepting...");
     this.openTrade.set('status', 'accepted');
     this.openTrade.save({}, {
-      success: function () {
+			remove: false,
+      success: function (_m, response) {
         console.log('success');
+				var sender = FantasyFootball.league.teams().get(view.openTrade.get('sender').id);
+				var receiver = FantasyFootball.league.teams().get(view.openTrade.get('receiver').id);
+				sender.rosterSpots().set(response.sender.roster_spots)
+				receiver.rosterSpots().set(response.receiver.roster_spots)
         $('#trade-modal').modal('hide');
+				$('body').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+				view.render();
       }
     });
   },

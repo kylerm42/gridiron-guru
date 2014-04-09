@@ -16,72 +16,92 @@ class Api::TradesController < ApplicationController
   end
 
   def update
-    @trade = Trade.includes(sender: [{sent_trades: :trade_send_players},
-                                     {received_trades: :trade_receive_players}],
-                            receiver: [{sent_trades: :trade_send_players},
-                                       {received_trades: :trade_receive_players}])
+    @trade = Trade.includes(:trade_send_players, :trade_receive_players,
+                            sender:
+                             [{sent_trades: [:trade_send_players, :trade_receive_players]},
+                             {received_trades: [:trade_send_players, :trade_receive_players]},
+                             {roster_spots: :player}],
+                            receiver:
+                             [{sent_trades: [:trade_send_players, :trade_receive_players]},
+                             {received_trades: [:trade_send_players, :trade_receive_players]},
+                             {roster_spots: :player}])
                   .find(params[:id])
+
+    @sender = @trade.sender
+    @receiver = @trade.receiver
 
     @trade.transaction do
       if @trade.update_attributes(trade_params)
         if @trade.status == 'accepted'
           @trade.trade_send_players.each do |player|
-            @trade.sender.roster_spots.find_by_player_id(player.player_id).destroy
-            @trade.receiver.roster_spots.create(player_id: player.player_id)
+            @sender.roster_spots.find { |rs| rs.player_id == player.player.id }.destroy
+            @receiver.roster_spots.create(player_id: player.player_id)
 
-            @trade.receiver.received_trades.select do |trade|
+            @receiver.received_trades.select do |trade|
               trade.trade_receive_players
-                   .where(player_id: player.player_id).length > 0 &&
-              trade != @trade
+                   .select { |received| received.player_id == player.player_id }.length > 0 &&
+              trade.id != @trade.id
             end.each { |trade| trade.destroy }
-            @trade.sender.received_trades.select do |trade|
+            @sender.received_trades.select do |trade|
               trade.trade_send_players
-                   .where(player_id: player.player_id).length > 0 &&
-              trade != @trade
+                   .select { |sent| sent.player_id == player.player_id }.length > 0 &&
+              trade.id != @trade.id
             end.each { |trade| trade.destroy }
-            @trade.receiver.sent_trades.select do |trade|
+            @receiver.sent_trades.select do |trade|
               trade.trade_receive_players
-                   .where(player_id: player.player_id).length > 0 &&
-              trade != @trade
+                   .select { |received| received.player_id == player.player_id }.length > 0 &&
+              trade.id != @trade.id
             end.each { |trade| trade.destroy }
-            @trade.sender.sent_trades.select do |trade|
+            @sender.sent_trades.select do |trade|
               trade.trade_send_players
-                   .where(player_id: player.player_id).length > 0 &&
-              trade != @trade
+                   .select { |sent| sent.player_id == player.player_id }.length > 0 &&
+              trade.id != @trade.id
             end.each { |trade| trade.destroy }
           end
           @trade.trade_receive_players.each do |player|
-            @trade.receiver.roster_spots.find_by_player_id(player.player_id).destroy
-            @trade.sender.roster_spots.create(player_id: player.player_id)
+            @receiver.roster_spots.find do |rs|
+              p rs.player_id
+              p player.player_id
+              rs.player_id == player.player_id
+            end.destroy
+            @sender.roster_spots.create(player_id: player.player_id)
 
-            @trade.receiver.received_trades.select do |trade|
+            @receiver.received_trades.select do |trade|
               trade.trade_receive_players
-                   .where(player_id: player.player_id).length > 0 &&
-              trade != @trade
+                   .select { |received| received.player_id == player.player_id }.length > 0 &&
+              trade.id != @trade.id
             end.each { |trade| trade.destroy }
-            @trade.sender.received_trades.select do |trade|
+            @sender.received_trades.select do |trade|
               trade.trade_send_players
-                   .where(player_id: player.player_id).length > 0 &&
-              trade != @trade
+                   .select { |sent| sent.player_id == player.player_id }.length > 0 &&
+              trade.id != @trade.id
             end.each { |trade| trade.destroy }
-            @trade.receiver.sent_trades.select do |trade|
+            @receiver.sent_trades.select do |trade|
               trade.trade_receive_players
-                   .where(player_id: player.player_id).length > 0 &&
-              trade != @trade
+                   .select { |received| received.player_id == player.player_id }.length > 0 &&
+              trade.id != @trade.id
             end.each { |trade| trade.destroy }
-            @trade.sender.sent_trades.select do |trade|
+            @sender.sent_trades.select do |trade|
               trade.trade_send_players
-                   .where(player_id: player.player_id).length > 0 &&
-              trade != @trade
+                   .select { |sent| sent.player_id == player.player_id }.length > 0 &&
+              trade.id != @trade.id
             end.each { |trade| trade.destroy }
           end
         end
 
-        render json: @trade
+        p @sender.roster_spots.count
+        p @receiver.roster_spots.count
+        @sender.fill_roster_spots.save
+        @receiver.fill_roster_spots.save
       else
-        render json: @trade.errors
+        render json: @trade.errors, status: :unprocessable_entity
+        return
       end
     end
+    p 'rendering NOW'
+    p @sender.roster_spots.count
+    p @receiver.roster_spots.count
+    render :update
   end
 
   def destroy

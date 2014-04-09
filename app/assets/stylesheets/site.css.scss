@@ -148,6 +148,10 @@ a:hover {
   border-radius: 0px;
 }
 
+.navbar-brand {
+	letter-spacing: 2px;
+}
+
 // form styles
 .form-control {
   border-radius: 2px;
@@ -398,4 +402,5 @@ a:hover {
 
 .alertify-log-success {
   background-color: rgba(27, 168, 27, .8);
+	border: 1px solid #1FC21F;
 }
