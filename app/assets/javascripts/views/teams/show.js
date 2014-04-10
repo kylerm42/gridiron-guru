@@ -401,8 +401,8 @@ FantasyFootball.Views.TeamShow = Backbone.View.extend({
         console.log('success');
 				var sender = FantasyFootball.league.teams().get(view.openTrade.get('sender').id);
 				var receiver = FantasyFootball.league.teams().get(view.openTrade.get('receiver').id);
-				sender.rosterSpots().set(response.sender.roster_spots)
-				receiver.rosterSpots().set(response.receiver.roster_spots)
+				sender.rosterSpots().reset(response.sender.roster_spots)
+				receiver.rosterSpots().reset(response.receiver.roster_spots)
         $('#trade-modal').modal('hide');
 				$('body').removeClass('modal-open');
 				$('.modal-backdrop').remove();
