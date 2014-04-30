@@ -1,43 +1,74 @@
 h1, h2, h3, h4, h5, h6, p, div, a, button, body {
-  font-family: 'Ubuntu', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font-family: 'ubunturegular', Arial, sans-serif;
+  // -webkit-font-smoothing: antialiased;
 }
 
 .navbar-brand {
-  font-family: 'Orbitron', Helvetica, sans-serif;
+  font-family: 'orbitronregular', Helvetica, sans-serif;
 }
 
 @font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+    font-family: 'fira_sans_otregular';
+    src: url('/assets/firasansot-regular-webfont.eot');
+    src: url('/assets/firasansot-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/firasansot-regular-webfont.woff') format('woff'),
+         url('/assets/firasansot-regular-webfont.ttf') format('truetype'),
+         url('/assets/firasansot-regular-webfont.svg#fira_sans_otregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'Orbitron';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Orbitron-Light'), local('Orbitron-Regular'), url(http://themes.googleusercontent.com/static/fonts/orbitron/v4/94ug0rEgQO_WuI_xKJMFc3YhjbSpvc47ee6xR_80Hnw.woff) format('woff');
+    font-family: 'ubuntulight';
+    src: url('/assets/ubuntu-l-webfont.eot');
+    src: url('/assets/ubuntu-l-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/ubuntu-l-webfont.woff') format('woff'),
+         url('/assets/ubuntu-l-webfont.ttf') format('truetype'),
+         url('/assets/ubuntu-l-webfont.svg#ubuntulight') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v7/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+    font-family: 'ubunturegular';
+    src: url('/assets/ubuntu-r-webfont.eot');
+    src: url('/assets/ubuntu-r-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/ubuntu-r-webfont.woff') format('woff'),
+         url('/assets/ubuntu-r-webfont.ttf') format('truetype'),
+         url('/assets/ubuntu-r-webfont.svg#ubunturegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'Exo 2';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Exo 2'), local('Exo2-Regular'), url(http://themes.googleusercontent.com/static/fonts/exo2/v1/KzoFUeaQw_faskDsymvVJqCWcynf_cDxXwCLxiixG1c.woff) format('woff');
+    font-family: 'open_sansregular';
+    src: url('OpenSans-Regular-webfont.eot');
+    src: url('OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('OpenSans-Regular-webfont.woff') format('woff'),
+         url('OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Ubuntu'), url(http://themes.googleusercontent.com/static/fonts/ubuntu/v5/vRvZYZlUaogOuHbBTT1SNevvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+    font-family: 'roboto_slabregular';
+    src: url('RobotoSlab-Regular-webfont.eot');
+    src: url('RobotoSlab-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('RobotoSlab-Regular-webfont.woff') format('woff'),
+         url('RobotoSlab-Regular-webfont.ttf') format('truetype'),
+         url('RobotoSlab-Regular-webfont.svg#roboto_slabregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'orbitronregular';
+    src: url('orbitron-medium-webfont.eot');
+    src: url('orbitron-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('orbitron-medium-webfont.woff') format('woff'),
+         url('orbitron-medium-webfont.ttf') format('truetype'),
+         url('orbitron-medium-webfont.svg#orbitronregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
