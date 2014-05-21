@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20140325165803) do
     t.integer  "pass_yards",    default: 0
     t.integer  "pass_tds",      default: 0
     t.integer  "pass_ints",     default: 0
+    t.integer  "rush_att",      default: 0
     t.integer  "rush_yards",    default: 0
     t.integer  "rush_tds",      default: 0
     t.integer  "receptions",    default: 0
